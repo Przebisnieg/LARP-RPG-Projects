@@ -1,5 +1,7 @@
 # Galactic Infrastructure Map
 
+| [Galactic Infrastructure Map](galactic-infrastructure-map/) | Interactive galaxy map featuring faction territories, star system information, and planetary infrastructure panels. | 2026 | [Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/galactic-infrastructure-map/) |
+
 An interactive SVG-based galaxy map with planetary infrastructure panels, developed for a science-fiction Live Action Role-Playing (LARP) game.
 
 The application allows players to explore a fictional galaxy, inspect star systems, identify faction territories, and view infrastructure information for selected planetary systems.
