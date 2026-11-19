@@ -12,6 +12,8 @@ Most applications were originally developed for Polish-speaking communities, so 
 |---|---|---|---|
 | [Galactic Map Editor](galactic-map-editor/) | Interactive SVG galaxy map with navigation, filtering, and drawing tools. | 2025 | [Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/galactic-map-editor/) |
 
+| [Galactic Infrastructure Map](galactic-infrastructure-map/) | Interactive galaxy map featuring faction territories, star system information, and planetary infrastructure panels. | 2026 | [Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/galactic-infrastructure-map/) |
+
 ## Projects
 
 ### 1. Galactic Map Editor (2025)
@@ -33,3 +35,12 @@ The project was designed to help participants explore a fictional universe, sear
 
 **[Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/galactic-map-editor/)** | **[Source Code](galactic-map-editor/)**
 
+### 2. Galactic Infrastructure Map
+
+An interactive SVG-based galaxy map developed for a science-fiction LARP campaign.
+
+The application allows users to explore star systems, inspect faction territories, and view planetary infrastructure in interactive panels.
+
+**Technologies:** HTML5, CSS3, JavaScript, SVG
+
+**[Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/galactic-infrastructure-map/)** | **[Source Code](galactic-infrastructure-map/)**
