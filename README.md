@@ -6,13 +6,14 @@ This repository showcases personal programming projects created since **2025**, 
 
 Most applications were originally developed for Polish-speaking communities, so their interfaces and in-game content are primarily in Polish. Project documentation is provided in English.
 
+
 ## Project Index
 
 | Project | Description | Year | Demo |
 |---|---|---|---|
 | [Galactic Map Editor](galactic-map-editor/) | Interactive SVG galaxy map with navigation, filtering, and drawing tools. | 2025 | [Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/galactic-map-editor/) |
-
 | [Galactic Infrastructure Map](galactic-infrastructure-map/) | Interactive galaxy map featuring faction territories, star system information, and planetary infrastructure panels. | 2026 | [Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/galactic-infrastructure-map/) |
+
 
 ## Projects
 
