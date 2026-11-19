@@ -1,0 +1,218 @@
+:root {
+    --ui-scale: 1.0;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #000;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(stardust.jpg);
+    color: #f0f0f0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    scrollbar-width: thin;
+    scrollbar-color: #3366ff rgba(0, 0, 0, 0.4);
+}
+
+#map-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: auto;
+    cursor: default;
+    touch-action: none;
+}
+
+#map-content {
+    position: relative;
+    transform-origin: 0 0;
+}
+
+#controls {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(10, 20, 72, 0.9);
+    border: 2px solid #3366ff;
+    border-radius: 10px;
+    z-index: 1000;
+    width: 900px;
+    min-width: 280px;
+    max-height: 90vh;
+    box-shadow: 0 0 20px rgba(51, 102, 255, 0.6), inset 0 0 15px rgba(51, 102, 255, 0.3);
+    color: #cddcff;
+    backdrop-filter: blur(8px);
+    font-size: 60px;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(0);
+    transition: transform 0.4s ease-in-out, width 0.3s ease-in-out;
+    pointer-events: none;
+}
+#controls > * {
+    pointer-events: auto;
+}
+
+#controls.hidden {
+    transform: translateX(calc(-100% - 40px));
+}
+
+#controls-header { background-color: rgba(51, 102, 255, 0.4); padding: 12px; text-align: center; font-weight: bold; font-size: 1.1em; cursor: move; border-bottom: 2px solid #3366ff; text-shadow: 0 0 8px #fff; user-select: none; flex-shrink: 0; position: relative; }
+#toggle-controls { position: absolute; top: 50%; right: 15px; transform: translateY(-50%); background: rgba(255, 255, 255, 0.1); border: 1px solid #5885ff; color: #cddcff; font-size: 28px; line-height: 28px; padding: 2px 10px; border-radius: 5px; cursor: pointer; transition: all 0.2s; }
+#toggle-controls:hover { background: rgba(255, 255, 255, 0.2); }
+#show-controls-button { position: fixed; top: 20px; left: 20px; z-index: 1001; background: rgba(51, 102, 255, 0.6); border: 2px solid #3366ff; color: #cddcff; font-size: 28px; line-height: 28px; padding: 8px 15px; border-radius: 5px; cursor: pointer; box-shadow: 0 0 15px rgba(51, 102, 255, 0.5); backdrop-filter: blur(5px); display: none; transition: all 0.2s; }
+#show-controls-button:hover { background: rgba(51, 102, 255, 0.8); box-shadow: 0 0 20px #87c7ff; }
+#controls-body { padding: 20px; overflow-y: auto; }
+
+/* --- Style wyszukiwarki --- */
+#search-container { display: flex; margin-bottom: 20px; gap: 10px; }
+#search-input { flex-grow: 1; height: 80px; padding: 0 25px; font-size: 40px; background-color: rgba(0, 0, 0, 0.3); border: 2px solid #3366ff; border-radius: 8px; color: #cddcff; outline: none; transition: all 0.2s; }
+#search-input::placeholder { color: rgba(205, 220, 255, 0.5); }
+#search-input:focus { border-color: #87c7ff; box-shadow: 0 0 10px #5885ff; }
+#search-button { width: 80px; height: 80px; border: 2px solid #3366ff; background-color: rgba(0, 0, 0, 0.4); color: #cddcff; font-size: 44px; border-radius: 8px; cursor: pointer; transition: all 0.2s; flex-shrink: 0; padding: 0; }
+#search-button:hover { background-color: rgba(51, 102, 255, 0.6); border-color: #87c7ff; }
+
+/* --- Pozostałe style panelu --- */
+#controls label { display: flex; align-items: center; margin-bottom: 15px; cursor: pointer; user-select: none; }
+#controls hr { border: none; border-top: 1px solid rgba(51, 102, 255, 0.3); margin: 20px 0; }
+#controls input[type="checkbox"] { appearance: none; -webkit-appearance: none; -moz-appearance: none; height: 30px; width: 30px; background-color: rgba(0, 0, 0, 0.3); border: 2px solid #3366ff; border-radius: 5px; margin-right: 20px; cursor: pointer; position: relative; top: -2px; flex-shrink: 0; transition: background-color 0.2s ease-in-out; }
+#controls input[type="checkbox"]:checked { background-color: #3366ff; border-color: #87c7ff; }
+#controls input[type="checkbox"]:checked::after { content: ''; display: block; position: absolute; width: 8px; height: 16px; border: solid #cddcff; border-width: 0 4px 4px 0; left: 9px; top: 2px; transform: rotate(45deg); }
+
+/* --- Tooltip i podświetlenia --- */
+#tooltip { position: fixed; background: rgba(10, 20, 72, 0.95); border: 2px solid #5885ff; border-radius: 8px; padding: 20px; color: #cddcff; font-size: 40px; z-index: 1001; max-width: 350px; pointer-events: none; transition: opacity 0.2s ease-in-out; box-shadow: 0 0 15px rgba(51, 102, 255, 0.5); backdrop-filter: blur(5px); }
+#tooltip.hidden { opacity: 0; }
+#tooltip h3 { margin: 0 0 15px 0; color: #9ad8ff; font-size: 1.2em; border-bottom: 1px solid rgba(51, 102, 255, 0.5); padding-bottom: 15px; }
+#tooltip p { margin: 8px 0 0 0; }
+#tooltip .faction-hegemonia { color: #e53935; font-weight: bold; }
+#tooltip .faction-gildia { color: #e0d02a; font-weight: bold; }
+#tooltip .faction-separatysci { color: #ffffff; font-weight: bold; }
+#tooltip .faction-neutralny { color: #ffffff; font-weight: bold; }
+
+@keyframes pulse { 0% { filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5)); } 50% { filter: drop-shadow(0 0 14px rgba(255, 255, 255, 1)); } 100% { filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5)); } }
+.system-group.hover-highlight { animation: pulse 1.5s infinite ease-in-out; }
+
+@keyframes search-pulse { 0% { filter: drop-shadow(0 0 5px #ffeb3b); } 50% { filter: drop-shadow(0 0 25px #ffeb3b); } 100% { filter: drop-shadow(0 0 5px #ffeb3b); } }
+.search-highlight { animation: search-pulse 2s infinite ease-in-out !important; }
+
+.system-group { cursor: pointer; }
+
+/* --- Narzędzia graficzne --- */
+#drawing-tools h4 { margin-top: 30px; margin-bottom: 15px; font-size: 1.2em; }
+.tools-row { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; margin-bottom: 25px; }
+.tool-btn { width: 80px; height: 80px; padding: 0; display: flex; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.4); border: 2px solid #3366ff; color: #cddcff; border-radius: 10px; cursor: pointer; font-size: 48px; transition: background-color 0.2s, border-color 0.2s, transform 0.1s; font-family: 'Segoe UI Symbol', sans-serif; font-weight: bold; }
+.tool-btn:hover { background-color: rgba(51, 102, 255, 0.6); border-color: #87c7ff; }
+.tool-btn:active { transform: scale(0.92); }
+.tool-btn.active { background-color: #3366ff; border-color: #a2d2ff; box-shadow: 0 0 12px #a2d2ff; }
+#clear-drawing-btn, #save-map-btn { height: 70px; font-size: 40px; font-weight: bold; padding: 0 30px; flex-grow: 1; display: flex; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.4); border: 2px solid #3366ff; color: #cddcff; border-radius: 10px; cursor: pointer; transition: background-color 0.2s, border-color 0.2s, transform 0.1s; }
+#clear-drawing-btn:hover, #save-map-btn:hover { background-color: rgba(51, 102, 255, 0.6); border-color: #87c7ff; }
+#clear-drawing-btn:active, #save-map-btn:active { transform: scale(0.97); }
+#drawing-tools label { font-size: 45px; font-weight: 500; margin-bottom: 0; margin-right: 10px; }
+#color-picker { -webkit-appearance: none; -moz-appearance: none; appearance: none; width: 80px; height: 80px; background-color: transparent; border: none; cursor: pointer; padding: 0; }
+#color-picker::-webkit-color-swatch { border-radius: 10px; border: 3px solid #3366ff; }
+#color-picker::-moz-color-swatch { border-radius: 10px; border: 3px solid #3366ff; }
+#stroke-width { -webkit-appearance: none; appearance: none; flex-grow: 1; height: 20px; background: rgba(0, 0, 0, 0.5); border-radius: 10px; border: 2px solid #3366ff; outline: none; }
+#stroke-width::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 34px; height: 34px; background: #5885ff; border-radius: 50%; border: 4px solid #cddcff; cursor: grab; margin-top: -9px; }
+#stroke-width::-moz-range-thumb { width: 30px; height: 30px; background: #5885ff; border-radius: 50%; border: 4px solid #cddcff; cursor: grab; }
+#stroke-width-label { font-size: 28px; font-weight: bold; width: 90px; text-align: right; color: #a2d2ff; text-shadow: 0 0 5px #5885ff; }
+#map-container.drawing-mode { cursor: crosshair; }
+#drawing-layer { fill: none; pointer-events: none; }
+
+/* --- Style scrollbarów --- */
+body::-webkit-scrollbar, #map-container::-webkit-scrollbar, #controls-body::-webkit-scrollbar { width: 14px; }
+body::-webkit-scrollbar-track, #map-container::-webkit-scrollbar-track, #controls-body::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.4); border-radius: 10px; }
+body::-webkit-scrollbar-thumb, #map-container::-webkit-scrollbar-thumb, #controls-body::-webkit-scrollbar-thumb { background-color: #3366ff; border-radius: 10px; border: 3px solid rgba(10, 20, 72, 0.9); }
+body::-webkit-scrollbar-thumb:hover, #map-container::-webkit-scrollbar-thumb:hover, #controls-body::-webkit-scrollbar-thumb:hover { background-color: #5885ff; }
+
+/* =========================================== */
+/* === STYLE DLA URZĄDZEŃ MOBILNYCH  === */
+/* =========================================== */
+@media (max-width: 1000px) {
+    #controls { width: 95vw; max-width: 450px; top: 10px; left: 10px; max-height: 85vh; transform-origin: top left; transform: scale(var(--ui-scale)); font-size: 16px; }
+    #controls-header { font-size: 1.2em; padding: 10px; }
+    #toggle-controls, #show-controls-button { font-size: 20px; padding: 5px 10px; }
+    #controls-body { padding: 15px; }
+    #search-input { height: 44px; font-size: 1em; padding: 0 12px; }
+    #search-button { width: 44px; height: 44px; font-size: 1.2em; }
+    #controls label { margin-bottom: 12px; font-size: 1em; }
+    #controls input[type="checkbox"] { width: 24px; height: 24px; margin-right: 15px; }
+    #controls input[type="checkbox"]:checked::after { width: 6px; height: 12px; left: 7px; top: 2px; border-width: 0 3px 3px 0; }
+    .tools-row { gap: 10px; margin-bottom: 15px; }
+    .tool-btn { width: 48px; height: 48px; font-size: 24px; }
+    #drawing-tools h4 { font-size: 1.2em; } 
+    #drawing-tools label { font-size: 1em; }
+    #color-picker { width: 48px; height: 48px; }
+    #clear-drawing-btn, #save-map-btn { height: 48px; font-size: 1em; padding: 0 15px; }
+    #stroke-width { height: 15px; }
+    #stroke-width::-webkit-slider-thumb { width: 26px; height: 26px; margin-top: -6px; }
+    #stroke-width::-moz-range-thumb { width: 22px; height: 22px; }
+    #stroke-width-label { font-size: 1em; width: 50px; }
+    #tooltip { font-size: 16px; padding: 15px; max-width: 80vw; border-radius: 10px; }
+    #tooltip h3 { font-size: 1.2em; padding-bottom: 10px; }
+    #controls.hidden { transform: translateX(calc(-100% - 40px)) scale(var(--ui-scale)); }
+}
+
+/* === ZAPIS OBSZARU === */
+#selection-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); 
+    cursor: crosshair; 
+    z-index: 10000; 
+}
+
+#selection-box {
+    position: absolute;
+    border: 2px dashed #ffffff; 
+    background-color: rgba(135, 206, 235, 0.2); 
+    box-sizing: border-box;
+}
+
+/* Klasa do ukrywania??? */
+.hidden {
+    display: none !important;
+}
+
+/* --- Dodane style do przeciągania kształtów --- */
+#map-container.select-mode .draggable-shape {
+    cursor: move;
+}
+
+#map-container.select-mode .draggable-shape:hover {
+    filter: drop-shadow(0 0 8px #00ffff);
+}
+
+.selected-shape {
+    stroke-dasharray: 10, 5;
+    animation: marching-ants 1s linear infinite;
+    filter: drop-shadow(0 0 10px #00ffff);
+}
+
+@keyframes marching-ants {
+    to {
+        stroke-dashoffset: -15;
+    }
+}
+
+/* ========================================================================== */
+
+/* Etykiety frakcji na mapie */
+/* Styl dla Chanatu - identyczny jak Hegemonia, tylko kolory zmienione na białe */
+.star-label-chanat { 
+    font-size: 42px !important; 
+    font-weight: bold !important;   
+    fill: #ffffff !important; 
+    stroke: #000000 !important; 
+    stroke-width: 2.8px !important; 
+}
+
+.star-label-protektorat { font-size: 42px; font-weight: bold; fill: #a1ee92; stroke: #212f1b; stroke-width: 2.8; }
+
+/* Kolory frakcji w tooltipie */
+#tooltip .faction-chanat { color: #ffffff; font-weight: bold; }
+#tooltip .faction-protektorat { color: #a1ee92; font-weight: bold; }

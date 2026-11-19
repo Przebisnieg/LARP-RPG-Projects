@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Interaktywna Mapa Kosmosu</title>
+    <link rel="stylesheet" href="css.css">
+</head>
+<body>
+
+    <div id="map-container">
+      <div id="selection-overlay" class="hidden">
+    <div id="selection-box"></div>
+</div>
+        <div id="map-content">
+<svg width="7000" height="7000" viewBox="0 0 7000 7000" version="1.1" id="svg607" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+  <defs id="defs607" />
+  <style id="style1">
+    .star-label { font: 30px sans-serif; fill: #f7f7fa; stroke: #000A 0.7; paint-order: stroke fill; }
+    .star-label-hegemonia { font-size: 42px; font-weight: bold; fill: #e53935; stroke: #440000; stroke-width: 2.8; }
+    .star-label-shimura { font-size: 42px; font-weight: bold; fill: #80d8ff; stroke: #006080; stroke-width: 2.8; }
+    .star-label-protektorat { font-size: 42px; font-weight: bold; fill: #a1ee92; stroke: #212f1b; stroke-width: 2.8; }
+    .star-label-none { font-size: 42px; font-weight: bold; fill: #FFFFFF; stroke: #000000; stroke-width: 2.8; }
+  </style>
+
+    <!-- ===================== FRAKCJE ===================== -->
+
+  <!-- GILDIA -->
+  <g id="Gildia">
+    <circle cx="3500" cy="3500" r="47.4" fill="#fffbe6" opacity="0.13" />
+    <circle cx="3500" cy="3500" r="36.4" fill="#ffe066" stroke="#bfa116" stroke-width="5" opacity="1" />
+    <circle cx="3500" cy="3500" r="200" fill="none" stroke="#ffe066" stroke-width="8" opacity="0.3" />
+    <text x="3430" y="3574.4" class="star-label" style="font-size:42px; font-weight:bold; fill:#ffe066; stroke:#000; stroke-width:2;">Gildia</text>
+  </g>
+
+  <!-- HEGEMONIA -->
+  <g id="Venetrix">
+    <circle cx="4389" cy="1119" r="14.497067944908752" fill="#ffe066" opacity="0.08" />
+    <circle cx="4389" cy="1119" r="8.497067944908752" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" />
+    <circle cx="4389" cy="1119" r="200" fill="none" stroke="#e53935" stroke-width="8" opacity="0.3" />
+    <text x="4415" y="1119" class="star-label star-label-hegemonia">Venetrix</text>
+  </g>
+  <g id="Cezaria">
+    <circle cx="3291" cy="170" r="15.081288617384077" fill="#ffe066" opacity="0.08" />
+    <circle cx="3291" cy="170" r="9.081288617384077" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" />
+    <circle cx="3291" cy="170" r="200" fill="none" stroke="#e53935" stroke-width="8" opacity="0.3" />
+    <text x="3317" y="170" class="star-label star-label-hegemonia">Cezaria</text>
+  </g>
+  <g id="Nowy_Maraton">
+    <circle cx="2693" cy="1315" r="12.647546552559703" fill="#ffbb55" opacity="0.08" />
+    <circle cx="2693" cy="1315" r="6.647546552559702" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" />
+    <circle cx="2693" cy="1315" r="200" fill="none" stroke="#e53935" stroke-width="8" opacity="0.3" />
+    <text x="2719" y="1315" class="star-label star-label-hegemonia">Nowy Maraton</text>
+  </g>
+
+<g id="Lynoris">
+    <circle cx="2310" cy="672" r="13.618950238679869" fill="#ffe066" opacity="0.08" />
+    <circle cx="2310" cy="672" r="7.618950238679868" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" />
+    <circle cx="2310" cy="672" r="200" fill="none" stroke="#e53935" stroke-width="8" opacity="0.3" />
+    <text x="2336" y="672" class="star-label star-label-hegemonia">Lynoris</text>
+  </g>
+
+  <!-- SEPARATYSCI -->
+  <g id="Cygnium">
+    <circle cx="4375" cy="3211" r="15.95125797913472" fill="#fff8dc" opacity="0.08" />
+    <circle cx="4375" cy="3211" r="9.95125797913472" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" />
+    <circle cx="4375" cy="3211" r="200" fill="none" stroke="#FFFFFF" stroke-width="8" opacity="0.3" />
+    <text x="4401" y="3211" class="star-label star-label-none ">Cygnium</text>
+    <text x="4401" y="3271" class="star-label star-label-none ">Uklad Separatystow</text>
+  </g>
+
+
+
+  <!-- PROTEKTORAT  -->
+<g id="Wulfheim">
+    <circle cx="5308" cy="5084" r="15.6" fill="#e5e9f7" opacity="0.08" />
+    <circle cx="5308" cy="5084" r="9.6" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" />
+    <circle cx="5308" cy="5084" r="200" fill="none" stroke="#a1ee92" stroke-width="8" opacity="0.3" />
+    <text x="5334" y="5084" class="star-label star-label-protektorat">Wulfheim</text>
+</g>
+
+<g id="Grausthal">
+    <circle cx="6008" cy="4477" r="15.9" fill="#fff8dc" opacity="0.08" />
+    <circle cx="6008" cy="4477" r="9.9" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" />
+    <circle cx="6008" cy="4477" r="200" fill="none" stroke="#a1ee92" stroke-width="8" opacity="0.3" />
+    <text x="6034" y="4477" class="star-label star-label-protektorat">Grausthal</text>
+</g>
+
+<g id="Helgrim">
+    <circle cx="6069" cy="5709" r="14.6" fill="#fff8dc" opacity="0.08" />
+    <circle cx="6069" cy="5709" r="8.6" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" />
+    <circle cx="6069" cy="5709" r="200" fill="none" stroke="#a1ee92" stroke-width="8" opacity="0.3" />
+    <text x="6095" y="5709" class="star-label star-label-protektorat">Helgrim</text>
+</g>
+
+<!-- CHANAT -->
+  <g id="Lynoron">
+    <circle cx="3871" cy="6812" r="19.6" fill="#99ccff" opacity="0.08" />
+    <circle cx="3871" cy="6812" r="13.6" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" />
+    <circle cx="3871" cy="6812" r="200" fill="none" stroke="#FFFFFF" stroke-width="8" opacity="0.6" />
+    <text x="3897" y="6812" class="star-label star-label-chanat">Lynoron</text>
+  </g>
+
+  <g id="Drastus">
+    <circle cx="561" cy="919" r="18.42" fill="#3399ff" opacity="0.08" />
+    <circle cx="561" cy="919" r="12.42" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" />
+    <circle cx="561" cy="919" r="200" fill="none" stroke="#FFFFFF" stroke-width="8" opacity="0.6" />
+    <text x="587" y="919" class="star-label star-label-chanat">Drastus</text>
+  </g>
+
+  <g id="Korvara">
+    <circle cx="6807" cy="133" r="17.22" fill="#3399ff" opacity="0.08" />
+    <circle cx="6807" cy="133" r="11.22" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" />
+    <circle cx="6807" cy="133" r="200" fill="none" stroke="#FFFFFF" stroke-width="8" opacity="0.6" />
+    <text x="6833" y="133" class="star-label star-label-chanat">Korvara</text>
+  </g>
+
+  <g id="Boreasis">
+    <circle cx="139" cy="2298" r="14.06" fill="#ffe066" opacity="0.08" />
+    <circle cx="139" cy="2298" r="8.06" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" />
+    <circle cx="139" cy="2298" r="200" fill="none" stroke="#FFFFFF" stroke-width="8" opacity="0.6" />
+    <text x="165" y="2298" class="star-label star-label-chanat">Boreasis</text>
+  </g>
+
+<g id="Vegaos">
+    <circle cx="921" cy="2894" r="16.4" fill="#fff8dc" opacity="0.08" />
+    <circle cx="921" cy="2894" r="10.4" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" />
+    <circle cx="921" cy="2894" r="200" fill="none" stroke="#FFFFFF" stroke-width="8" opacity="0.6" />
+    <text x="947" y="2894" class="star-label star-label-chanat">Vegaos</text>
+  </g>
+
+  <g id="Virea">
+    <circle cx="4735" cy="2681" r="15.4" fill="#e5e9f7" opacity="0.08" />
+    <circle cx="4735" cy="2681" r="9.4" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" />
+    <circle cx="4735" cy="2681" r="200" fill="none" stroke="#FFFFFF" stroke-width="8" opacity="0.6" />
+    <text x="4761" y="2681" class="star-label star-label-chanat">Virea</text>
+  </g>
+
+<g id="Solonion">
+    <circle cx="6209" cy="2296" r="14.6" fill="#ffbb55" opacity="0.08" />
+    <circle cx="6209" cy="2296" r="8.6" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" />
+    <circle cx="6209" cy="2296" r="200" fill="none" stroke="#FFFFFF" stroke-width="8" opacity="0.6" />
+    <text x="6235" y="2296" class="star-label star-label-chanat">Solonion</text>
+  </g>
+
+  <!-- ===================== GWIAZDY NEUTRALNE ===================== -->
+
+  <!-- ŻÓŁTE I POMARAŃCZOWE GWIAZDY (fill: #ffe066, #ffbb55) -->
+  <g id="Boreasion"><circle cx="1883" cy="6375" r="14.35893996311424" fill="#ffe066" opacity="0.08" /><circle cx="1883" cy="6375" r="8.35893996311424" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="1909" y="6375" class="star-label">Boreasion</text></g>
+  <g id="Orbisae"><circle cx="1197" cy="3717" r="12.682392680158769" fill="#ffbb55" opacity="0.08" /><circle cx="1197" cy="3717" r="6.6823926801587685" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="1223" y="3717" class="star-label">Orbisae</text></g>
+  <g id="Korvon"><circle cx="6132" cy="1806" r="14.321578878682242" fill="#ffbb55" opacity="0.08" /><circle cx="6132" cy="1806" r="8.321578878682242" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="6158" y="1806" class="star-label">Korvon</text></g>
+  <g id="Selarel"><circle cx="1294" cy="5062" r="15.666141461732046" fill="#ffe066" opacity="0.08" /><circle cx="1294" cy="5062" r="9.666141461732046" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="1320" y="5062" class="star-label">Selarel</text></g>
+  <g id="Calyxar"><circle cx="1873" cy="723" r="13.432654874746959" fill="#ffe066" opacity="0.08" /><circle cx="1873" cy="723" r="7.432654874746959" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="1899" y="723" class="star-label">Calyxar</text></g>
+  <g id="Tyrrus"><circle cx="2330" cy="5636" r="13.393106801161355" fill="#ffe066" opacity="0.08" /><circle cx="2330" cy="5636" r="7.393106801161356" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="2356" y="5636" class="star-label">Tyrrus</text></g>
+  <g id="Calyxea"><circle cx="5258" cy="5756" r="13.68208110338215" fill="#ffbb55" opacity="0.08" /><circle cx="5258" cy="5756" r="7.682081103382149" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="5284" y="5756" class="star-label">Calyxea</text></g>
+  <g id="Lynorae"><circle cx="5884" cy="1325" r="14.07768330643241" fill="#ffe066" opacity="0.08" /><circle cx="5884" cy="1325" r="8.07768330643241" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="5910" y="1325" class="star-label">Lynorae</text></g>
+  <g id="Astreus"><circle cx="388" cy="128" r="14.949243762692088" fill="#ffe066" opacity="0.08" /><circle cx="388" cy="128" r="8.949243762692088" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="414" y="128" class="star-label">Astreus</text></g>
+  <g id="Kryonar"><circle cx="1606" cy="6513" r="12.856772533878521" fill="#ffbb55" opacity="0.08" /><circle cx="1606" cy="6513" r="6.856772533878521" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="1632" y="6513" class="star-label">Kryonar</text></g>
+  <g id="Erythyn"><circle cx="6120" cy="334" r="14.972507355275933" fill="#ffbb55" opacity="0.08" /><circle cx="6120" cy="334" r="8.972507355275933" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="6146" y="334" class="star-label">Erythyn</text></g>
+  <g id="Lynorium"><circle cx="5488" cy="4115" r="14.603761961804665" fill="#ffe066" opacity="0.08" /><circle cx="5488" cy="4115" r="8.603761961804665" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="5514" y="4115" class="star-label">Lynorium</text></g>
+  <g id="Selaros"><circle cx="5339" cy="5382" r="12.46173877254884" fill="#ffbb55" opacity="0.08" /><circle cx="5339" cy="5382" r="6.4617387725488395" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="5365" y="5382" class="star-label">Selaros</text></g>
+  <g id="Rheaos"><circle cx="530" cy="642" r="13.154777723536938" fill="#ffe066" opacity="0.08" /><circle cx="530" cy="642" r="7.154777723536938" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="556" y="642" class="star-label">Rheaos</text></g>
+  <g id="Hydraa"><circle cx="6413" cy="1380" r="14.904503799930081" fill="#ffe066" opacity="0.08" /><circle cx="6413" cy="1380" r="8.904503799930081" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="6439" y="1380" class="star-label">Hydraa</text></g>
+  <g id="Thaleion"><circle cx="3838" cy="2282" r="14.341620590239824" fill="#ffe066" opacity="0.08" /><circle cx="3838" cy="2282" r="8.341620590239824" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="3864" y="2282" class="star-label">Thaleion</text></g>
+  <g id="Orbisos"><circle cx="6606" cy="3252" r="14.988444049394078" fill="#ffbb55" opacity="0.08" /><circle cx="6606" cy="3252" r="8.988444049394078" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="6632" y="3252" class="star-label">Orbisos</text></g>
+  <g id="Xenosa"><circle cx="6013" cy="3698" r="13.841085726559871" fill="#ffe066" opacity="0.08" /><circle cx="6013" cy="3698" r="7.8410857265598715" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="6039" y="3698" class="star-label">Xenosa</text></g>
+  <g id="Merosion"><circle cx="3609" cy="1424" r="13.667942096110512" fill="#ffbb55" opacity="0.08" /><circle cx="3609" cy="1424" r="7.667942096110511" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="3635" y="1424" class="star-label">Merosion- zbadano</text></g>
+  <g id="Xanthos"><circle cx="3841" cy="5088" r="14.620061205208978" fill="#ffbb55" opacity="0.08" /><circle cx="3841" cy="5088" r="8.620061205208978" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="3867" y="5088" class="star-label">Xanthos</text></g>
+  <g id="Pyraara"><circle cx="5647" cy="1152" r="14.597343223472784" fill="#ffbb55" opacity="0.08" /><circle cx="5647" cy="1152" r="8.597343223472784" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="5673" y="1152" class="star-label">Pyraara</text></g>
+  <g id="Orbisa"><circle cx="6601" cy="2195" r="12.622252319753644" fill="#ffbb55" opacity="0.08" /><circle cx="6601" cy="2195" r="6.622252319753644" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="6627" y="2195" class="star-label">Orbisa</text></g>
+  <g id="Thaleae"><circle cx="881" cy="2467" r="14.853561244335793" fill="#ffbb55" opacity="0.08" /><circle cx="881" cy="2467" r="8.853561244335793" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="907" y="2467" class="star-label">Thaleae</text></g>
+  <g id="Lynorar"><circle cx="3075" cy="2137" r="14.108317756792134" fill="#ffe066" opacity="0.08" /><circle cx="3075" cy="2137" r="8.108317756792134" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="3101" y="2137" class="star-label">Lynorar</text></g>
+  <g id="Orbisel"><circle cx="3764" cy="574" r="14.017382357283733" fill="#ffe066" opacity="0.08" /><circle cx="3764" cy="574" r="8.017382357283733" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="3790" y="574" class="star-label">Orbisel - zbadano</text></g>
+  <g id="Erythium"><circle cx="1500" cy="2832" r="13.331497651308059" fill="#ffbb55" opacity="0.08" /><circle cx="1500" cy="2832" r="7.331497651308058" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="1526" y="2832" class="star-label">Erythium</text></g>
+  <g id="Drastis"><circle cx="2588" cy="5070" r="14.890142375253678" fill="#ffe066" opacity="0.08" /><circle cx="2588" cy="5070" r="8.890142375253678" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="2614" y="5070" class="star-label">Drastis</text></g>
+  <g id="Miraos"><circle cx="4034" cy="1656" r="15.313058915528899" fill="#ffe066" opacity="0.08" /><circle cx="4034" cy="1656" r="9.313058915528899" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="4060" y="1656" class="star-label">Miraos- zbadano</text></g>
+  <g id="Phiraa"><circle cx="3565" cy="242" r="13.96185374225426" fill="#ffbb55" opacity="0.08" /><circle cx="3565" cy="242" r="7.9618537422542595" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="3591" y="242" class="star-label">Phiraa - zbadano</text></g>
+  <g id="Vireae"><circle cx="4200" cy="743" r="13.582535809515651" fill="#ffbb55" opacity="0.08" /><circle cx="4200" cy="743" r="7.582535809515652" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="4226" y="743" class="star-label">Vireae - zbadano</text></g>
+  <g id="Hydraion"><circle cx="5535" cy="1304" r="15.835210478824505" fill="#ffe066" opacity="0.08" /><circle cx="5535" cy="1304" r="9.835210478824505" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="5561" y="1304" class="star-label">Hydraion</text></g>
+  <g id="Kyrosis"><circle cx="4310" cy="3955" r="14.710194591348523" fill="#ffe066" opacity="0.08" /><circle cx="4310" cy="3955" r="8.710194591348523" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="4336" y="3955" class="star-label">Kyrosis</text></g>
+  <g id="Miraara"><circle cx="5645" cy="4182" r="14.912044525934828" fill="#ffe066" opacity="0.08" /><circle cx="5645" cy="4182" r="8.912044525934828" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="5671" y="4182" class="star-label">Miraara</text></g>
+  <g id="Xenosae"><circle cx="430" cy="3031" r="15.097903825388613" fill="#ffe066" opacity="0.08" /><circle cx="430" cy="3031" r="9.097903825388613" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="456" y="3031" class="star-label">Xenosae</text></g>
+  <g id="Kryonion"><circle cx="4428" cy="2318" r="13.68613305630729" fill="#ffe066" opacity="0.08" /><circle cx="4428" cy="2318" r="7.686133056307289" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="4454" y="2318" class="star-label">Kryonion</text></g>
+  <g id="Xenosion"><circle cx="6350" cy="1523" r="15.891485360140658" fill="#ffe066" opacity="0.08" /><circle cx="6350" cy="1523" r="9.891485360140658" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="6376" y="1523" class="star-label">Xenosion</text></g>
+  <g id="Astrea"><circle cx="6633" cy="1835" r="14.627319748886821" fill="#ffbb55" opacity="0.08" /><circle cx="6633" cy="1835" r="8.627319748886821" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="6659" y="1835" class="star-label">Astrea</text></g>
+  <g id="Kyrosium"><circle cx="1678" cy="4248" r="15.33855578083391" fill="#ffe066" opacity="0.08" /><circle cx="1678" cy="4248" r="9.33855578083391" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="1704" y="4248" class="star-label">Kyrosium</text></g>
+  <g id="Calyxae"><circle cx="5983" cy="6685" r="13.708810007162219" fill="#ffbb55" opacity="0.08" /><circle cx="5983" cy="6685" r="7.708810007162219" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="6009" y="6685" class="star-label">Calyxae</text></g>
+  <g id="Pyraae"><circle cx="5719" cy="4458" r="15.833589344461426" fill="#ffe066" opacity="0.08" /><circle cx="5719" cy="4458" r="9.833589344461426" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="5745" y="4458" class="star-label">Pyraae</text></g>
+  <g id="Tyrreus"><circle cx="4970" cy="6646" r="15.791199925211117" fill="#ffe066" opacity="0.08" /><circle cx="4970" cy="6646" r="9.791199925211117" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="4996" y="6646" class="star-label">Tyrreus</text></g>
+  <g id="Jantheis"><circle cx="4057" cy="4359" r="15.968761233220876" fill="#ffe066" opacity="0.08" /><circle cx="4057" cy="4359" r="9.968761233220876" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="4083" y="4359" class="star-label">Jantheis</text></g>
+  <g id="Astreum"><circle cx="4699" cy="6610" r="14.374134439393032" fill="#ffbb55" opacity="0.08" /><circle cx="4699" cy="6610" r="8.374134439393032" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="4725" y="6610" class="star-label">Astreum</text></g>
+  <g id="Selarium"><circle cx="2527" cy="6053" r="12.552842558530518" fill="#ffbb55" opacity="0.08" /><circle cx="2527" cy="6053" r="6.552842558530518" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="2553" y="6053" class="star-label">Selarium</text></g>
+  <g id="Pyraon"><circle cx="3023" cy="5690" r="14.161372796502206" fill="#ffe066" opacity="0.08" /><circle cx="3023" cy="5690" r="8.161372796502206" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="3049" y="5690" class="star-label">Pyraon</text></g>
+  <g id="Tyrris"><circle cx="2254" cy="4543" r="13.454457945339046" fill="#ffe066" opacity="0.08" /><circle cx="2254" cy="4543" r="7.454457945339046" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="2280" y="4543" class="star-label">Tyrris</text></g>
+  <g id="Vegaa"><circle cx="6663" cy="5241" r="13.187822798131158" fill="#ffe066" opacity="0.08" /><circle cx="6663" cy="5241" r="7.187822798131157" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="6689" y="5241" class="star-label">Vegaa</text></g>
+  <g id="Rheayn"><circle cx="1736" cy="4068" r="13.135202203572993" fill="#ffe066" opacity="0.08" /><circle cx="1736" cy="4068" r="7.135202203572993" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="1762" y="4068" class="star-label">Rheayn</text></g>
+  <g id="Thalea"><circle cx="3096" cy="1468" r="13.241981484871406" fill="#ffbb55" opacity="0.08" /><circle cx="3096" cy="1468" r="7.241981484871407" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="3122" y="1468" class="star-label">Thalea - zbadano</text></g>
+  <g id="Miraa"><circle cx="1845" cy="4771" r="13.717907408995075" fill="#ffbb55" opacity="0.08" /><circle cx="1845" cy="4771" r="7.7179074089950745" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="1871" y="4771" class="star-label">Miraa</text></g>
+  <g id="Lynoror"><circle cx="620" cy="3278" r="15.03113092124161" fill="#ffe066" opacity="0.08" /><circle cx="620" cy="3278" r="9.03113092124161" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="646" y="3278" class="star-label">Lynoror</text></g>
+  <g id="Cygnum"><circle cx="6241" cy="5915" r="13.668718458992396" fill="#ffbb55" opacity="0.08" /><circle cx="6241" cy="5915" r="7.668718458992396" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="6267" y="5915" class="star-label">Cygnum</text></g>
+  <g id="Elydix"><circle cx="852" cy="1102" r="14.749712431458232" fill="#ffbb55" opacity="0.08" /><circle cx="852" cy="1102" r="8.749712431458232" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="878" y="1102" class="star-label">Elydix</text></g>
+  <g id="Doranon"><circle cx="4363" cy="5409" r="15.2951113619718" fill="#ffe066" opacity="0.08" /><circle cx="4363" cy="5409" r="9.2951113619718" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="4389" y="5409" class="star-label">Doranon</text></g>
+  <g id="Taloris"><circle cx="1680" cy="2953" r="13.489222262557726" fill="#ffe066" opacity="0.08" /><circle cx="1680" cy="2953" r="7.4892222625577265" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="1706" y="2953" class="star-label">Taloris</text></g>
+  <g id="Astreae"><circle cx="6149" cy="3619" r="13.49570464031203" fill="#ffbb55" opacity="0.08" /><circle cx="6149" cy="3619" r="7.495704640312031" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="6175" y="3619" class="star-label">Astreae</text></g>
+  <g id="Solonum"><circle cx="1864" cy="3001" r="15.388486550310095" fill="#ffe066" opacity="0.08" /><circle cx="1864" cy="3001" r="9.388486550310095" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="1890" y="3001" class="star-label">Solonum</text></g>
+  <g id="Selarea"><circle cx="2626" cy="6352" r="13.49180235174554" fill="#ffbb55" opacity="0.08" /><circle cx="2626" cy="6352" r="7.491802351745539" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="2652" y="6352" class="star-label">Selarea</text></g>
+  <g id="Orbisis"><circle cx="5210" cy="2888" r="13.068262437539788" fill="#ffbb55" opacity="0.08" /><circle cx="5210" cy="2888" r="7.068262437539788" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="5236" y="2888" class="star-label">Orbisis</text></g>
+  <g id="Solonea"><circle cx="709" cy="2362" r="14.565631257399547" fill="#ffbb55" opacity="0.08" /><circle cx="709" cy="2362" r="8.565631257399547" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="735" y="2362" class="star-label">Solonea</text></g>
+  <g id="Talorion"><circle cx="449" cy="372" r="13.209293626399447" fill="#ffbb55" opacity="0.08" /><circle cx="449" cy="372" r="7.209293626399446" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="475" y="372" class="star-label">Talorion</text></g>
+  <g id="Hydraos"><circle cx="4624" cy="5754" r="14.930055702816766" fill="#ffbb55" opacity="0.08" /><circle cx="4624" cy="5754" r="8.930055702816766" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="4650" y="5754" class="star-label">Hydraos</text></g>
+  <g id="Cygnyn"><circle cx="3871" cy="2830" r="14.650573338566321" fill="#ffbb55" opacity="0.08" /><circle cx="3871" cy="2830" r="8.650573338566321" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="3897" y="2830" class="star-label">Cygnyn</text></g>
+  <g id="Zyraae"><circle cx="3504" cy="497" r="14.900382741217381" fill="#ffe066" opacity="0.08" /><circle cx="3504" cy="497" r="8.900382741217381" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="3530" y="497" class="star-label">Zyraae - zbadano</text></g>
+  <g id="Boreasus"><circle cx="4039" cy="685" r="12.88756729017383" fill="#ffbb55" opacity="0.08" /><circle cx="4039" cy="685" r="6.88756729017383" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="4065" y="685" class="star-label">Boreasus</text></g>
+  <g id="Erythar"><circle cx="5042" cy="972" r="15.500716218510833" fill="#ffe066" opacity="0.08" /><circle cx="5042" cy="972" r="9.500716218510833" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="5068" y="972" class="star-label">Erythar- zbadano</text></g>
+  <g id="Lynoros"><circle cx="4692" cy="3584" r="14.14649680669702" fill="#ffe066" opacity="0.08" /><circle cx="4692" cy="3584" r="8.14649680669702" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="4718" y="3584" class="star-label">Lynoros</text></g>
+  <g id="Vegaon"><circle cx="3071" cy="4883" r="14.678505203162208" fill="#ffe066" opacity="0.08" /><circle cx="3071" cy="4883" r="8.678505203162208" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="3097" y="4883" class="star-label">Vegaon</text></g>
+  <g id="Vegaus"><circle cx="3967" cy="2706" r="15.384991019352118" fill="#ffe066" opacity="0.08" /><circle cx="3967" cy="2706" r="9.384991019352118" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="3993" y="2706" class="star-label">Vegaus</text></g>
+  <g id="Kryonis"><circle cx="3544" cy="4823" r="14.885152354764058" fill="#ffbb55" opacity="0.08" /><circle cx="3544" cy="4823" r="8.885152354764058" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="3570" y="4823" class="star-label">Kryonis</text></g>
+  <g id="Vireyn"><circle cx="5552" cy="5948" r="15.602710291638694" fill="#ffe066" opacity="0.08" /><circle cx="5552" cy="5948" r="9.602710291638694" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="5578" y="5948" class="star-label">Vireyn</text></g>
+  <g id="Erythea"><circle cx="3920" cy="4810" r="14.936484197247804" fill="#fff8dc" opacity="0.08" /><circle cx="3920" cy="4810" r="8.936484197247804" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="3946" y="4810" class="star-label">Erythea</text></g>
+  <g id="Drasteus"><circle cx="894" cy="2315" r="13.025024163388915" fill="#ffe066" opacity="0.08" /><circle cx="894" cy="2315" r="7.025024163388915" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="920" y="2315" class="star-label">Drasteus</text></g>
+  <g id="Pyraium"><circle cx="299" cy="5796" r="13.670667138749534" fill="#ffbb55" opacity="0.08" /><circle cx="299" cy="5796" r="7.670667138749534" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="325" y="5796" class="star-label">Pyraium</text></g>
+  <g id="Erythae"><circle cx="1334" cy="1479" r="16.334411615868053" fill="#fff8dc" opacity="0.08" /><circle cx="1334" cy="1479" r="10.334411615868053" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="1360" y="1479" class="star-label">Erythae</text></g>
+
+  <!-- CZERWONE KARŁY (fill: #ff4444) -->
+  <g id="Hydrael"><circle cx="3239" cy="2663" r="13.072243068558135" fill="#ff4444" opacity="0.08" /><circle cx="3239" cy="2663" r="7.0722430685581354" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="3265" y="2663" class="star-label">Hydrael</text></g>
+  <g id="Astreel"><circle cx="901" cy="480" r="11.28729357436673" fill="#ff4444" opacity="0.08" /><circle cx="901" cy="480" r="5.28729357436673" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="927" y="480" class="star-label">Astreel</text></g>
+  <g id="Korveus"><circle cx="5006" cy="5910" r="11.688144874957718" fill="#ff4444" opacity="0.08" /><circle cx="5006" cy="5910" r="5.688144874957719" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="5032" y="5910" class="star-label">Korveus</text></g>
+  <g id="Xanthara"><circle cx="2136" cy="3411" r="11.614626450503213" fill="#ff4444" opacity="0.08" /><circle cx="2136" cy="3411" r="5.614626450503214" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="2162" y="3411" class="star-label">Xanthara</text></g>
+  <g id="Rheais"><circle cx="1065" cy="1512" r="11.719214352783741" fill="#ff4444" opacity="0.08" /><circle cx="1065" cy="1512" r="5.719214352783742" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="1091" y="1512" class="star-label">Rheais</text></g>
+  <g id="Pyraum"><circle cx="324" cy="4414" r="12.407897214566182" fill="#ff4444" opacity="0.08" /><circle cx="324" cy="4414" r="6.407897214566182" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="350" y="4414" class="star-label">Pyraum</text></g>
+  <g id="Cygna"><circle cx="6406" cy="2533" r="13.28086603122955" fill="#ff4444" opacity="0.08" /><circle cx="6406" cy="2533" r="7.280866031229551" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="6432" y="2533" class="star-label">Cygna</text></g>
+  <g id="Elydion"><circle cx="2070" cy="6295" r="12.726513236425298" fill="#ff4444" opacity="0.08" /><circle cx="2070" cy="6295" r="6.726513236425299" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="2096" y="6295" class="star-label">Elydion</text></g>
+  <g id="Vireos"><circle cx="129" cy="4999" r="13.611629488976083" fill="#ff4444" opacity="0.08" /><circle cx="129" cy="4999" r="7.611629488976083" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="155" y="4999" class="star-label">Vireos</text></g>
+  <g id="Zyrais"><circle cx="5417" cy="6347" r="13.840932094221554" fill="#ff4444" opacity="0.08" /><circle cx="5417" cy="6347" r="7.840932094221554" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="5443" y="6347" class="star-label">Zyrais</text></g>
+  <g id="Talorea"><circle cx="3510" cy="5000" r="11.038890455434071" fill="#ff4444" opacity="0.08" /><circle cx="3510" cy="5000" r="5.03889045543407" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="3536" y="5000" class="star-label">Talorea</text></g>
+  <g id="Selaryn"><circle cx="5312" cy="974" r="12.766470243549822" fill="#ff4444" opacity="0.08" /><circle cx="5312" cy="974" r="6.766470243549821" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="5338" y="974" class="star-label">Selaryn</text></g>
+  <g id="Thaleel"><circle cx="4698" cy="5555" r="11.21031292702758" fill="#ff4444" opacity="0.08" /><circle cx="4698" cy="5555" r="5.21031292702758" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="4724" y="5555" class="star-label">Thaleel</text></g>
+  <g id="Jantheea"><circle cx="3858" cy="3997" r="11.365156806681005" fill="#ff4444" opacity="0.08" /><circle cx="3858" cy="3997" r="5.365156806681005" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="3884" y="3997" class="star-label">Jantheea</text></g>
+  <g id="Kyrosos"><circle cx="1168" cy="229" r="13.025199179514646" fill="#ff4444" opacity="0.08" /><circle cx="1168" cy="229" r="7.025199179514646" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="1194" y="229" class="star-label">Kyrosos</text></g>
+  <g id="Merosos"><circle cx="6011" cy="1229" r="13.63891360972502" fill="#ff4444" opacity="0.08" /><circle cx="6011" cy="1229" r="7.638913609725019" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="6037" y="1229" class="star-label">Merosos</text></g>
+  <g id="Xanthyn"><circle cx="6692" cy="5406" r="12.701706881062762" fill="#ff4444" opacity="0.08" /><circle cx="6692" cy="5406" r="6.701706881062762" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="6718" y="5406" class="star-label">Xanthyn</text></g>
+  <g id="Thaleara"><circle cx="3917" cy="3636" r="11.808572761800953" fill="#ff4444" opacity="0.08" /><circle cx="3917" cy="3636" r="5.808572761800954" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="3943" y="3636" class="star-label">Thaleara</text></g>
+  <g id="Hydraara"><circle cx="2392" cy="4677" r="12.034056629153842" fill="#ff4444" opacity="0.08" /><circle cx="2392" cy="4677" r="6.034056629153841" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="2418" y="4677" class="star-label">Hydraara</text></g>
+  <g id="Pyraea"><circle cx="1302" cy="687" r="13.586819623572831" fill="#ff4444" opacity="0.08" /><circle cx="1302" cy="687" r="7.586819623572831" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="1328" y="687" class="star-label">Pyraea</text></g>
+  <g id="Orbisyn"><circle cx="3155" cy="6552" r="11.456530600854087" fill="#ff4444" opacity="0.08" /><circle cx="3155" cy="6552" r="5.456530600854086" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="3181" y="6552" class="star-label">Orbisyn</text></g>
+  <g id="Hydraix"><circle cx="1526" cy="5839" r="12.051254328709767" fill="#ff4444" opacity="0.08" /><circle cx="1526" cy="5839" r="6.051254328709767" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="1552" y="5839" class="star-label">Hydraix</text></g>
+  <g id="Kryonae"><circle cx="2636" cy="5372" r="12.780802922264652" fill="#ff4444" opacity="0.08" /><circle cx="2636" cy="5372" r="6.780802922264651" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="2662" y="5372" class="star-label">Kryonae</text></g>
+  <g id="Calyxion"><circle cx="1944" cy="4950" r="12.89181579730523" fill="#ff4444" opacity="0.08" /><circle cx="1944" cy="4950" r="6.891815797305229" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="1970" y="4950" class="star-label">Calyxion</text></g>
+  <g id="Elydum"><circle cx="5134" cy="2669" r="11.614150753486324" fill="#ff4444" opacity="0.08" /><circle cx="5134" cy="2669" r="5.614150753486325" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="5160" y="2669" class="star-label">Elydum</text></g>
+  <g id="Jantheos"><circle cx="6371" cy="4764" r="13.027946739931789" fill="#ff4444" opacity="0.08" /><circle cx="6371" cy="4764" r="7.02794673993179" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="6397" y="4764" class="star-label">Jantheos</text></g>
+  <g id="Kyrosyn"><circle cx="5685" cy="3681" r="12.605660485497062" fill="#ff4444" opacity="0.08" /><circle cx="5685" cy="3681" r="6.605660485497061" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="5711" y="3681" class="star-label">Kyrosyn</text></g>
+  <g id="Jantheion"><circle cx="5464" cy="6495" r="11.3894053332299" fill="#ff4444" opacity="0.08" /><circle cx="5464" cy="6495" r="5.389405333229901" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="5490" y="6495" class="star-label">Jantheion</text></g>
+  <g id="Erythor"><circle cx="3492" cy="3171" r="13.289047461777457" fill="#ff4444" opacity="0.08" /><circle cx="3492" cy="3171" r="7.289047461777456" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="3518" y="3171" class="star-label">Erythor</text></g>
+  <g id="Elydae"><circle cx="4535" cy="2047" r="13.072015662144192" fill="#ff4444" opacity="0.08" /><circle cx="4535" cy="2047" r="7.072015662144191" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="4561" y="2047" class="star-label">Elydae</text></g>
+  <g id="Pyraos"><circle cx="522" cy="2690" r="13.957666364881165" fill="#ff4444" opacity="0.08" /><circle cx="522" cy="2690" r="7.957666364881165" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="548" y="2690" class="star-label">Pyraos</text></g>
+  <g id="Thaleis"><circle cx="3969" cy="2490" r="12.073622647523845" fill="#ff4444" opacity="0.08" /><circle cx="3969" cy="2490" r="6.073622647523845" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="3995" y="2490" class="star-label">Thaleis</text></g>
+  <g id="Miraar"><circle cx="2939" cy="1591" r="13.480429293168529" fill="#ff4444" opacity="0.08" /><circle cx="2939" cy="1591" r="7.480429293168529" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="2965" y="1591" class="star-label">Miraar - zbadano</text></g>
+  <g id="Zyraum"><circle cx="5639" cy="4708" r="13.653030359768554" fill="#ff4444" opacity="0.08" /><circle cx="5639" cy="4708" r="7.653030359768553" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="5665" y="4708" class="star-label">Zyraum</text></g>
+  <g id="Vegaae"><circle cx="6857" cy="5381" r="11.731894257183182" fill="#ff4444" opacity="0.08" /><circle cx="6857" cy="5381" r="5.731894257183183" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="6883" y="5381" class="star-label">Vegaae</text></g>
+  <g id="Solonos"><circle cx="5689" cy="1461" r="12.686161370688115" fill="#ff4444" opacity="0.08" /><circle cx="5689" cy="1461" r="6.686161370688115" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="5715" y="1461" class="star-label">Solonos</text></g>
+  <g id="Tyrra"><circle cx="6475" cy="654" r="12.946321240429501" fill="#ff4444" opacity="0.08" /><circle cx="6475" cy="654" r="6.9463212404295005" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="6501" y="654" class="star-label">Tyrra</text></g>
+  <g id="Thaleyn"><circle cx="422" cy="2046" r="13.29474694460141" fill="#ff4444" opacity="0.08" /><circle cx="422" cy="2046" r="7.29474694460141" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="448" y="2046" class="star-label">Thaleyn</text></g>
+  <g id="Tiraxea"><circle cx="1815" cy="5971" r="13.370307509904617" fill="#ff4444" opacity="0.08" /><circle cx="1815" cy="5971" r="7.370307509904617" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="1841" y="5971" class="star-label">Tiraxea</text></g>
+
+  <!-- BIAŁE I NIEBIESKIE GWIAZDY -->
+  <g id="Doranor"><circle cx="4036" cy="2128" r="14.637819550278195" fill="#fff8dc" opacity="0.08" /><circle cx="4036" cy="2128" r="8.637819550278195" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="4062" y="2128" class="star-label">Doranor</text></g>
+  <g id="Phiraum"><circle cx="5013" cy="6822" r="16.03054585812911" fill="#e5e9f7" opacity="0.08" /><circle cx="5013" cy="6822" r="10.030545858129107" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="5039" y="6822" class="star-label">Phiraum</text></g>
+  <g id="Miraon"><circle cx="5165" cy="590" r="17.455594448522096" fill="#e5e9f7" opacity="0.08" /><circle cx="5165" cy="590" r="11.455594448522096" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="5191" y="590" class="star-label">Miraon</text></g>
+  <g id="Solonae"><circle cx="232" cy="6036" r="16.594518293406757" fill="#fff8dc" opacity="0.08" /><circle cx="232" cy="6036" r="10.594518293406756" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="258" y="6036" class="star-label">Solonae</text></g>
+  <g id="Zyraar"><circle cx="454" cy="6087" r="15.028416165912155" fill="#e5e9f7" opacity="0.08" /><circle cx="454" cy="6087" r="9.028416165912155" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="480" y="6087" class="star-label">Zyraar</text></g>
+  <g id="Tyrron"><circle cx="5224" cy="3312" r="20.084752440591835" fill="#99ccff" opacity="0.08" /><circle cx="5224" cy="3312" r="14.084752440591833" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="5250" y="3312" class="star-label">Tyrror - zbadano</text></g>
+  <g id="Tyrrara"><circle cx="5880" cy="3481" r="19.791349903037254" fill="#3399ff" opacity="0.08" /><circle cx="5880" cy="3481" r="13.791349903037254" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="5906" y="3481" class="star-label">Tyrrara</text></g>
+  <g id="Erython"><circle cx="1933" cy="4030" r="14.10117569371749" fill="#fff8dc" opacity="0.08" /><circle cx="1933" cy="4030" r="8.10117569371749" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="1959" y="4030" class="star-label">Erython</text></g>
+  <g id="Orbisea"><circle cx="3802" cy="4278" r="16.973725155733796" fill="#e5e9f7" opacity="0.08" /><circle cx="3802" cy="4278" r="10.973725155733796" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="3828" y="4278" class="star-label">Orbisea</text></g>
+  <g id="Kyrosae"><circle cx="4710" cy="176" r="18.75588809590856" fill="#3399ff" opacity="0.08" /><circle cx="4710" cy="176" r="12.75588809590856" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="4736" y="176" class="star-label">Kyrosae</text></g>
+  <g id="Lynorix"><circle cx="5856" cy="312" r="17.944183943691037" fill="#3399ff" opacity="0.08" /><circle cx="5856" cy="312" r="11.944183943691037" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="5882" y="312" class="star-label">Lynorix</text></g>
+  <g id="Selarae"><circle cx="2951" cy="6313" r="20.44937549696982" fill="#99ccff" opacity="0.08" /><circle cx="2951" cy="6313" r="14.449375496969823" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="2977" y="6313" class="star-label">Selarae</text></g>
+  <g id="Vireion"><circle cx="1798" cy="5226" r="19.439595606310213" fill="#3399ff" opacity="0.08" /><circle cx="1798" cy="5226" r="13.439595606310213" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="1824" y="5226" class="star-label">Vireion</text></g>
+  <g id="Meroson"><circle cx="137" cy="4597" r="15.886446503470982" fill="#fff8dc" opacity="0.08" /><circle cx="137" cy="4597" r="9.886446503470982" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="163" y="4597" class="star-label">Meroson</text></g>
+  <g id="Drastix"><circle cx="4224" cy="3567" r="19.60444011727421" fill="#3399ff" opacity="0.08" /><circle cx="4224" cy="3567" r="13.604440117274208" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="4250" y="3567" class="star-label">Drastix</text></g>
+  <g id="Rheaara"><circle cx="5429" cy="3684" r="15.902500587352394" fill="#e5e9f7" opacity="0.08" /><circle cx="5429" cy="3684" r="9.902500587352394" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="5455" y="3684" class="star-label">Rheaara</text></g>
+  <g id="Jantheyn"><circle cx="2968" cy="5248" r="21.258323728491764" fill="#99ccff" opacity="0.08" /><circle cx="2968" cy="5248" r="15.258323728491764" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="2994" y="5248" class="star-label">Jantheyn</text></g>
+  <g id="Elydis"><circle cx="2323" cy="2186" r="15.270760476097747" fill="#e5e9f7" opacity="0.08" /><circle cx="2323" cy="2186" r="9.270760476097747" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="2349" y="2186" class="star-label">Elydis</text></g>
+  <g id="Astreor"><circle cx="2933" cy="220" r="21.29266266683507" fill="#99ccff" opacity="0.08" /><circle cx="2933" cy="220" r="15.29266266683507" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="2959" y="220" class="star-label">Astreor</text></g>
+  <g id="Selarum"><circle cx="1872" cy="6219" r="15.102525581706894" fill="#fff8dc" opacity="0.08" /><circle cx="1872" cy="6219" r="9.102525581706894" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="1898" y="6219" class="star-label">Selarum</text></g>
+  <g id="Xanthum"><circle cx="4286" cy="6603" r="20.325812356685926" fill="#99ccff" opacity="0.08" /><circle cx="4286" cy="6603" r="14.325812356685926" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="4312" y="6603" class="star-label">Xanthum</text></g>
+  <g id="Solonar"><circle cx="5969" cy="406" r="16.713154274682346" fill="#e5e9f7" opacity="0.08" /><circle cx="5969" cy="406" r="10.713154274682344" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="5995" y="406" class="star-label">Solonar</text></g>
+  <g id="Xenoseus"><circle cx="1735" cy="3103" r="21.41014744123565" fill="#99ccff" opacity="0.08" /><circle cx="1735" cy="3103" r="15.410147441235653" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="1761" y="3103" class="star-label">Xenoseus</text></g>
+  <g id="Pyrais"><circle cx="1613" cy="6786" r="16.107596670683122" fill="#fff8dc" opacity="0.08" /><circle cx="1613" cy="6786" r="10.10759667068312" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="1639" y="6786" class="star-label">Pyrais</text></g>
+  <g id="Phiraium"><circle cx="3759" cy="5777" r="14.32995211106774" fill="#fff8dc" opacity="0.08" /><circle cx="3759" cy="5777" r="8.32995211106774" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="3785" y="5777" class="star-label">Phiraium</text></g>
+  <g id="Miraix"><circle cx="2845" cy="3658" r="17.151534614769986" fill="#e5e9f7" opacity="0.08" /><circle cx="2845" cy="3658" r="11.151534614769986" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="2871" y="3658" class="star-label">Miraix</text></g>
+  <g id="Dorana"><circle cx="1688" cy="2341" r="20.507858953139703" fill="#99ccff" opacity="0.08" /><circle cx="1688" cy="2341" r="14.507858953139703" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="1714" y="2341" class="star-label">Dorana</text></g>
+  <g id="Korvus"><circle cx="2374" cy="875" r="19.68775833854792" fill="#3399ff" opacity="0.08" /><circle cx="2374" cy="875" r="13.68775833854792" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="2400" y="875" class="star-label">Korvus- zbadano</text></g>
+  <g id="Xanthus"><circle cx="840" cy="5238" r="19.377302582883306" fill="#3399ff" opacity="0.08" /><circle cx="840" cy="5238" r="13.377302582883306" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="866" y="5238" class="star-label">Xanthus</text></g>
+  <g id="Solonara"><circle cx="4889" cy="4139" r="17.78326167966606" fill="#3399ff" opacity="0.08" /><circle cx="4889" cy="4139" r="11.783261679666063" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="4915" y="4139" class="star-label">Solonara</text></g>
+  <g id="Soloneus"><circle cx="886" cy="1832" r="17.014540307989485" fill="#3399ff" opacity="0.08" /><circle cx="886" cy="1832" r="11.014540307989485" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="912" y="1832" class="star-label">Soloneus</text></g>
+  <g id="Vegael"><circle cx="2346" cy="1256" r="17.515876464399867" fill="#e5e9f7" opacity="0.08" /><circle cx="2346" cy="1256" r="11.515876464399867" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="2372" y="1256" class="star-label">Vegael</text></g>
+  <g id="Boreasium"><circle cx="5239" cy="2390" r="19.771572617533636" fill="#99ccff" opacity="0.08" /><circle cx="5239" cy="2390" r="13.771572617533634" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="5265" y="2390" class="star-label">Boreasium</text></g>
+  <g id="Cygnara"><circle cx="1946" cy="4490" r="17.921365746210732" fill="#e5e9f7" opacity="0.08" /><circle cx="1946" cy="4490" r="11.92136574621073" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="1972" y="4490" class="star-label">Cygnara</text></g>
+  <g id="Xanthae"><circle cx="5824" cy="4775" r="17.03958636585802" fill="#e5e9f7" opacity="0.08" /><circle cx="5824" cy="4775" r="11.039586365858021" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="5850" y="4775" class="star-label">Xanthae</text></g>
+  <g id="Merosor"><circle cx="6159" cy="590" r="19.679388973977332" fill="#99ccff" opacity="0.08" /><circle cx="6159" cy="590" r="13.679388973977332" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="6185" y="590" class="star-label">Merosor</text></g>
+  <g id="Korvae"><circle cx="5082" cy="3787" r="16.72715122620299" fill="#fff8dc" opacity="0.08" /><circle cx="5082" cy="3787" r="10.727151226202993" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="5108" y="3787" class="star-label">Korvae</text></g>
+  <g id="Elydon"><circle cx="2111" cy="1727" r="17.152437245846304" fill="#e5e9f7" opacity="0.08" /><circle cx="2111" cy="1727" r="11.152437245846304" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="2137" y="1727" class="star-label">Elydon</text></g>
+  <g id="Vireus"><circle cx="1233" cy="1073" r="17.46571937948338" fill="#3399ff" opacity="0.08" /><circle cx="1233" cy="1073" r="11.465719379483382" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="1259" y="1073" class="star-label">Vireus</text></g>
+  <g id="Xanthium"><circle cx="6670" cy="2575" r="19.09387174627031" fill="#3399ff" opacity="0.08" /><circle cx="6670" cy="2575" r="13.093871746270311" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="6696" y="2575" class="star-label">Xanthium</text></g>
+  <g id="Thaleea"><circle cx="762" cy="565" r="16.792161273737403" fill="#fff8dc" opacity="0.08" /><circle cx="762" cy="565" r="10.792161273737403" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="788" y="565" class="star-label">Thaleea</text></g>
+  <g id="Janthea"><circle cx="5372" cy="1275" r="17.766236443201564" fill="#3399ff" opacity="0.08" /><circle cx="5372" cy="1275" r="11.766236443201562" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="5398" y="1275" class="star-label">Janthea</text></g>
+  <g id="Boreasel"><circle cx="5879" cy="607" r="16.83996780067442" fill="#e5e9f7" opacity="0.08" /><circle cx="5879" cy="607" r="10.839967800674419" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="5905" y="607" class="star-label">Boreasel - zbadano</text></g>
+  <g id="Kyrosum"><circle cx="3606" cy="1753" r="17.34725297341639" fill="#e5e9f7" opacity="0.08" /><circle cx="3606" cy="1753" r="11.347252973416388" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="3632" y="1753" class="star-label">Kyrosum</text></g>
+  <g id="Korvea"><circle cx="1703" cy="3903" r="15.609531793977009" fill="#e5e9f7" opacity="0.08" /><circle cx="1703" cy="3903" r="9.609531793977009" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="1729" y="3903" class="star-label">Korvea</text></g>
+  <g id="Doranis"><circle cx="6278" cy="3526" r="15.138850386138602" fill="#e5e9f7" opacity="0.08" /><circle cx="6278" cy="3526" r="9.138850386138602" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="6304" y="3526" class="star-label">Doranis</text></g>
+  <g id="Draston"><circle cx="343" cy="3982" r="14.030347206061101" fill="#fff8dc" opacity="0.08" /><circle cx="343" cy="3982" r="8.030347206061101" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="369" y="3982" class="star-label">Draston</text></g>
+  <g id="Kyrosa"><circle cx="1053" cy="4120" r="15.990675430874282" fill="#fff8dc" opacity="0.08" /><circle cx="1053" cy="4120" r="9.990675430874282" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="1079" y="4120" class="star-label">Kyrosa</text></g>
+  <g id="Solonyn"><circle cx="306" cy="866" r="14.626498463073656" fill="#fff8dc" opacity="0.08" /><circle cx="306" cy="866" r="8.626498463073656" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="332" y="866" class="star-label">Solonyn</text></g>
+  <g id="Korvyn"><circle cx="1410" cy="4606" r="14.532810770473473" fill="#fff8dc" opacity="0.08" /><circle cx="1410" cy="4606" r="8.532810770473473" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="1436" y="4606" class="star-label">Korvyn</text></g>
+  <g id="Doranix"><circle cx="2605" cy="5811" r="16.929463146640035" fill="#fff8dc" opacity="0.08" /><circle cx="2605" cy="5811" r="10.929463146640035" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="2631" y="5811" class="star-label">Doranix</text></g>
+  <g id="Virear"><circle cx="5693" cy="2477" r="18.84471187760498" fill="#3399ff" opacity="0.08" /><circle cx="5693" cy="2477" r="12.844711877604977" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="5719" y="2477" class="star-label">Virear</text></g>
+  <g id="Xanthea"><circle cx="5417" cy="6178" r="19.026578054298902" fill="#3399ff" opacity="0.08" /><circle cx="5417" cy="6178" r="13.026578054298904" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="5443" y="6178" class="star-label">Xanthea</text></g>
+  <g id="Orbiseus"><circle cx="1991" cy="3756" r="16.24700799378894" fill="#e5e9f7" opacity="0.08" /><circle cx="1991" cy="3756" r="10.247007993788941" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="2017" y="3756" class="star-label">Orbiseus - zbadano</text></g>
+  <g id="Calyxara"><circle cx="4159" cy="5790" r="15.288572579231857" fill="#e5e9f7" opacity="0.08" /><circle cx="4159" cy="5790" r="9.288572579231857" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="4185" y="5790" class="star-label">Calyxara</text></g>
+  <g id="Jantheus"><circle cx="6674" cy="4998" r="18.009177303036225" fill="#3399ff" opacity="0.08" /><circle cx="6674" cy="4998" r="12.009177303036227" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="6700" y="4998" class="star-label">Jantheus</text></g>
+  <g id="Drastea"><circle cx="4921" cy="2100" r="16.998215392146484" fill="#e5e9f7" opacity="0.08" /><circle cx="4921" cy="2100" r="10.998215392146484" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="4947" y="2100" class="star-label">Drastea</text></g>
+  <g id="Tiraxel"><circle cx="3977" cy="1357" r="16.321288912970584" fill="#fff8dc" opacity="0.08" /><circle cx="3977" cy="1357" r="10.321288912970584" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="4003" y="1357" class="star-label">Tiraxel</text></g>
+  <g id="Xanthel"><circle cx="1853" cy="131" r="14.528443873810511" fill="#fff8dc" opacity="0.08" /><circle cx="1853" cy="131" r="8.528443873810511" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="1879" y="131" class="star-label">Xanthel</text></g>
+  <g id="Rheaea"><circle cx="1698" cy="6106" r="19.73904394682986" fill="#99ccff" opacity="0.08" /><circle cx="1698" cy="6106" r="13.739043946829858" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="1724" y="6106" class="star-label">Rheaea</text></g>
+  <g id="Tiraxara"><circle cx="1255" cy="2857" r="14.15437507700383" fill="#fff8dc" opacity="0.08" /><circle cx="1255" cy="2857" r="8.15437507700383" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="1281" y="2857" class="star-label">Tiraxara</text></g>
+  <g id="Merosara"><circle cx="6422" cy="515" r="18.40444884351148" fill="#3399ff" opacity="0.08" /><circle cx="6422" cy="515" r="12.404448843511483" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="6448" y="515" class="star-label">Merosara</text></g>
+  <g id="Kyrosar"><circle cx="6375" cy="4500" r="21.455047127874465" fill="#99ccff" opacity="0.08" /><circle cx="6375" cy="4500" r="15.455047127874465" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="6401" y="4500" class="star-label">Kyrosar</text></g>
+  <g id="Merosyn"><circle cx="1978" cy="1504" r="16.13291530638291" fill="#e5e9f7" opacity="0.08" /><circle cx="1978" cy="1504" r="10.132915306382909" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="2004" y="1504" class="star-label">Merosyn</text></g>
+  <g id="Janthear"><circle cx="1830" cy="2209" r="12.07027490387211" fill="#ffbb55" opacity="0.08" /><circle cx="1830" cy="2209" r="6.070274903872111" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="1856" y="2209" class="star-label">Janthear</text></g>
+  <g id="Lynora"><circle cx="2476" cy="3748" r="15.463288265825803" fill="#fff8dc" opacity="0.08" /><circle cx="2476" cy="3748" r="9.463288265825803" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="2502" y="3748" class="star-label">Lynora</text></g>
+  <g id="Orbisix"><circle cx="3527" cy="5972" r="19.288543010900355" fill="#3399ff" opacity="0.08" /><circle cx="3527" cy="5972" r="13.288543010900355" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="3553" y="5972" class="star-label">Orbisix</text></g>
+  <g id="Boreasix"><circle cx="4728" cy="1468" r="15.43401669429795" fill="#e5e9f7" opacity="0.08" /><circle cx="4728" cy="1468" r="9.43401669429795" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="4754" y="1468" class="star-label">Boreasix</text></g>
+  <g id="Solonel"><circle cx="425" cy="3732" r="16.20101230238467" fill="#fff8dc" opacity="0.08" /><circle cx="425" cy="3732" r="10.20101230238467" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="451" y="3732" class="star-label">Solonel</text></g>
+  <g id="Zyraara"><circle cx="3612" cy="6316" r="17.288817224279523" fill="#3399ff" opacity="0.08" /><circle cx="3612" cy="6316" r="11.288817224279523" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="3638" y="6316" class="star-label">Zyraara</text></g>
+  <g id="Boreason"><circle cx="441" cy="5261" r="21.521676376557625" fill="#99ccff" opacity="0.08" /><circle cx="441" cy="5261" r="15.521676376557625" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="467" y="5261" class="star-label">Boreason</text></g>
+  <g id="Orbisar"><circle cx="4348" cy="575" r="19.930504026111418" fill="#99ccff" opacity="0.08" /><circle cx="4348" cy="575" r="13.930504026111418" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="4374" y="575" class="star-label">Orbisar</text></g>
+  <g id="Drastum"><circle cx="4879" cy="4816" r="20.25727829449844" fill="#99ccff" opacity="0.08" /><circle cx="4879" cy="4816" r="14.257278294498443" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="4905" y="4816" class="star-label">Drastum</text></g>
+  <g id="Tiraxix"><circle cx="6735" cy="1672" r="17.29643363232666" fill="#e5e9f7" opacity="0.08" /><circle cx="6735" cy="1672" r="11.29643363232666" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="6761" y="1672" class="star-label">Tiraxix</text></g>
+  <g id="Jantheeus"><circle cx="4122" cy="1831" r="17.45527734014646" fill="#e5e9f7" opacity="0.08" /><circle cx="4122" cy="1831" r="11.455277340146457" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="4148" y="1831" class="star-label">Jantheeus</text></g>
+  <g id="Taloron"><circle cx="1017" cy="1224" r="16.88618346008978" fill="#e5e9f7" opacity="0.08" /><circle cx="1017" cy="1224" r="10.886183460089779" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="1043" y="1224" class="star-label">Taloron</text></g>
+  <g id="Vegaar"><circle cx="5749" cy="6686" r="17.19802018374116" fill="#3399ff" opacity="0.08" /><circle cx="5749" cy="6686" r="11.19802018374116" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="5775" y="6686" class="star-label">Vegaar</text></g>
+  <g id="Hydraium"><circle cx="3504" cy="1110" r="20.494252140110007" fill="#99ccff" opacity="0.08" /><circle cx="3504" cy="1110" r="14.494252140110005" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="3530" y="1110" class="star-label">Hydraium - zbadano</text></g>
+  <g id="Tyrrae"><circle cx="2073" cy="6075" r="16.978136792014613" fill="#e5e9f7" opacity="0.08" /><circle cx="2073" cy="6075" r="10.978136792014613" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="2099" y="6075" class="star-label">Tyrrae</text></g>
+  <g id="Hydraae"><circle cx="744" cy="3812" r="19.854634223023254" fill="#3399ff" opacity="0.08" /><circle cx="744" cy="3812" r="13.854634223023254" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="770" y="3812" class="star-label">Hydraae</text></g>
+  <g id="Cygnus"><circle cx="3594" cy="887" r="14.414207862199927" fill="#fff8dc" opacity="0.08" /><circle cx="3594" cy="887" r="8.414207862199927" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="3620" y="887" class="star-label">Cygnus - zbadano</text></g>
+  <g id="Mirayn"><circle cx="2878" cy="4584" r="18.084928110652626" fill="#3399ff" opacity="0.08" /><circle cx="2878" cy="4584" r="12.084928110652626" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="2904" y="4584" class="star-label">Mirayn</text></g>
+  <g id="Drastar"><circle cx="4219" cy="4183" r="15.743949089919287" fill="#e5e9f7" opacity="0.08" /><circle cx="4219" cy="4183" r="9.743949089919287" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="4245" y="4183" class="star-label">Drastar</text></g>
+  <g id="Astreos"><circle cx="3853" cy="3801" r="20.348131038593202" fill="#99ccff" opacity="0.08" /><circle cx="3853" cy="3801" r="14.3481310385932" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="3879" y="3801" class="star-label">Astreos</text></g>
+  <g id="Astreis"><circle cx="6565" cy="1661" r="18.683971567540286" fill="#3399ff" opacity="0.08" /><circle cx="6565" cy="1661" r="12.683971567540286" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="6591" y="1661" class="star-label">Astreis</text></g>
+  <g id="Orbisium"><circle cx="3647" cy="4489" r="17.33375882392312" fill="#e5e9f7" opacity="0.08" /><circle cx="3647" cy="4489" r="11.333758823923121" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="3673" y="4489" class="star-label">Orbisium</text></g>
+  <g id="Elydea"><circle cx="1271" cy="6086" r="15.90434825983125" fill="#e5e9f7" opacity="0.08" /><circle cx="1271" cy="6086" r="9.90434825983125" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="1297" y="6086" class="star-label">Elydea</text></g>
+  <g id="Korvix"><circle cx="1284" cy="4117" r="19.702225988730298" fill="#3399ff" opacity="0.08" /><circle cx="1284" cy="4117" r="13.702225988730296" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="1310" y="4117" class="star-label">Korvix</text></g>
+  <g id="Thalear"><circle cx="4262" cy="904" r="19.292921896234382" fill="#99ccff" opacity="0.08" /><circle cx="4262" cy="904" r="13.292921896234382" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="4288" y="904" class="star-label">Thalear - zbadano</text></g>
+  <g id="Kyrosor"><circle cx="2911" cy="4299" r="14.050757527314646" fill="#fff8dc" opacity="0.08" /><circle cx="2911" cy="4299" r="8.050757527314646" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="2937" y="4299" class="star-label">Kyrosor</text></g>
+  <g id="Elydar"><circle cx="1395" cy="936" r="18.916320767180345" fill="#3399ff" opacity="0.08" /><circle cx="1395" cy="936" r="12.916320767180347" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="1421" y="936" class="star-label">Elydar</text></g>
+  <g id="Kryoneus"><circle cx="2774" cy="4841" r="20.363805714665105" fill="#99ccff" opacity="0.08" /><circle cx="2774" cy="4841" r="14.363805714665103" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="2800" y="4841" class="star-label">Kryoneus</text></g>
+  <g id="Zyraus"><circle cx="4072" cy="4820" r="20.706719589970373" fill="#99ccff" opacity="0.08" /><circle cx="4072" cy="4820" r="14.706719589970373" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="4098" y="4820" class="star-label">Zyraus</text></g>
+  <g id="Xanthis"><circle cx="6878" cy="877" r="16.833347579486478" fill="#fff8dc" opacity="0.08" /><circle cx="6878" cy="877" r="10.833347579486476" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="6904" y="877" class="star-label">Xanthis</text></g>
+  <g id="Tyrrium"><circle cx="3746" cy="3120" r="13.736129289550401" fill="#ffbb55" opacity="0.08" /><circle cx="3746" cy="3120" r="7.7361292895504015" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="3772" y="3120" class="star-label">Tyrrium</text></g>
+  <g id="Cygnis"><circle cx="5167" cy="6073" r="14.857883135617307" fill="#ffbb55" opacity="0.08" /><circle cx="5167" cy="6073" r="8.857883135617307" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="5193" y="6073" class="star-label">Cygnis</text></g>
+  <g id="Zyraos"><circle cx="5729" cy="148" r="15.459964434804386" fill="#e5e9f7" opacity="0.08" /><circle cx="5729" cy="148" r="9.459964434804386" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="5755" y="148" class="star-label">Zyraos</text></g>
+  <g id="Astreyn"><circle cx="6402" cy="6303" r="18.88635416869421" fill="#3399ff" opacity="0.08" /><circle cx="6402" cy="6303" r="12.886354168694213" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="6428" y="6303" class="star-label">Astreyn</text></g>
+  <g id="Zyrael"><circle cx="3435" cy="1619" r="16.164104903303567" fill="#e5e9f7" opacity="0.08" /><circle cx="3435" cy="1619" r="10.164104903303569" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="3461" y="1619" class="star-label">Zyrael</text></g>
+  <g id="Merosel"><circle cx="4695" cy="6442" r="16.047907523905767" fill="#e5e9f7" opacity="0.08" /><circle cx="4695" cy="6442" r="10.047907523905767" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="4721" y="6442" class="star-label">Merosel</text></g>
+  <g id="Tiraxa"><circle cx="3723" cy="1959" r="16.485151916661152" fill="#e5e9f7" opacity="0.08" /><circle cx="3723" cy="1959" r="10.485151916661152" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="3749" y="1959" class="star-label">Tiraxa</text></g>
+  <g id="Tyrrion"><circle cx="2566" cy="4536" r="17.251602043305233" fill="#3399ff" opacity="0.08" /><circle cx="2566" cy="4536" r="11.251602043305232" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="2592" y="4536" class="star-label">Tyrrion</text></g>
+  <g id="Phiraar"><circle cx="1718" cy="772" r="15.71602219008915" fill="#e5e9f7" opacity="0.08" /><circle cx="1718" cy="772" r="9.71602219008915" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="1744" y="772" class="star-label">Phiraar</text></g>
+  <g id="Astreeus"><circle cx="1238" cy="5586" r="14.506548769634447" fill="#fff8dc" opacity="0.08" /><circle cx="1238" cy="5586" r="8.506548769634447" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="1264" y="5586" class="star-label">Astreeus</text></g>
+  <g id="Tiraxae"><circle cx="3704" cy="2732" r="16.57878542179766" fill="#fff8dc" opacity="0.08" /><circle cx="3704" cy="2732" r="10.578785421797662" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="3730" y="2732" class="star-label">Tiraxae</text></g>
+  <g id="Cygnos"><circle cx="667" cy="2616" r="18.15882526285738" fill="#3399ff" opacity="0.08" /><circle cx="667" cy="2616" r="12.15882526285738" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="693" y="2616" class="star-label">Cygnos</text></g>
+  <g id="Boreasa"><circle cx="1790" cy="1189" r="15.653576627006727" fill="#e5e9f7" opacity="0.08" /><circle cx="1790" cy="1189" r="9.653576627006727" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="1816" y="1189" class="star-label">Boreasa</text></g>
+  <g id="Pyraion"><circle cx="4238" cy="1374" r="17.498083316938434" fill="#e5e9f7" opacity="0.08" /><circle cx="4238" cy="1374" r="11.498083316938432" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="4264" y="1374" class="star-label">Pyraion</text></g>
+  <g id="Erythus"><circle cx="1529" cy="1093" r="16.672155744509528" fill="#fff8dc" opacity="0.08" /><circle cx="1529" cy="1093" r="10.672155744509528" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="1555" y="1093" class="star-label">Erythus</text></g>
+  <g id="Kryonium"><circle cx="215" cy="3135" r="15.060818889387114" fill="#fff8dc" opacity="0.08" /><circle cx="215" cy="3135" r="9.060818889387114" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="241" y="3135" class="star-label">Kryonium</text></g>
+  <g id="Korva"><circle cx="5495" cy="2911" r="16.331731424598395" fill="#fff8dc" opacity="0.08" /><circle cx="5495" cy="2911" r="10.331731424598393" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="5521" y="2911" class="star-label">Korva - zbadano</text></g>
+  <g id="Vegaea"><circle cx="1130" cy="3078" r="18.612149269089898" fill="#3399ff" opacity="0.08" /><circle cx="1130" cy="3078" r="12.612149269089898" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="1156" y="3078" class="star-label">Vegaea</text></g>
+  <g id="Astreix"><circle cx="3286" cy="4045" r="14.533152086794333" fill="#fff8dc" opacity="0.08" /><circle cx="3286" cy="4045" r="8.533152086794333" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="3312" y="4045" class="star-label">Astreix</text></g>
+  <g id="Cygnor"><circle cx="6522" cy="2062" r="20.908969494188046" fill="#99ccff" opacity="0.08" /><circle cx="6522" cy="2062" r="14.908969494188046" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="6548" y="2062" class="star-label">Cygnor</text></g>
+  <g id="Tiraxum"><circle cx="5672" cy="3389" r="16.228917760629095" fill="#fff8dc" opacity="0.08" /><circle cx="5672" cy="3389" r="10.228917760629093" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="5698" y="3389" class="star-label">Tiraxum</text></g>
+  <g id="Rheaae"><circle cx="482" cy="5772" r="17.06122336745333" fill="#3399ff" opacity="0.08" /><circle cx="482" cy="5772" r="11.06122336745333" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="508" y="5772" class="star-label">Rheaae</text></g>
+  <g id="Rheaix"><circle cx="3231" cy="6289" r="15.10399623647497" fill="#e5e9f7" opacity="0.08" /><circle cx="3231" cy="6289" r="9.10399623647497" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="3257" y="6289" class="star-label">Rheaix</text></g>
+  <g id="Rheaon"><circle cx="1104" cy="6774" r="19.447574967178326" fill="#99ccff" opacity="0.08" /><circle cx="1104" cy="6774" r="13.447574967178328" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="1130" y="6774" class="star-label">Rheaon</text></g>
+  <g id="Pyraa"><circle cx="4866" cy="1668" r="15.934918644122355" fill="#fff8dc" opacity="0.08" /><circle cx="4866" cy="1668" r="9.934918644122355" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="4892" y="1668" class="star-label">Pyraa</text></g>
+  <g id="Tiraxon"><circle cx="1013" cy="3332" r="20.96276297041138" fill="#99ccff" opacity="0.08" /><circle cx="1013" cy="3332" r="14.96276297041138" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="1039" y="3332" class="star-label">Tiraxon</text></g>
+  <g id="Xenosis"><circle cx="2247" cy="6381" r="19.788547063275594" fill="#3399ff" opacity="0.08" /><circle cx="2247" cy="6381" r="13.788547063275596" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="2273" y="6381" class="star-label">Xenosis</text></g>
+  <g id="Kyrosion"><circle cx="4969" cy="4577" r="17.00216544885977" fill="#3399ff" opacity="0.08" /><circle cx="4969" cy="4577" r="11.002165448859769" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="4995" y="4577" class="star-label">Kyrosion</text></g>
+  <g id="Phiraix"><circle cx="2212" cy="5907" r="19.948334653391797" fill="#3399ff" opacity="0.08" /><circle cx="2212" cy="5907" r="13.948334653391795" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="2238" y="5907" class="star-label">Phiraix</text></g>
+  <g id="Xenosum"><circle cx="4958" cy="6343" r="17.962584450138642" fill="#e5e9f7" opacity="0.08" /><circle cx="4958" cy="6343" r="11.962584450138644" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="4984" y="6343" class="star-label">Xenosum</text></g>
+  <g id="Rheaion"><circle cx="2485" cy="3505" r="16.19562966709035" fill="#e5e9f7" opacity="0.08" /><circle cx="2485" cy="3505" r="10.19562966709035" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="2511" y="3505" class="star-label">Rheaion</text></g>
+  <g id="Doranum"><circle cx="588" cy="3614" r="21.050116365901175" fill="#99ccff" opacity="0.08" /><circle cx="588" cy="3614" r="15.050116365901177" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="614" y="3614" class="star-label">Doranum</text></g>
+  <g id="Merosea"><circle cx="705" cy="4168" r="19.863180125100172" fill="#3399ff" opacity="0.08" /><circle cx="705" cy="4168" r="13.863180125100172" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="731" y="4168" class="star-label">Merosea</text></g>
+  <g id="Hydraon"><circle cx="4637" cy="427" r="16.76150554917196" fill="#fff8dc" opacity="0.08" /><circle cx="4637" cy="427" r="10.761505549171961" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="4663" y="427" class="star-label">Hydraon</text></g>
+  <g id="Tiraxion"><circle cx="5846" cy="3696" r="16.58992705740797" fill="#e5e9f7" opacity="0.08" /><circle cx="5846" cy="3696" r="10.58992705740797" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="5872" y="3696" class="star-label">Tiraxion</text></g>
+  <g id="Solonor"><circle cx="6388" cy="3346" r="15.860923032498254" fill="#fff8dc" opacity="0.08" /><circle cx="6388" cy="3346" r="9.860923032498254" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="6414" y="3346" class="star-label">Solonor</text></g>
+  <g id="Erythis"><circle cx="4627" cy="825" r="16.981712571106524" fill="#e5e9f7" opacity="0.08" /><circle cx="4627" cy="825" r="10.981712571106524" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="4653" y="825" class="star-label">Erythis</text></g>
+  <g id="Pyraar"><circle cx="333" cy="6206" r="17.366098798906606" fill="#3399ff" opacity="0.08" /><circle cx="333" cy="6206" r="11.366098798906604" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="359" y="6206" class="star-label">Pyraar</text></g>
+  <g id="Vegaium"><circle cx="3798" cy="914" r="19.187388658130125" fill="#99ccff" opacity="0.08" /><circle cx="3798" cy="914" r="13.187388658130125" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="3824" y="914" class="star-label">Vegaium - zbadano</text></g>
+  <g id="Xenosyn"><circle cx="5915" cy="914" r="18.14152594869619" fill="#3399ff" opacity="0.08" /><circle cx="5915" cy="914" r="12.141525948696192" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="5941" y="914" class="star-label">Xenosyn</text></g>
+  <g id="Xenosus"><circle cx="6201" cy="2927" r="17.28381579888105" fill="#e5e9f7" opacity="0.08" /><circle cx="6201" cy="2927" r="11.283815798881049" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="6227" y="2927" class="star-label">Xenosus</text></g>
+  <g id="Orbison"><circle cx="6190" cy="3182" r="20.39218167191303" fill="#99ccff" opacity="0.08" /><circle cx="6190" cy="3182" r="14.392181671913029" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="6216" y="3182" class="star-label">Orbison</text></g>
+  <g id="Drasta"><circle cx="2728" cy="3527" r="18.866302306412045" fill="#3399ff" opacity="0.08" /><circle cx="2728" cy="3527" r="12.866302306412043" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="2754" y="3527" class="star-label">Drasta</text></g>
+  <g id="Astreion"><circle cx="5304" cy="1520" r="19.39847249880039" fill="#99ccff" opacity="0.08" /><circle cx="5304" cy="1520" r="13.398472498800391" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="5330" y="1520" class="star-label">Astreion</text></g>
+  <g id="Tiraxar"><circle cx="2437" cy="4983" r="17.838754320604753" fill="#3399ff" opacity="0.08" /><circle cx="2437" cy="4983" r="11.838754320604753" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="2463" y="4983" class="star-label">Tiraxar</text></g>
+  <g id="Boreasar"><circle cx="3508" cy="3852" r="19.411366840238323" fill="#3399ff" opacity="0.08" /><circle cx="3508" cy="3852" r="13.41136684023832" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="3534" y="3852" class="star-label">Boreasar</text></g>
+  <g id="Tyrryn"><circle cx="354" cy="2483" r="18.97322823916901" fill="#3399ff" opacity="0.08" /><circle cx="354" cy="2483" r="12.97322823916901" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="380" y="2483" class="star-label">Tyrryn</text></g>
+  <g id="Zyraeus"><circle cx="6131" cy="1560" r="16.82824283811354" fill="#e5e9f7" opacity="0.08" /><circle cx="6131" cy="1560" r="10.828242838113539" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="6157" y="1560" class="star-label">Zyraeus</text></g>
+  <g id="Cygnion"><circle cx="4919" cy="3628" r="13.874633764231152" fill="#ffe066" opacity="0.08" /><circle cx="4919" cy="3628" r="7.874633764231152" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="4945" y="3628" class="star-label">Cygnion</text></g>
+  <g id="Erythum"><circle cx="5940" cy="2902" r="13.05004222438252" fill="#ffe066" opacity="0.08" /><circle cx="5940" cy="2902" r="7.050042224382518" fill="#ffe066" stroke="white" stroke-width="1" opacity="0.95" /><text x="5966" y="2902" class="star-label">Erythum</text></g>
+  <g id="Vireix"><circle cx="358" cy="4663" r="18.874540603060897" fill="#3399ff" opacity="0.08" /><circle cx="358" cy="4663" r="12.874540603060897" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="384" y="4663" class="star-label">Vireix</text></g>
+  <g id="Korvor"><circle cx="3142" cy="5774" r="17.78175989642564" fill="#3399ff" opacity="0.08" /><circle cx="3142" cy="5774" r="11.78175989642564" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="3168" y="5774" class="star-label">Korvor</text></g>
+  <g id="Kryonus"><circle cx="4609" cy="5416" r="18.183154223207232" fill="#3399ff" opacity="0.08" /><circle cx="4609" cy="5416" r="12.183154223207232" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="4635" y="5416" class="star-label">Kryonus</text></g>
+  <g id="Orbisara"><circle cx="2093" cy="1016" r="19.631791618240086" fill="#99ccff" opacity="0.08" /><circle cx="2093" cy="1016" r="13.631791618240086" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="2119" y="1016" class="star-label">Orbisara - zbadano</text></g>
+  <g id="Boreasae"><circle cx="790" cy="6569" r="17.752858631092135" fill="#e5e9f7" opacity="0.08" /><circle cx="790" cy="6569" r="11.752858631092135" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="816" y="6569" class="star-label">Boreasae</text></g>
+  <g id="Drastium"><circle cx="3814" cy="2995" r="20.422592693945113" fill="#99ccff" opacity="0.08" /><circle cx="3814" cy="2995" r="14.422592693945111" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="3840" y="2995" class="star-label">Drastium</text></g>
+  <g id="Calyxeus"><circle cx="359" cy="6549" r="18.769673976206843" fill="#3399ff" opacity="0.08" /><circle cx="359" cy="6549" r="12.769673976206843" fill="#3399ff" stroke="white" stroke-width="1" opacity="0.95" /><text x="385" y="6549" class="star-label">Calyxeus</text></g>
+  <g id="Solona"><circle cx="2881" cy="6810" r="19.94912855582023" fill="#99ccff" opacity="0.08" /><circle cx="2881" cy="6810" r="13.94912855582023" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="2907" y="6810" class="star-label">Solona</text></g>
+  <g id="Tyrrar"><circle cx="2156" cy="4835" r="15.404425604531802" fill="#e5e9f7" opacity="0.08" /><circle cx="2156" cy="4835" r="9.404425604531802" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="2182" y="4835" class="star-label">Tyrrar</text></g>
+  <g id="Merosus"><circle cx="5118" cy="420" r="12.1057789953886" fill="#ff4444" opacity="0.08" /><circle cx="5118" cy="420" r="6.105778995388602" fill="#ff4444" stroke="white" stroke-width="1" opacity="0.95" /><text x="5144" y="420" class="star-label">Merosus</text></g>
+  <g id="Drastara"><circle cx="6761" cy="4763" r="19.621317287901952" fill="#99ccff" opacity="0.08" /><circle cx="6761" cy="4763" r="13.621317287901952" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="6787" y="4763" class="star-label">Drastara</text></g>
+  <g id="Zyraa"><circle cx="2695" cy="4654" r="15.574913742043064" fill="#fff8dc" opacity="0.08" /><circle cx="2695" cy="4654" r="9.574913742043064" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="2721" y="4654" class="star-label">Zyraa</text></g>
+  <g id="Phiraae"><circle cx="2047" cy="3023" r="19.035483698040494" fill="#99ccff" opacity="0.08" /><circle cx="2047" cy="3023" r="13.035483698040492" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="2073" y="3023" class="star-label">Phiraae</text></g>
+  <g id="Kryonor"><circle cx="3148" cy="1155" r="20.88615444932156" fill="#99ccff" opacity="0.08" /><circle cx="3148" cy="1155" r="14.886154449321559" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="3174" y="1155" class="star-label">Kryonor - zbadano</text></g>
+  <g id="Jantheon"><circle cx="3616" cy="5610" r="15.32483842479563" fill="#e5e9f7" opacity="0.08" /><circle cx="3616" cy="5610" r="9.32483842479563" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="3642" y="5610" class="star-label">Jantheon</text></g>
+  <g id="Vireeus"><circle cx="298" cy="2233" r="20.071550171873035" fill="#99ccff" opacity="0.08" /><circle cx="298" cy="2233" r="14.071550171873033" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="324" y="2233" class="star-label">Vireeus</text></g>
+  <g id="Hydraea"><circle cx="5562" cy="1703" r="15.603485971240827" fill="#fff8dc" opacity="0.08" /><circle cx="5562" cy="1703" r="9.603485971240827" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="5588" y="1703" class="star-label">Hydraea</text></g>
+  <g id="Hydraus"><circle cx="4999" cy="2843" r="19.289781488829252" fill="#99ccff" opacity="0.08" /><circle cx="4999" cy="2843" r="13.289781488829252" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="5025" y="2843" class="star-label">Hydraus</text></g>
+  <g id="Kryonea"><circle cx="960" cy="6844" r="15.713883819791999" fill="#fff8dc" opacity="0.08" /><circle cx="960" cy="6844" r="9.713883819791999" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="986" y="6844" class="star-label">Kryonea</text></g>
+  <g id="Kryonon"><circle cx="5979" cy="4132" r="20.058844709757143" fill="#99ccff" opacity="0.08" /><circle cx="5979" cy="4132" r="14.058844709757143" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="6005" y="4132" class="star-label">Kryonon</text></g>
+  <g id="Tyrrum"><circle cx="3115" cy="2462" r="16.71875309497724" fill="#fff8dc" opacity="0.08" /><circle cx="3115" cy="2462" r="10.718753094977242" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="3141" y="2462" class="star-label">Tyrrum</text></g>
+  <g id="Phiraeus"><circle cx="6855" cy="4323" r="16.715517841208342" fill="#fff8dc" opacity="0.08" /><circle cx="6855" cy="4323" r="10.715517841208342" fill="#fff8dc" stroke="white" stroke-width="1" opacity="0.95" /><text x="6881" y="4323" class="star-label">Phiraeus</text></g>
+  <g id="Vegaara"><circle cx="5004" cy="4906" r="17.28027281270971" fill="#e5e9f7" opacity="0.08" /><circle cx="5004" cy="4906" r="11.280272812709713" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="5030" y="4906" class="star-label">Vegaara</text></g>
+  <g id="Drastyn"><circle cx="1148" cy="4477" r="17.903773687514544" fill="#e5e9f7" opacity="0.08" /><circle cx="1148" cy="4477" r="11.903773687514546" fill="#e5e9f7" stroke="white" stroke-width="1" opacity="0.95" /><text x="1174" y="4477" class="star-label">Drastyn</text></g>
+  <g id="Vegaix"><circle cx="6427" cy="6855" r="14.110877480126842" fill="#ffbb55" opacity="0.08" /><circle cx="6427" cy="6855" r="8.110877480126842" fill="#ffbb55" stroke="white" stroke-width="1" opacity="0.95" /><text x="6453" y="6855" class="star-label">Vegaix</text></g>
+  <g id="Doranae"><circle cx="2756" cy="463" r="21.50267416261076" fill="#99ccff" opacity="0.08" /><circle cx="2756" cy="463" r="15.502674162610758" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="2782" y="463" class="star-label">Doranae - zbadano</text></g>
+  <g id="Kyroson"><circle cx="588" cy="1123" r="21.91572319124616" fill="#99ccff" opacity="0.08" /><circle cx="588" cy="1123" r="15.915723191246158" fill="#99ccff" stroke="white" stroke-width="1" opacity="0.95" /><text x="614" y="1123" class="star-label">Kyroson</text></g>
+
+  <g id="drawing-layer"></g>
+</svg>
+
+        </div>
+    </div>
+    
+    <div id="tooltip" class="hidden"></div>
+
+    <button id="show-controls-button">&raquo;</button>
+
+    <div id="controls">
+        <div id="controls-header">
+            :: PANEL STEROWANIA ::
+            <button id="toggle-controls">&laquo;</button>
+        </div>
+        <div id="controls-body">
+            <div class="control-group">
+                <h4>Filtry Widoku</h4>
+
+                <div id="search-container">
+                    <input type="text" id="search-input" placeholder="Wyszukaj system...">
+                    <button id="search-button">🔍</button>
+                </div>
+
+                <label><input type="checkbox" id="check-all" checked> Pokaż wszystko</label>
+                <hr>
+                <label><input type="checkbox" class="filter-check" data-filter="hegemonia" checked> Hegemonia Titanum</label>
+                <label><input type="checkbox" class="filter-check" data-filter="gildia" checked> Gildia Nawigatorów</label>
+                <label><input type="checkbox" class="filter-check" data-filter="separatysci" checked> Układy Separatystów</label>
+                <label><input type="checkbox" class="filter-check" data-filter="neutralny" checked> Układy Neutralne</label>
+                <label><input type="checkbox" class="filter-check" data-filter="chanat" checked> Chanat</label>
+                <label><input type="checkbox" class="filter-check" data-filter="protektorat" checked> Protektorat Pogranicza</label>
+                <hr>
+                <label><input type="checkbox" class="filter-check" data-filter="znany" checked> Znane układy</label>
+                <label><input type="checkbox" class="filter-check" data-filter="nieznany" checked> Nieznane układy</label>
+                <hr>
+                <label><input type="checkbox" class="filter-check" data-filter="czerwony" checked> Czerwone karły</label>
+                <label><input type="checkbox" class="filter-check" data-filter="zolty" checked> Żółte karły</label>
+                <label><input type="checkbox" class="filter-check" data-filter="inny" checked> Białe i niebieskie gwiazdy</label>
+            </div>
+
+            <div class="control-group" id="drawing-tools">
+                <h4>Narzędzia Graficzne</h4>
+                <div class="tools-row">
+                    <button class="tool-btn" data-tool="select" title="Zaznacz/Przesuń mapę">🖐️</button>
+                    <button class="tool-btn" data-tool="pencil" title="Ołówek">✏️</button>
+                    <button class="tool-btn" data-tool="line" title="Linia">⁄</button>
+                    <button class="tool-btn" data-tool="arrow" title="Strzałka">⮕</button>
+                    <button class="tool-btn" data-tool="rect" title="Prostokąt (przytrzymaj Alt by obracać)">▭</button>
+                    <button class="tool-btn" data-tool="ellipse" title="Koło/Elipsa (przytrzymaj Alt by obracać)">○</button>
+                    <button class="tool-btn" data-tool="text" title="Tekst">T</button>
+                    <button class="tool-btn" data-tool="eraser" title="Gumka">🧼</button>
+                </div>
+                <div class="tools-row options-row">
+                    <label for="color-picker">Kolor:</label>
+                    <input type="color" id="color-picker" value="#FFD700">
+                    <label for="stroke-width">Grubość:</label>
+                    <input type="range" id="stroke-width" min="1" max="50" value="5">
+                    <span id="stroke-width-label">5px</span>
+                </div>
+                <div class="tools-row">
+                    <button id="clear-drawing-btn">Wyczyść rysunek</button>
+                    <button id="save-map-btn">Zapisz jako JPG</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="javascript.js"></script>
+</body>
+</html>
