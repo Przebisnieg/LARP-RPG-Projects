@@ -1,0 +1,485 @@
+/* === USTAWIENIA GLOBALNE I FONT === */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Kings', cursive;
+    margin: 0;
+    padding: 20px;
+    background: 
+        linear-gradient(rgba(197, 184, 165, 0.85), rgba(197, 184, 165, 0.85)), 
+        url('Rokugan_6.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: scroll; /*fixed*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+h1, h5 {
+    color: #4a3f35;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* === KONTENER MAPY === */
+.map-container {
+    position: relative;
+    width: 90vw;
+    max-width: 1000px;
+    border: 2px solid #8c7851;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* === TŁO KONTENERA MAPY Z OPACITY === */
+.map-container::before {
+    content: ''; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* Tło */
+    background-image: url('Rokugan_5.jpg');
+    background-size: cover;
+    background-position: center;
+
+    opacity: 0.8; 
+    border-radius: 8px; 
+    z-index: -1;
+}
+
+#interactive-map-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* === STYLE REGIONÓW NA MAPIE === */
+#layer1 path {
+    fill: transparent;
+    stroke: transparent; 
+    stroke-width: 0.55;
+    cursor: pointer;
+    transition: fill 0.2s ease-in-out, filter 0.2s ease-in-out;
+}
+
+/* === Beżowy === */
+#path2:hover, #path3:hover, #path4:hover, #path8:hover, #path11:hover, #path13:hover, #path18:hover, #path4:hover, #path20:hover, #path23:hover, #path32:hover, #path33:hover, #path34:hover, #path58:hover, #path63:hover, #path64:hover, #path65:hover, #path31:hover{ 
+    fill: rgba(245, 245, 220, 0.15); 
+    filter: drop-shadow(0 0 5px rgba(245, 245, 220, 0.8)) 
+            drop-shadow(0 0 15px rgba(245, 245, 220, 0.6))  
+            drop-shadow(0 0 30px rgba(245, 245, 220, 0.5));
+}
+/* === Ciemno Beżowy === */
+#path16:hover, #path21:hover,#path25:hover,#path26:hover, #path27:hover{ 
+    fill: rgba(210, 180, 140, 0.15);  
+    filter: drop-shadow(0 0 5px rgba(210, 180, 140, 0.8)) 
+            drop-shadow(0 0 15px rgba(210, 180, 140, 0.6))  
+            drop-shadow(0 0 30px rgba(210, 180, 140, 0.5));
+}
+/* === Ciemno Beżowy 2 === */
+#UA3z3:hover, #UA2z:hover{ 
+    fill: rgba(210, 180, 140, 0.4);  
+    filter: drop-shadow(0 0 5px rgba(210, 180, 140, 0.8)) 
+            drop-shadow(0 0 15px rgba(210, 180, 140, 0.6))  
+            drop-shadow(0 0 30px rgba(210, 180, 140, 0.5));
+}
+/* === Fioletowy === */
+#path5:hover, #path6:hover, #path7:hover, #path10:hover, #path12:hover{ 
+    fill: rgba(128, 0, 128, 0.1); 
+    filter: drop-shadow(0 0 5px rgba(128, 0, 128, 0.7)) 
+            drop-shadow(0 0 15px rgba(128, 0, 128, 0.5)) 
+            drop-shadow(0 0 30px rgba(128, 0, 128, 0.4));
+}
+/* === Ciemno Fioletowy === */
+#UN1z:hover, #UN2z:hover, #UN3z:hover{ 
+    fill: rgba(128, 0, 128, 0.3); 
+    filter: drop-shadow(0 0 5px rgba(10, 0, 10, 0.7)) 
+            drop-shadow(0 0 15px rgba(128, 0, 128, 0.5)) 
+            drop-shadow(0 0 30px rgba(128, 0, 128, 0.4));
+}
+/* === WOJNA === */
+#path10:hover, #path12:hover, #path65:hover, #path58:hover, #path57:hover, #path56:hover, #path52:hover, #path35:hover, #path33:hover{ 
+    filter: drop-shadow(0 0 15px rgba(255, 20, 20, 0.5))
+            drop-shadow(0 0 15px rgba(255, 20, 20, 0.3))
+            drop-shadow(0 0 15px rgba(255, 20, 20, 0.1));
+    animation: fade-pulse-red 1.5s infinite ease-in-out;
+}
+/* === Zielony === */
+#path59:hover, #path60:hover, #path61:hover, #path62:hover, #path53:hover{ 
+    fill: rgba(0, 128, 0, 0.1); 
+    filter: drop-shadow(0 0 5px rgba(0, 128, 0, 0.7)) 
+            drop-shadow(0 0 15px rgba(0, 128, 0, 0.5)) 
+            drop-shadow(0 0 30px rgba(0, 128, 0, 0.4));
+}
+/* === Ciemno Zielony === */
+#GD1z:hover, #GD2z:hover, #GD3z:hover{ 
+    fill: rgba(0, 128, 0, 0.3); 
+    filter: drop-shadow(0 0 5px rgba(2, 35, 2, 0.7)) 
+            drop-shadow(0 0 15px rgba(0, 128, 0, 0.5)) 
+            drop-shadow(0 0 30px rgba(0, 128, 0, 0.4));
+}
+/* === Ciemno Zielony 2 === */
+#las1:hover,#las2:hover,#las3:hover,#las4:hover,#las5:hover,#las6:hover,#las7:hover,#las8:hover,#las9:hover,#las10:hover{ 
+    fill: rgba(0, 128, 0, 0.1); 
+    filter: drop-shadow(0 0 5px rgba(2, 35, 2, 0.7)) 
+            drop-shadow(0 0 15px rgba(0, 128, 0, 0.5)) 
+            drop-shadow(0 0 30px rgba(0, 128, 0, 0.4));
+}
+/* === Pomarańczowy === */
+#path69:hover, #path70:hover, #path66:hover, #path68:hover, #path65:hover, #path67:hover, #path14:hover, #path9:hover{ 
+    fill: rgba(255, 165, 0, 0.1); 
+    filter: drop-shadow(0 0 5px rgba(255, 165, 0, 0.7)) 
+            drop-shadow(0 0 15px rgba(255, 165, 0, 0.5)) 
+            drop-shadow(0 0 30px rgba(255, 165, 0, 0.4));
+}
+/* === Ciemno Pomarańczowy === */
+#PX1z:hover, #PX2z:hover, #PX3z:hover, #SP3z:hover, #Feniks22:hover{ 
+    fill: rgba(255, 165, 0, 0.3); 
+    filter: drop-shadow(0 0 5px rgba(27, 18, 1, 0.7)) 
+            drop-shadow(0 0 15px rgba(255, 165, 0, 0.5)) 
+            drop-shadow(0 0 30px rgba(255, 165, 0, 0.4));
+}
+/* === Bordowy === */
+#path15:hover{ 
+    fill: rgba(128, 0, 0, 0.15); 
+    filter: drop-shadow(0 0 5px rgba(128, 0, 0, 0.7)) 
+            drop-shadow(0 0 15px rgba(128, 0, 0, 0.5)) 
+            drop-shadow(0 0 30px rgba(128, 0, 0, 0.4));
+}
+/* === Ciemno Bordowy === */
+#SP1z:hover{ 
+    fill: rgba(128, 0, 0, 0.4); 
+    filter: drop-shadow(0 0 5px rgba(128, 0, 0, 0.7)) 
+            drop-shadow(0 0 15px rgba(128, 0, 0, 0.5)) 
+            drop-shadow(0 0 30px rgba(128, 0, 0, 0.4));
+}
+/* 4. Szary */
+#path17:hover { 
+    fill: rgba(128, 128, 128, 0.1); 
+    filter: drop-shadow(0 0 5px rgba(128, 128, 128, 0.7)) 
+            drop-shadow(0 0 15px rgba(128, 128, 128, 0.5)) 
+            drop-shadow(0 0 30px rgba(128, 128, 128, 0.4));
+}
+/* 4. Ciemno Szary */
+#SP2z:hover{ 
+    fill: rgba(128, 128, 128, 0.6); 
+    filter: drop-shadow(0 0 5px rgba(93, 93, 93, 0.7)) 
+            drop-shadow(0 0 15px rgba(0, 0, 0, 0.5)) 
+            drop-shadow(0 0 30px rgba(128, 128, 128, 0.4));
+}
+/* 5. Biały */
+#path24:hover{ 
+    fill: rgba(255, 255, 255, 0.1); 
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8)) 
+            drop-shadow(0 0 15px rgba(255, 255, 255, 0.6)) 
+            drop-shadow(0 0 30px rgba(255, 255, 255, 0.5));
+}
+/* 6. Granatowy */
+#path22:hover, #path28:hover, #path29:hover, #path30:hover{ 
+    fill: rgba(0, 0, 128, 0.1); 
+    filter: drop-shadow(0 0 5px rgba(0, 0, 128, 0.7)) 
+            drop-shadow(0 0 15px rgba(0, 0, 128, 0.5)) 
+            drop-shadow(0 0 30px rgba(0, 0, 128, 0.4));
+}
+/* 6. Ciemny Granatowy */
+#CB1z:hover, #CB2z:hover, #CB3z:hover, #Mur:hover{ 
+    fill: rgba(0, 0, 128, 0.3); 
+    filter: drop-shadow(0 0 5px rgba(2, 2, 80, 0.7)) 
+            drop-shadow(0 0 15px rgba(2, 2, 63, 0.5)) 
+            drop-shadow(0 0 30px rgba(1, 1, 34, 0.4));
+}
+/* 7. Czerwony */
+#path44:hover, #path45:hover, #path43:hover, #path42:hover, #path35:hover { 
+    fill: rgba(255, 0, 0, 0.1); 
+    filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.7)) 
+            drop-shadow(0 0 15px rgba(255, 0, 0, 0.5)) 
+            drop-shadow(0 0 30px rgba(255, 0, 0, 0.4));
+}
+/* 7. Ciemny Czerwony */
+#SC1z:hover, #SC2z:hover, #SC3z:hover{ 
+    fill: rgba(255, 0, 0, 0.3); 
+    filter: drop-shadow(0 0 5px rgba(48, 1, 1, 0.7)) 
+            drop-shadow(0 0 15px rgba(255, 0, 0, 0.5)) 
+            drop-shadow(0 0 30px rgba(255, 0, 0, 0.4));
+}
+/* 8. Brązowy */
+#path49:hover, #path50:hover, #path55:hover, #path51:hover { 
+    fill: rgba(139, 69, 19, 0.1); 
+    filter: drop-shadow(0 0 5px rgba(139, 69, 19, 0.7)) 
+            drop-shadow(0 0 15px rgba(139, 69, 19, 0.5)) 
+            drop-shadow(0 0 30px rgba(139, 69, 19, 0.4));
+}
+/* 8. Ciemno Brązowy */
+#LN1z:hover, #LN2z:hover, #LN3z:hover{ 
+    fill: rgba(139, 69, 19, 0.3); 
+    filter: drop-shadow(0 0 5px rgba(78, 39, 10, 0.7)) 
+            drop-shadow(0 0 15px rgba(139, 69, 19, 0.5)) 
+            drop-shadow(0 0 30px rgba(35, 17, 5, 0.4));
+}
+/* 9. Jasnozielony */
+#path19:hover, #path54:hover { 
+    fill: rgba(144, 238, 144, 0.1); 
+    filter: drop-shadow(0 0 5px rgba(144, 238, 144, 0.7)) 
+            drop-shadow(0 0 15px rgba(144, 238, 144, 0.5)) 
+            drop-shadow(0 0 30px rgba(144, 238, 144, 0.4));
+}
+/* 9. Ciemno Jasnozielony */
+#cesarz:hover, #Szept1:hover{ 
+    fill: rgba(144, 238, 144, 0.3); 
+    filter: drop-shadow(0 0 5px rgba(80, 134, 80, 0.7)) 
+            drop-shadow(0 0 15px rgba(144, 238, 144, 0.5)) 
+            drop-shadow(0 0 30px rgba(85, 143, 85, 0.4));
+}
+/* 11. Niebieski */
+#path56:hover, #path52:hover, #path46:hover, #path47:hover, #path40:hover, #path41:hover { 
+    fill: rgba(0, 0, 255, 0.1); 
+    filter: drop-shadow(0 0 5px rgba(0, 0, 255, 0.7)) 
+            drop-shadow(0 0 15px rgba(0, 0, 255, 0.5)) 
+            drop-shadow(0 0 30px rgba(0, 0, 255, 0.4));
+}
+/* 11. Ciemny Niebieski */
+#CR1z:hover, #CR2z:hover, #CR3z:hover{ 
+    fill: rgba(0, 0, 255, 0.3); 
+    filter: drop-shadow(0 0 5px rgba(2, 2, 203, 0.7)) 
+            drop-shadow(0 0 15px rgba(2, 2, 118, 0.5)) 
+            drop-shadow(0 0 30px rgba(1, 1, 24, 0.4));
+}
+/* 12. Morski */
+#path48:hover, #path39:hover, #path38:hover, #path37:hover, #path36:hover { 
+    fill: rgba(0, 128, 128, 0.1); 
+    filter: drop-shadow(0 0 5px rgba(0, 128, 128, 0.7)) 
+            drop-shadow(0 0 15px rgba(0, 128, 128, 0.5)) 
+            drop-shadow(0 0 30px rgba(0, 128, 128, 0.4));
+}
+/* 12. Ciemny Morski */
+#MN1z:hover, #MN2z:hover, #MN3z:hover{ 
+    fill: rgba(0, 128, 128, 0.3); 
+    filter: drop-shadow(0 0 5px rgba(2, 45, 45, 0.7)) 
+            drop-shadow(0 0 15px rgba(0, 128, 128, 0.5)) 
+            drop-shadow(0 0 30px rgba(1, 32, 32, 0.4));
+}
+/* 12. Ciemny Morski 2*/
+#rzeka1:hover, #rzeka2:hover, #rzeka3:hover, #rzeka4:hover, #rzeka5:hover, #rzeka6:hover, #rzeka7:hover, #rzeka8:hover, #rzeka9:hover, #jezioro1:hover, #jezioro2:hover,#jezioro3:hover,#jezioro4:hover,#jezioro5:hover{ 
+    fill: rgba(0, 128, 128, 0.3); 
+    filter: drop-shadow(0 0 5px rgba(2, 45, 45, 0.7)) 
+            drop-shadow(0 0 15px rgba(0, 128, 128, 0.5)) 
+            drop-shadow(0 0 30px rgba(1, 32, 32, 0.4));
+}
+
+/* === STYLIZACJA DYMKA === */
+#tooltip {
+    position: absolute;
+    display: none;
+    background-color: #fdfaf5;
+    color: #333;
+    border: 1px solid #8c7851;
+    border-radius: 8px;
+    padding: 12px 18px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: left;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+#tooltip strong {
+    font-weight: 400;
+    color: #8c7851;
+    margin-right: 8px;
+}
+
+#tooltip em {
+    color: #999;
+    font-style: normal;
+}
+
+/* === RESPONSYWNOŚĆ === */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    h1 {
+        font-size: 1.5em;
+    }
+    .map-container {
+        width: 95vw;
+    }
+}
+
+/* === DEFINICJA ANIMACJI PULSUJĄCEGO WYPEŁNIENIA WOJNY=== */
+@keyframes fade-pulse-red {
+  0%, 100% {
+    fill: rgba(180, 20, 20, 0.1); 
+  }
+  50% {
+    fill: rgba(220, 20, 20, 0.4); 
+  }
+}
+
+
+/* === ANIMACJE TŁA === */
+
+.animated-waves {
+    position: fixed; 
+    bottom: 0;      
+    left: 0;         
+    width: 100%;     
+    height: auto;    
+    z-index: -1;     
+    opacity: 0.2; 
+    filter: sepia(80%) brightness(90%) blur(1px);
+    pointer-events: none; 
+}
+
+/* Style dla animacji bąbelków  ^^ */
+.animated-bubbles {
+    position: fixed;    
+    top: 0;
+    left: 0;
+    width: 100vw;        
+    height: 100vh;       
+    object-fit: cover;  
+    z-index: -1;         
+    pointer-events: none;
+
+    opacity: 0.1;        
+    filter: 
+        sepia(80%)       
+        brightness(180%) 
+        saturate(50%)    
+        blur(2px);      
+}
+
+/* === PULSUJĄCE KLASY PODŚWIETLENIA DLA WSZYSTKICH KLANÓW === */
+
+/* --- Jasnozielony --- */
+g#layer1 path.highlight-light-green {
+    filter: drop-shadow(0 0 5px rgba(80, 134, 80, 0.7)) 
+            drop-shadow(0 0 15px rgba(144, 238, 144, 0.5)) 
+            drop-shadow(0 0 30px rgba(85, 143, 85, 0.4));
+    animation: pulse-light-green 1.5s infinite ease-in-out;
+}
+@keyframes pulse-light-green {
+  0%, 100% { fill: rgba(144, 238, 144, 0.1); }
+  50% { fill: rgba(144, 238, 144, 0.2); }
+}
+
+/* --- Brązowy --- */
+g#layer1 path.highlight-brown {
+    filter: drop-shadow(0 0 5px rgba(78, 39, 10, 0.7)) 
+            drop-shadow(0 0 15px rgba(139, 69, 19, 0.5)) 
+            drop-shadow(0 0 30px rgba(35, 17, 5, 0.4));
+    animation: pulse-brown 1.5s infinite ease-in-out;
+}
+@keyframes pulse-brown {
+  0%, 100% { fill: rgba(139, 69, 19, 0.1); }
+  50% { fill: rgba(139, 69, 19, 0.2); }
+}
+
+/* --- Pomarańczowy --- */
+g#layer1 path.highlight-orange {
+    filter: drop-shadow(0 0 5px rgba(27, 18, 1, 0.7)) 
+            drop-shadow(0 0 15px rgba(255, 165, 0, 0.5)) 
+            drop-shadow(0 0 30px rgba(255, 165, 0, 0.4));
+    animation: pulse-orange 1.5s infinite ease-in-out;
+}
+@keyframes pulse-orange {
+  0%, 100% { fill: rgba(255, 165, 0, 0.1); }
+  50% { fill: rgba(255, 165, 0, 0.2); }
+}
+
+/* --- Fioletowy --- */
+g#layer1 path.highlight-purple {
+    filter: drop-shadow(0 0 5px rgba(10, 0, 10, 0.7)) 
+            drop-shadow(0 0 15px rgba(128, 0, 128, 0.5)) 
+            drop-shadow(0 0 30px rgba(128, 0, 128, 0.4));
+    animation: pulse-purple 1.5s infinite ease-in-out;
+}
+@keyframes pulse-purple {
+  0%, 100% { fill: rgba(128, 0, 128, 0.1); }
+  50% { fill: rgba(128, 0, 128, 0.2); }
+}
+
+/* --- Zielony --- */
+g#layer1 path.highlight-green {
+    filter: drop-shadow(0 0 5px rgba(2, 35, 2, 0.7)) 
+            drop-shadow(0 0 15px rgba(0, 128, 0, 0.5)) 
+            drop-shadow(0 0 30px rgba(0, 128, 0, 0.4));
+    animation: pulse-green 1.5s infinite ease-in-out;
+}
+@keyframes pulse-green {
+  0%, 100% { fill: rgba(0, 128, 0, 0.1); }
+  50% { fill: rgba(0, 128, 0, 0.2); }
+}
+
+/* --- Granatowy --- */
+g#layer1 path.highlight-navy {
+    filter: drop-shadow(0 0 5px rgba(2, 2, 80, 0.7)) 
+            drop-shadow(0 0 15px rgba(2, 2, 63, 0.5)) 
+            drop-shadow(0 0 30px rgba(1, 1, 34, 0.4));
+    animation: pulse-navy 1.5s infinite ease-in-out;
+}
+@keyframes pulse-navy {
+  0%, 100% { fill: rgba(0, 0, 128, 0.1); }
+  50% { fill: rgba(0, 0, 128, 0.2); }
+}
+
+/* --- Szary --- */
+g#layer1 path.highlight-gray {
+    filter: drop-shadow(0 0 5px rgba(93, 93, 93, 0.7)) 
+            drop-shadow(0 0 15px rgba(0, 0, 0, 0.5)) 
+            drop-shadow(0 0 30px rgba(128, 128, 128, 0.4));
+    animation: pulse-gray 1.5s infinite ease-in-out;
+}
+@keyframes pulse-gray {
+  0%, 100% { fill: rgba(128, 128, 128, 0.3); }
+  50% { fill: rgba(128, 128, 128, 0.6); }
+}
+
+/* --- Morski --- */
+g#layer1 path.highlight-teal {
+    filter: drop-shadow(0 0 5px rgba(2, 45, 45, 0.7)) 
+            drop-shadow(0 0 15px rgba(0, 128, 128, 0.5)) 
+            drop-shadow(0 0 30px rgba(1, 32, 32, 0.4));
+    animation: pulse-teal 1.5s infinite ease-in-out;
+}
+@keyframes pulse-teal {
+  0%, 100% { fill: rgba(0, 128, 128, 0.1); }
+  50% { fill: rgba(0, 128, 128, 0.2); }
+}
+
+/* --- Czerwony --- */
+g#layer1 path.highlight-red {
+    filter: drop-shadow(0 0 5px rgba(48, 1, 1, 0.7)) 
+            drop-shadow(0 0 15px rgba(255, 0, 0, 0.5)) 
+            drop-shadow(0 0 30px rgba(255, 0, 0, 0.4));
+    animation: pulse-red 1.5s infinite ease-in-out;
+}
+@keyframes pulse-red {
+  0%, 100% { fill: rgba(255, 0, 0, 0.1); }
+  50% { fill: rgba(255, 0, 0, 0.2); }
+}
+
+/* --- Niebieski --- */
+g#layer1 path.highlight-blue {
+    filter: drop-shadow(0 0 5px rgba(2, 2, 203, 0.7)) 
+            drop-shadow(0 0 15px rgba(2, 2, 118, 0.5)) 
+            drop-shadow(0 0 30px rgba(1, 1, 24, 0.4));
+    animation: pulse-blue 1.5s infinite ease-in-out;
+}
+@keyframes pulse-blue {
+  0%, 100% { fill: rgba(0, 0, 255, 0.1); }
+  50% { fill: rgba(0, 0, 255, 0.2); }
+}
