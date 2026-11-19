@@ -1,0 +1,390 @@
+:root {
+    --ui-scale: 1.0;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #000;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(stardust.jpg);
+    color: #f0f0f0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    scrollbar-width: thin;
+    scrollbar-color: #3366ff rgba(0, 0, 0, 0.4);
+}
+
+#map-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: auto;
+    cursor: default;
+    touch-action: none;
+}
+
+#map-content {
+    position: relative;
+    transform-origin: 0 0;
+}
+
+#controls {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(10, 20, 72, 0.9);
+    border: 2px solid #3366ff;
+    border-radius: 10px;
+    z-index: 1000;
+    width: 900px;
+    min-width: 280px;
+    max-height: 90vh;
+    box-shadow: 0 0 20px rgba(51, 102, 255, 0.6), inset 0 0 15px rgba(51, 102, 255, 0.3);
+    color: #cddcff;
+    backdrop-filter: blur(8px);
+    font-size: 60px;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(0);
+    transition: transform 0.4s ease-in-out, width 0.3s ease-in-out;
+    pointer-events: none;
+}
+#controls > * {
+    pointer-events: auto;
+}
+
+#controls.hidden {
+    transform: translateX(calc(-100% - 40px));
+}
+
+#controls-header { background-color: rgba(51, 102, 255, 0.4); padding: 12px; text-align: center; font-weight: bold; font-size: 1.1em; cursor: move; border-bottom: 2px solid #3366ff; text-shadow: 0 0 8px #fff; user-select: none; flex-shrink: 0; position: relative; }
+#toggle-controls { position: absolute; top: 50%; right: 15px; transform: translateY(-50%); background: rgba(255, 255, 255, 0.1); border: 1px solid #5885ff; color: #cddcff; font-size: 28px; line-height: 28px; padding: 2px 10px; border-radius: 5px; cursor: pointer; transition: all 0.2s; }
+#toggle-controls:hover { background: rgba(255, 255, 255, 0.2); }
+#show-controls-button { position: fixed; top: 20px; left: 20px; z-index: 1001; background: rgba(51, 102, 255, 0.6); border: 2px solid #3366ff; color: #cddcff; font-size: 28px; line-height: 28px; padding: 8px 15px; border-radius: 5px; cursor: pointer; box-shadow: 0 0 15px rgba(51, 102, 255, 0.5); backdrop-filter: blur(5px); display: none; transition: all 0.2s; }
+#show-controls-button:hover { background: rgba(51, 102, 255, 0.8); box-shadow: 0 0 20px #87c7ff; }
+#controls-body { padding: 20px; overflow-y: auto; }
+
+/* --- Style wyszukiwarki --- */
+#search-container { display: flex; margin-bottom: 20px; gap: 10px; }
+#search-input { flex-grow: 1; height: 80px; padding: 0 25px; font-size: 40px; background-color: rgba(0, 0, 0, 0.3); border: 2px solid #3366ff; border-radius: 8px; color: #cddcff; outline: none; transition: all 0.2s; }
+#search-input::placeholder { color: rgba(205, 220, 255, 0.5); }
+#search-input:focus { border-color: #87c7ff; box-shadow: 0 0 10px #5885ff; }
+#search-button { width: 80px; height: 80px; border: 2px solid #3366ff; background-color: rgba(0, 0, 0, 0.4); color: #cddcff; font-size: 44px; border-radius: 8px; cursor: pointer; transition: all 0.2s; flex-shrink: 0; padding: 0; }
+#search-button:hover { background-color: rgba(51, 102, 255, 0.6); border-color: #87c7ff; }
+
+/* --- Pozostałe style panelu --- */
+#controls label { display: flex; align-items: center; margin-bottom: 15px; cursor: pointer; user-select: none; }
+#controls hr { border: none; border-top: 1px solid rgba(51, 102, 255, 0.3); margin: 20px 0; }
+#controls input[type="checkbox"] { appearance: none; -webkit-appearance: none; -moz-appearance: none; height: 30px; width: 30px; background-color: rgba(0, 0, 0, 0.3); border: 2px solid #3366ff; border-radius: 5px; margin-right: 20px; cursor: pointer; position: relative; top: -2px; flex-shrink: 0; transition: background-color 0.2s ease-in-out; }
+#controls input[type="checkbox"]:checked { background-color: #3366ff; border-color: #87c7ff; }
+#controls input[type="checkbox"]:checked::after { content: ''; display: block; position: absolute; width: 8px; height: 16px; border: solid #cddcff; border-width: 0 4px 4px 0; left: 9px; top: 2px; transform: rotate(45deg); }
+
+/* --- Tooltip i podświetlenia --- */
+#tooltip { position: fixed; background: rgba(10, 20, 72, 0.95); border: 2px solid #5885ff; border-radius: 8px; padding: 20px; color: #cddcff; font-size: 40px; z-index: 1001; max-width: 350px; pointer-events: none; transition: opacity 0.2s ease-in-out; box-shadow: 0 0 15px rgba(51, 102, 255, 0.5); backdrop-filter: blur(5px); }
+#tooltip.hidden { opacity: 0; }
+#tooltip h3 { margin: 0 0 15px 0; color: #9ad8ff; font-size: 1.2em; border-bottom: 1px solid rgba(51, 102, 255, 0.5); padding-bottom: 15px; }
+#tooltip p { margin: 8px 0 0 0; }
+#tooltip .faction-hegemonia { color: #e53935; font-weight: bold; }
+#tooltip .faction-gildia { color: #e0d02a; font-weight: bold; }
+#tooltip .faction-separatysci { color: #ffffff; font-weight: bold; }
+#tooltip .faction-neutralny { color: #ffffff; font-weight: bold; }
+
+@keyframes pulse { 0% { filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5)); } 50% { filter: drop-shadow(0 0 14px rgba(255, 255, 255, 1)); } 100% { filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5)); } }
+.system-group.hover-highlight { animation: pulse 1.5s infinite ease-in-out; }
+
+@keyframes search-pulse { 0% { filter: drop-shadow(0 0 5px #ffeb3b); } 50% { filter: drop-shadow(0 0 25px #ffeb3b); } 100% { filter: drop-shadow(0 0 5px #ffeb3b); } }
+.search-highlight { animation: search-pulse 2s infinite ease-in-out !important; }
+
+.system-group { cursor: pointer; }
+
+/* --- Narzędzia graficzne --- */
+#drawing-tools h4 { margin-top: 30px; margin-bottom: 15px; font-size: 1.2em; }
+.tools-row { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; margin-bottom: 25px; }
+.tool-btn { width: 80px; height: 80px; padding: 0; display: flex; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.4); border: 2px solid #3366ff; color: #cddcff; border-radius: 10px; cursor: pointer; font-size: 48px; transition: background-color 0.2s, border-color 0.2s, transform 0.1s; font-family: 'Segoe UI Symbol', sans-serif; font-weight: bold; }
+.tool-btn:hover { background-color: rgba(51, 102, 255, 0.6); border-color: #87c7ff; }
+.tool-btn:active { transform: scale(0.92); }
+.tool-btn.active { background-color: #3366ff; border-color: #a2d2ff; box-shadow: 0 0 12px #a2d2ff; }
+#clear-drawing-btn, #save-map-btn { height: 70px; font-size: 40px; font-weight: bold; padding: 0 30px; flex-grow: 1; display: flex; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.4); border: 2px solid #3366ff; color: #cddcff; border-radius: 10px; cursor: pointer; transition: background-color 0.2s, border-color 0.2s, transform 0.1s; }
+#clear-drawing-btn:hover, #save-map-btn:hover { background-color: rgba(51, 102, 255, 0.6); border-color: #87c7ff; }
+#clear-drawing-btn:active, #save-map-btn:active { transform: scale(0.97); }
+#drawing-tools label { font-size: 45px; font-weight: 500; margin-bottom: 0; margin-right: 10px; }
+#color-picker { -webkit-appearance: none; -moz-appearance: none; appearance: none; width: 80px; height: 80px; background-color: transparent; border: none; cursor: pointer; padding: 0; }
+#color-picker::-webkit-color-swatch { border-radius: 10px; border: 3px solid #3366ff; }
+#color-picker::-moz-color-swatch { border-radius: 10px; border: 3px solid #3366ff; }
+#stroke-width { -webkit-appearance: none; appearance: none; flex-grow: 1; height: 20px; background: rgba(0, 0, 0, 0.5); border-radius: 10px; border: 2px solid #3366ff; outline: none; }
+#stroke-width::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 34px; height: 34px; background: #5885ff; border-radius: 50%; border: 4px solid #cddcff; cursor: grab; margin-top: -9px; }
+#stroke-width::-moz-range-thumb { width: 30px; height: 30px; background: #5885ff; border-radius: 50%; border: 4px solid #cddcff; cursor: grab; }
+#stroke-width-label { font-size: 28px; font-weight: bold; width: 90px; text-align: right; color: #a2d2ff; text-shadow: 0 0 5px #5885ff; }
+#map-container.drawing-mode { cursor: crosshair; }
+#drawing-layer { fill: none; pointer-events: none; }
+
+/* --- Style scrollbarów --- */
+body::-webkit-scrollbar, #map-container::-webkit-scrollbar, #controls-body::-webkit-scrollbar { width: 14px; }
+body::-webkit-scrollbar-track, #map-container::-webkit-scrollbar-track, #controls-body::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.4); border-radius: 10px; }
+body::-webkit-scrollbar-thumb, #map-container::-webkit-scrollbar-thumb, #controls-body::-webkit-scrollbar-thumb { background-color: #3366ff; border-radius: 10px; border: 3px solid rgba(10, 20, 72, 0.9); }
+body::-webkit-scrollbar-thumb:hover, #map-container::-webkit-scrollbar-thumb:hover, #controls-body::-webkit-scrollbar-thumb:hover { background-color: #5885ff; }
+
+/* =========================================== */
+/* === STYLE DLA URZĄDZEŃ MOBILNYCH  === */
+/* =========================================== */
+@media (max-width: 1000px) {
+    #controls { width: 95vw; max-width: 450px; top: 10px; left: 10px; max-height: 85vh; transform-origin: top left; transform: scale(var(--ui-scale)); font-size: 16px; }
+    #controls-header { font-size: 1.2em; padding: 10px; }
+    #toggle-controls, #show-controls-button { font-size: 20px; padding: 5px 10px; }
+    #controls-body { padding: 15px; }
+    #search-input { height: 44px; font-size: 1em; padding: 0 12px; }
+    #search-button { width: 44px; height: 44px; font-size: 1.2em; }
+    #controls label { margin-bottom: 12px; font-size: 1em; }
+    #controls input[type="checkbox"] { width: 24px; height: 24px; margin-right: 15px; }
+    #controls input[type="checkbox"]:checked::after { width: 6px; height: 12px; left: 7px; top: 2px; border-width: 0 3px 3px 0; }
+    .tools-row { gap: 10px; margin-bottom: 15px; }
+    .tool-btn { width: 48px; height: 48px; font-size: 24px; }
+    #drawing-tools h4 { font-size: 1.2em; } 
+    #drawing-tools label { font-size: 1em; }
+    #color-picker { width: 48px; height: 48px; }
+    #clear-drawing-btn, #save-map-btn { height: 48px; font-size: 1em; padding: 0 15px; }
+    #stroke-width { height: 15px; }
+    #stroke-width::-webkit-slider-thumb { width: 26px; height: 26px; margin-top: -6px; }
+    #stroke-width::-moz-range-thumb { width: 22px; height: 22px; }
+    #stroke-width-label { font-size: 1em; width: 50px; }
+    #tooltip { font-size: 16px; padding: 15px; max-width: 80vw; border-radius: 10px; }
+    #tooltip h3 { font-size: 1.2em; padding-bottom: 10px; }
+    #controls.hidden { transform: translateX(calc(-100% - 40px)) scale(var(--ui-scale)); }
+}
+
+/* === ZAPIS OBSZARU === */
+#selection-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); 
+    cursor: crosshair; 
+    z-index: 10000; 
+}
+
+#selection-box {
+    position: absolute;
+    border: 2px dashed #ffffff; 
+    background-color: rgba(135, 206, 235, 0.2); 
+    box-sizing: border-box;
+}
+
+/* Klasa do ukrywania??? */
+.hidden {
+    display: none !important;
+}
+
+/* --- Dodane style do przeciągania kształtów --- */
+#map-container.select-mode .draggable-shape {
+    cursor: move;
+}
+
+#map-container.select-mode .draggable-shape:hover {
+    filter: drop-shadow(0 0 8px #00ffff);
+}
+
+.selected-shape {
+    stroke-dasharray: 10, 5;
+    animation: marching-ants 1s linear infinite;
+    filter: drop-shadow(0 0 10px #00ffff);
+}
+
+@keyframes marching-ants {
+    to {
+        stroke-dashoffset: -15;
+    }
+}
+
+/* ========================================================================== */
+
+/* Etykiety frakcji na mapie */
+/* Styl dla Chanatu - identyczny jak Hegemonia, tylko kolory zmienione na białe */
+.star-label-chanat { 
+    font-size: 42px !important; 
+    font-weight: bold !important;   
+    fill: #ffffff !important; 
+    stroke: #000000 !important; 
+    stroke-width: 2.8px !important; 
+}
+
+.star-label-protektorat { font-size: 42px; font-weight: bold; fill: #a1ee92; stroke: #212f1b; stroke-width: 2.8; }
+
+/* Kolory frakcji w tooltipie */
+#tooltip .faction-chanat { color: #ffffff; font-weight: bold; }
+#tooltip .faction-protektorat { color: #a1ee92; font-weight: bold; }
+/* Wyłącznie białe oznaczenia; bez panelu i okręgów. */
+#controls, #show-controls-button, #selection-overlay {display:none !important;}
+#map-content svg text {fill:#ffffff !important;}
+
+/* Obszar mapy ograniczony do skrajnych układów z marginesem 480 jednostek. */
+html, body { background-image: none !important; background-color:#000 !important; }
+#map-content { width:7709px; height:7687px; background: linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),url('stardust.jpg') center center / cover no-repeat; }
+#map-content svg text {fill:#ffffff !important;}
+
+/* Korekty: niemal czarne tło i wyraźne punkty */
+#map-content { background:linear-gradient(rgba(0,0,0,.82),rgba(0,0,0,.82)),url('stardust.jpg') center center / cover no-repeat !important; }
+#map-content svg text {fill:#ffffff !important; font-size:24px;paint-order:stroke fill;stroke:#050505;stroke-width:3px;}
+#map-content svg .faction-name {font-size:44px !important;font-weight:500;stroke:#050505;stroke-width:3px;}
+#map-content svg [data-faction=hegemonia] .faction-name {fill:#bd39ed !important;}
+#map-content svg [data-faction=egipt] .faction-name {fill:#9681ff !important;}
+#map-content svg [data-faction=avalon] .faction-name {fill:#206bc0 !important;}
+.faction-border {fill:transparent;stroke-width:5;opacity:.85;pointer-events:stroke;cursor:pointer;}
+.border-hegemonia {stroke:#bd39ed;} .border-egipt {stroke:#9681ff;} .border-avalon {stroke:#f0f0f0;}
+
+
+.faction-border.faction-active {filter:drop-shadow(0 0 9px currentColor);stroke-width:7;}
+#tooltip {font-size:18px !important;max-width:360px;padding:15px;}
+#tooltip h3 {font-size:21px !important;margin-bottom:8px;}
+#tooltip p {font-size:15px;line-height:1.5;}
+
+/* Jednolita wielkosc wszystkich etykiet, bez obrysow frakcji */
+#map-content svg text, #map-content svg .map-faction-label {font-size:24px !important;font-weight:400 !important;paint-order:stroke fill;stroke:#050505 !important;stroke-width:3px !important;}
+#map-content svg .map-faction-label[data-faction-label="hegemonia"] {fill:#bd39ed !important;}
+#map-content svg .map-faction-label[data-faction-label="egipt"] {fill:#9681ff !important;}
+#map-content svg .map-faction-label[data-faction-label="avalon"] {fill:#206bc0 !important;}
+
+
+
+/* Wolne, miękkie świecenie bez ciemnej ramki i bez migotania. */
+@keyframes gentle-star-glow {
+  0%, 100% { filter: drop-shadow(0 0 2px rgba(255,255,255,.45)) drop-shadow(0 0 4px rgba(255,255,255,.20)); opacity: 1; }
+  50% { filter: drop-shadow(0 0 7px rgba(255,255,255,.95)) drop-shadow(0 0 18px rgba(255,255,255,.60)); opacity: 1; }
+}
+@keyframes gentle-label-glow {
+  0%, 100% { filter: drop-shadow(0 0 2px currentColor); opacity: 1; }
+  50% { filter: drop-shadow(0 0 6px currentColor) drop-shadow(0 0 14px currentColor); opacity: 1; }
+}
+.system-group.faction-active > circle { animation: gentle-star-glow 4s ease-in-out infinite !important; }
+.system-group.faction-active > text { animation: gentle-label-glow 4s ease-in-out infinite !important; stroke: none !important; paint-order: normal !important; }
+.system-group.hover-highlight > circle { animation: gentle-star-glow 4s ease-in-out infinite !important; }
+.system-group.hover-highlight > text { animation: gentle-label-glow 4s ease-in-out infinite !important; stroke: none !important; paint-order: normal !important; }
+
+#map-content svg .map-faction-label { stroke: none !important; paint-order: normal !important; }
+
+/* Wszystkie etykiety Avalon: jednakowy kolor, bez czarnej obwódki. */
+#map-content svg .system-group[data-faction="avalon"] > text { fill:#f0f0f0 !important; stroke:none !important; stroke-width:0 !important; paint-order:normal !important; }
+
+/* Konfederacja Pięciu Słońc — pastelowa pomarańcza, bez czarnej obwódki. */
+#map-content svg .system-group[data-faction="piec-slonc"] > text { fill:#ffc48e !important; stroke:none !important; stroke-width:0 !important; paint-order:normal !important; }
+#map-content svg .system-group[data-faction="piec-slonc"].faction-active > text,
+#map-content svg .system-group[data-faction="piec-slonc"].hover-highlight > text { animation: gentle-label-glow 4s ease-in-out infinite !important; }
+#map-content svg .system-group[data-faction="piec-slonc"].faction-active > circle,
+#map-content svg .system-group[data-faction="piec-slonc"].hover-highlight > circle { animation: gentle-star-glow 4s ease-in-out infinite !important; }
+
+/* Poprawki: Avalon niebieski, pulsuje wyłącznie wskazany układ. */
+#map-content svg .system-group[data-faction="avalon"] > text {fill:#206bc0 !important;}
+#map-content svg .system-group[data-faction="tianming"] > text {fill:#d78a9d !important;stroke:none !important;stroke-width:0 !important;paint-order:normal !important;}
+#map-content svg .system-group.faction-active > circle,
+#map-content svg .system-group.faction-active > text {animation:none !important;}
+#map-content svg .system-group.hover-highlight > circle {animation:gentle-star-glow 4s ease-in-out infinite !important;}
+#map-content svg .system-group.hover-highlight > text {animation:gentle-label-glow 4s ease-in-out infinite !important;}
+
+/* Opisy i gesty dotykowe */
+#tooltip-close{display:none;}
+@media (pointer:coarse){
+ #map-container{touch-action:none;}
+ #tooltip:not(.hidden){position:fixed!important;left:10px!important;right:10px!important;bottom:max(12px,env(safe-area-inset-bottom))!important;top:auto!important;width:auto!important;max-width:none!important;max-height:42dvh;overflow-y:auto;box-sizing:border-box;padding:16px 42px 16px 16px;z-index:3000;font-size:16px!important;pointer-events:auto;box-shadow:0 0 20px rgba(51,102,255,.4);}
+ #tooltip h3{font-size:19px!important;}#tooltip p{font-size:15px!important;line-height:1.45;}
+ #tooltip-close{display:block;position:sticky;float:right;top:0;margin-right:-30px;margin-top:-8px;border:0;background:transparent;color:#fff;font-size:30px;cursor:pointer;line-height:1;padding:5px;}
+ .system-group{cursor:pointer;}
+}
+
+/* Nowe frakcje: jednolite etykiety, animacja tylko wskazanego układu */
+#map-content svg .system-group[data-faction="szahanszahat"] > text {fill:#b8895e !important;stroke:none !important;paint-order:normal !important;}
+#map-content svg .system-group[data-faction="kalifat"] > text {fill:#408f60 !important;stroke:none !important;paint-order:normal !important;}
+#map-content svg .system-group[data-faction="talasokracja"] > text {fill:#6bbbd1 !important;stroke:none !important;paint-order:normal !important;}
+
+/* Dodatkowe frakcje: kolory tylko etykiet, nie gwiazd. */
+#map-content svg .system-group[data-faction="frakcja1"] > text {fill:#b3a0e8 !important;stroke:none !important;paint-order:normal !important;}
+#map-content svg .system-group[data-faction="frakcja2"] > text {fill:#d9a64e !important;stroke:none !important;paint-order:normal !important;}
+#map-content svg .system-group[data-faction="frakcja3"] > text {fill:#84c8b6 !important;stroke:none !important;paint-order:normal !important;}
+#map-content svg .system-group[data-faction="merowia"] > text {fill:#e2a5d0 !important;stroke:none !important;paint-order:normal !important;}
+#map-content svg .system-group[data-faction="frakcja4"] > text {fill:#d6c275 !important;stroke:none !important;paint-order:normal !important;}
+#map-content svg .system-group[data-faction="frakcja5"] > text {fill:#a4b8e8 !important;stroke:none !important;paint-order:normal !important;}
+#map-content svg .system-group[data-faction="liga-solarna"] > text {fill:#ffe36a !important;stroke:none !important;paint-order:normal !important;}
+
+#map-content svg .solar-system > circle {filter:drop-shadow(0 0 9px #ffe36a) drop-shadow(0 0 18px #cfae32);}
+
+/* Przełącznik siatki, dostępny także na telefonie. */
+#grid-toggle-panel{position:fixed;top:12px;right:12px;z-index:2500;display:flex;align-items:center;gap:9px;background:rgba(8,17,39,.91);border:1px solid #668ce0;border-radius:9px;color:#fff;padding:11px 14px;font:500 15px 'Segoe UI',sans-serif;box-shadow:0 3px 15px #0009;cursor:pointer;user-select:none}
+#grid-toggle{width:19px;height:19px;accent-color:#6b9aff;cursor:pointer}
+@media(max-width:600px){#grid-toggle-panel{top:max(8px,env(safe-area-inset-top));right:8px;padding:9px 10px;font-size:13px;gap:6px}#grid-toggle{width:21px;height:21px}}
+
+/* Pasek frakcji i podświetlenia terytoriów */
+#map-toolbar{position:fixed;top:0;left:0;right:0;height:58px;z-index:3500;background:rgba(5,9,20,.94);border-bottom:1px solid rgba(130,164,224,.35);display:flex;align-items:center;padding:0 18px;box-sizing:border-box;backdrop-filter:blur(12px)}
+#territory-toggle{background:rgba(35,54,89,.55);border:1px solid #50648d;border-radius:8px;color:#e3eaff;padding:10px 18px;font:500 15px 'Segoe UI',sans-serif;cursor:pointer}
+#territory-toggle:hover{background:#243554}
+.territory-menu{position:absolute;top:calc(100% + 7px);left:18px;width:min(355px,calc(100vw - 36px));max-height:min(70vh,610px);overflow:auto;background:rgba(8,15,30,.97);border:1px solid #50648d;border-radius:10px;box-shadow:0 14px 35px #000b;padding:10px;box-sizing:border-box}
+.territory-menu label{display:flex;align-items:center;gap:10px;padding:8px 9px;font-size:14px;cursor:pointer;border-radius:6px;color:#e1e7f2}
+.territory-menu label:hover{background:#ffffff12}.territory-menu input{width:17px;height:17px;accent-color:#678be0;flex:none}.territory-menu .all-territories{font-weight:650;border-bottom:1px solid #ffffff24;padding-bottom:12px;margin-bottom:5px}
+.territory-dot{width:10px;height:10px;border-radius:50%;background:var(--faction-color);flex:none}
+#faction-territories{pointer-events:none}#faction-territories .territory{opacity:0;stroke-width:2;stroke-opacity:.33;stroke:inherit;transition:opacity .22s ease;pointer-events:none}#faction-territories .territory.visible{opacity:.14;stroke-opacity:.55}
+@media(max-width:600px){#map-toolbar{height:52px;padding:0 10px}#territory-toggle{font-size:14px;padding:8px 12px}.territory-menu{left:10px;width:min(345px,calc(100vw - 20px))}}
+
+#territory-menu.hidden{display:none!important}#faction-territories .territory{stroke:none!important}#faction-territories .territory.visible{opacity:.20!important}
+
+/* Siatka jest częścią rozwijanego menu obszarów. */
+.territory-menu .grid-menu-option{border-top:1px solid #ffffff24;margin-top:8px;padding-top:14px;}
+.territory-menu #grid-toggle{width:17px;height:17px;accent-color:#678be0;flex:none;}
+
+/* Nowy Maraton – okno infrastruktury */
+#tooltip.nm-actionable{pointer-events:auto!important;max-width:390px!important;}
+#tooltip .nm-open{display:block;width:100%;margin-top:15px;padding:11px 15px;background:rgba(44,87,171,.38);border:1px solid #71b6ff;border-radius:6px;color:#d9efff;font:600 15px Segoe UI,Arial,sans-serif;cursor:pointer;text-align:center;}
+#tooltip .nm-open:hover{background:#26509b;box-shadow:0 0 14px #3e87d4;}
+#nm-backdrop{position:fixed;inset:0;z-index:20000;display:grid;place-items:center;background:rgba(0,4,17,.78);backdrop-filter:blur(8px);padding:20px;box-sizing:border-box;}
+#nm-backdrop.nm-hidden{display:none!important;}
+#nm-modal{width:min(1060px,96vw);max-height:92vh;overflow:auto;background:linear-gradient(145deg,#101c38,#070e20 65%,#09172c);border:1px solid #4674b8;border-radius:12px;box-shadow:0 0 60px #0a3d8a80;color:#d7e7ff;font:15px Segoe UI,Arial,sans-serif;}
+.nm-head{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:24px 30px;border-bottom:1px solid #29466c;background:#162c4b70;}
+.nm-kicker{color:#7faccf;font-size:11px;letter-spacing:2px;}
+.nm-head h2{font-size:25px;letter-spacing:2px;margin:7px 0 0;color:#e6f5ff;}
+.nm-head h2 span{font-size:15px;font-weight:400;color:#91b9e1;}
+#nm-close{border:1px solid #476891;background:transparent;color:#cce5ff;font-size:30px;border-radius:6px;cursor:pointer;width:42px;height:42px;}
+.nm-layout{display:grid;grid-template-columns:45% 55%;min-height:540px;}
+.nm-system{position:relative;min-height:540px;overflow:hidden;background:radial-gradient(ellipse at center,#132e50 0%,#071021 65%,#050b17 100%);border-right:1px solid #29466c;}
+.nm-system-label{position:absolute;top:23px;left:24px;color:#85add0;letter-spacing:2px;font-size:11px;}
+.nm-orbits{position:absolute;top:50%;left:50%;width:420px;height:420px;transform:translate(-50%,-50%);}
+.nm-sun{position:absolute;top:50%;left:50%;width:42px;height:42px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff9d6,#ffc36c 45%,#e66c32 85%);box-shadow:0 0 28px #ffb64c,0 0 65px #f99a3850;}
+.nm-orbit{position:absolute;left:50%;top:50%;border:1px solid #5781a544;border-radius:50%;transform:translate(-50%,-50%);animation:nm-spin linear infinite;}
+.nm-o1{width:90px;height:90px;animation-duration:15s}.nm-o2{width:145px;height:145px;animation-duration:22s}.nm-o3{width:200px;height:200px;animation-duration:29s}.nm-o4{width:260px;height:260px;animation-duration:38s}.nm-o5{width:325px;height:325px;animation-duration:49s}.nm-o6{width:400px;height:400px;animation-duration:62s}
+.nm-planet{position:absolute;top:50%;left:100%;border-radius:50%;transform:translate(-50%,-50%);box-shadow:inset -5px -3px 8px #020914b0,0 0 12px #76a6d555;}
+.nm-p1{width:10px;height:10px;background:#a5bdca}.nm-p2{width:15px;height:15px;background:#d1a87a}.nm-p3{width:19px;height:19px;background:#71a5b5}.nm-p4{width:13px;height:13px;background:#bc8c9b}.nm-p5{width:25px;height:25px;background:#8d9ec8}.nm-p6{width:16px;height:16px;background:#8aa9a0}
+@keyframes nm-spin{from{transform:translate(-50%,-50%) rotate(0)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+.nm-caption{position:absolute;bottom:16px;left:20px;right:20px;text-align:center;color:#7089a9;font-size:12px;}
+.nm-info{padding:22px 30px 30px;overflow:auto;}
+.nm-info h3{margin:13px 0 13px;font-size:15px;font-weight:600;letter-spacing:.5px;color:#a8d5ff;border-bottom:1px solid #284466;padding-bottom:8px;}
+.nm-info h3 small{font-size:12px;font-weight:400;color:#8eabc7;}
+.nm-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.nm-stat{padding:14px;background:#172b49aa;border:1px solid #315178;border-radius:7px;}
+.nm-stat small{display:block;color:#8fb4d8;font-size:10px;letter-spacing:1px;}
+.nm-stat strong{display:block;font-size:29px;margin:7px 0;color:#e3f4ff}.nm-stat em{font-style:normal;font-size:17px;color:#7296b8;}
+.nm-stat span{display:block;margin-top:8px;color:#a4b9d1;font-size:11px;}
+.nm-meter{height:5px;border-radius:5px;background:#30415a;overflow:hidden}.nm-meter i{display:block;height:100%;background:#67b8e9;}
+.nm-buildings{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.nm-buildings>div{display:grid;grid-template-columns:1fr auto;gap:8px;padding:10px 12px;border:1px solid #28456b;background:#12233e80;border-radius:6px;}
+.nm-buildings span{font-size:13px}.nm-buildings b{font-size:13px;color:#c1e6ff}.nm-buildings i{grid-column:1/-1;height:4px;background:linear-gradient(to right,#6eadd9 var(--pct),#30415a var(--pct));border-radius:4px;}
+.nm-chips{display:flex;flex-wrap:wrap;gap:8px}.nm-chips span{padding:8px 11px;border:1px solid #345579;border-radius:5px;background:#19335280;color:#c4ddf6;font-size:12px;}
+@media(max-width:740px){.nm-layout{grid-template-columns:1fr}.nm-system{min-height:330px;border-right:0;border-bottom:1px solid #29466c}.nm-orbits{transform:translate(-50%,-50%) scale(.72)}.nm-head{padding:18px}.nm-head h2{font-size:19px}.nm-info{padding:15px}.nm-stats{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.nm-orbit{animation:none}}
+
+/* Ilustracja zamiast animacji, jednakowe panele dla sześciu układów */
+#nm-system-image{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:48px 18px 18px;box-sizing:border-box;}
+#nm-image-placeholder{position:absolute;inset:60px 24px 24px;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;border:1px dashed #45658c;border-radius:8px;color:#789abd;letter-spacing:2px;font-size:12px;background:linear-gradient(140deg,#101d35,#07101f);}
+#nm-system-image[hidden],#nm-image-placeholder[hidden],#nm-info-original[hidden],#nm-info-placeholder[hidden]{display:none!important;}
+/* Układy nie świecą stale — pulsowanie tylko po najechaniu */
+#map-content svg .system-group:not(.hover-highlight):not(.search-highlight) > circle,
+#map-content svg .system-group:not(.hover-highlight):not(.search-highlight) > text{animation:none!important;}
+
+/* Panel z przyciskiem pozostaje dostępny po zejściu kursora z gwiazdy */
+#tooltip.nm-actionable{pointer-events:auto!important;}
+#tooltip.nm-actionable .nm-open{pointer-events:auto;}
+
+/* Panel: fotografia bez marginesów, wypełnia cały lewy obszar. */
+.nm-system{overflow:hidden;}
+#nm-system-image{inset:0!important;width:100%!important;height:100%!important;padding:0!important;object-fit:cover!important;object-position:50% 50%;cursor:grab;touch-action:none;user-select:none;-webkit-user-drag:none;}
+#nm-system-image:active{cursor:grabbing;}
+.nm-system-label{display:none!important;}
+#tooltip.nm-actionable{box-sizing:border-box;}
