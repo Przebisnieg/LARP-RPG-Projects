@@ -1,5 +1,9 @@
 # Galactic Map Editor
 
+## Live Demo
+
+[Open the Interactive Galactic Map](https://przebisnieg.github.io/LARP-RPG-Projects/galactic-map-editor/)
+
 An interactive galaxy map and editing tool developed for a science-fiction Live Action Role-Playing (LARP) game.
 
 The application was designed to help players explore a fictional galaxy, locate star systems, view information about different factions, and interact with the map during gameplay.
