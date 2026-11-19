@@ -2,6 +2,8 @@
 
 An interactive fantasy map developed as a digital reference tool for a Live Action Role-Playing (LARP) game set in the world of Rokugan.
 
+| [Interactive Rokugan Map](rokugan-interactive-map/) | Interactive fantasy map with clan territories, province information, and SVG-based interactions. | 2024–2025 (approx.) | [Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/rokugan-interactive-map/) |
+
 **Created:**  2024/2025  
 **Technologies:** HTML5, CSS3, JavaScript, SVG  
 **Language:** Polish
