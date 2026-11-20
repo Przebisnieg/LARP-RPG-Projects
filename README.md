@@ -56,3 +56,23 @@ The project combines an illustrated map with interactive SVG regions and a JavaS
 **Technologies:** HTML5, CSS3, JavaScript, SVG
 
 **[Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/rokugan-interactive-map/)** | **[Source Code](rokugan-interactive-map/)**
+
+
+### 4. Interactive Technology Tree (2026)
+
+An interactive research and technology progression system developed for a science-fiction LARP campaign.
+
+The application organizes technological development into five research categories: Economy, Military, Science, Society, and Exploration. Users can explore research paths, inspect dependencies, and simulate unlocking new technologies.
+
+**Key features:**
+- Five interactive research categories
+- Three-level technology progression
+- Research prerequisites and unlockable technologies
+- Dynamic visualization of researched, available, and undiscovered technologies
+- Interactive technology details and tooltips
+- Progress saved locally using browser storage
+- Resettable demonstration mode
+
+**Technologies:** HTML5, CSS3, JavaScript, LocalStorage API
+
+**[Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/interactive-technology-tree/)** | **[Source Code](interactive-technology-tree/)**
