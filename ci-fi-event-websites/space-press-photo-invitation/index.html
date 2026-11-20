@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<!--- =================== HEAD ===================== --->
+
+<head>
+<meta charset="UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Space Press Photo – Nominacja 17038</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
+
+<!--- =================== STYLE ===================== --->
+
+<style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(to bottom right, #0a0f1c, #1f2947);
+      color: #e0eaff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden; 
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      padding: 2rem;
+      padding-bottom: 4rem;
+      max-width: 700px;
+      width: 100%;
+      box-shadow: 0 0 40px rgba(0, 255, 255, 0.4);
+      max-height: 90vh;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+      position: relative;
+      z-index: 0;
+    }
+
+    /* Tło */
+    .fog {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      background: linear-gradient(120deg, rgba(0,255,255,0.15), rgba(255,0,255,0.15), rgba(0,255,255,0.15));
+      background-size: 200% 200%;
+      animation: fogMove 20s ease-in-out infinite;
+      filter: blur(10px);
+      mix-blend-mode: screen;
+      z-index: 1;
+      border-radius: 20px;
+    }
+    @keyframes fogMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Scrollbar */
+    .container::-webkit-scrollbar { width: 12px; }
+    .container::-webkit-scrollbar-track { background: rgba(0, 15, 28, 0.3); border-radius: 10px; }
+    .container::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #00ffee, #008f8f); border-radius: 10px; border: 2px solid rgba(0, 15, 28, 0.5); }
+    .container::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #66ffff, #00baba); }
+    @-moz-document url-prefix() {
+      .container { scrollbar-width: thin; scrollbar-color: #00ffee rgba(0, 15, 28, 0.3); }
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #00f0ff;
+      text-align: center;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 5px #00f0ff, 0 0 10px #00d6ff, 0 0 20px #00aaff, 0 0 30px #00aaff;
+    }
+
+    /* Pulsowanie */
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 10px #00ffee, 0 0 20px #00dfff, 0 0 30px #00aaff; }
+      50% { box-shadow: 0 0 20px #66ffff, 0 0 30px #33ffff, 0 0 40px #0099cc; }
+    }
+    .logo {
+      display: block;
+      margin: 0 auto 1rem;
+      width: 120px;
+      height: 120px;
+      background-image: url('https://media2.giphy.com/media/l3vR16pONsV8cKkWk/giphy.gif');
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+      border: 3px solid #00f0ff;
+      filter: drop-shadow(0 0 10px #00eeff);
+      animation: pulseGlow 3s infinite;
+      box-shadow: 0 0 15px #00f0ff, inset 0 0 10px #00cfff;
+      position: relative;
+      z-index: 2;
+    }
+    .content {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      position: relative;
+      z-index: 2;
+    }
+    .content b { color: #00ffee; }
+    .button {
+      font-family: 'Orbitron', sans-serif;
+      display: block; 
+      width: fit-content;
+      margin: 2rem auto 0;
+      padding: 0.75rem 1.8rem;
+      background-color: #00ffee;
+      color: #001118;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 12px;
+      transition: background 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      user-select: none;
+      text-align: center;
+      box-shadow: 0 0 10px #00ffee;
+      animation: pulseGlow 3s infinite;
+      position: relative;
+      z-index: 2;
+    }
+    .button:hover {
+      background-color: #00cfd1;
+      animation: pulseGlow 1.5s infinite;
+      color: #001118;
+      box-shadow: 0 0 20px #66ffff, 0 0 30px #33ffff, 0 0 40px #0099cc;
+    }
+
+    .thank-you-message {
+      display: none;
+      font-size: 1.25rem;
+      color: #00ffee;
+      text-align: center;
+      margin-top: 2rem;
+      line-height: 1.5;
+      text-shadow: 0 0 5px #00eeff, 0 0 10px #00aaff;
+      position: relative;
+      z-index: 2;
+    }
+
+   /* ========= MEDIA QUERIES  ========= */
+
+    @media (max-width: 768px) {
+      body {
+        padding: 0; 
+      }
+      .container {
+        padding: 1.5rem;
+        padding-bottom: 3rem;
+        
+        border-radius: 20px;
+        box-shadow: 0 0 40px rgba(0, 255, 255, 0.4);
+        
+
+        max-height: 85vh;
+        margin: 1rem; 
+      }
+      .logo {
+        width: 90px;
+        height: 90px;
+      }
+      h1 {
+        font-size: 1.6rem;
+      }
+      .content {
+        font-size: 1rem;
+      }
+      .button {
+        padding: 0.8rem 1.5rem;
+      }
+      .thank-you-message h1 {
+        font-size: 1.8rem;
+      }
+      .thank-you-message p {
+        font-size: 1rem;
+      }
+    }
+  </style></head>
+
+<!--- =================== BODY ===================== --->
+
+<body>
+<div class="container" id="container">
+<div class="fog"></div>
+<div class="logo"></div>
+<h1>Space Press Photo – Nominacja</h1>
+<div class="content" id="content">
+
+<!--- =================== Treść wiadomości  - to można edytować ===================== --->
+
+<p>Szanowny Pani/Szanowna Pani <b>Anahito Karhonen</b>,</p>
+
+<p>mamy zaszczyt poinformować, że Pana/Pani praca pt. <b>„Cośtam XYZ”</b> została nominowana do nagrody <b>Space Press Photo</b> w kategorii <b>Portret</b>, a także do głównej nagrody <b>Zdjęcie Roku 17038</b>.</p>
+
+<p>Uroczysta gala odbędzie się <b>17 marca 17039 roku</b> w Nowym Amsterdamie na Marsie. Podczas tego wydarzenia nastąpi oficjalne ogłoszenie zwycięzców oraz wręczenie nagród.</p>
+
+<p>Prosimy o potwierdzenie uczestnictwa do końca stycznia.</p>
+
+<p>Z wyrazami szacunku,<br />
+Komitet Organizacyjny Space Press Photo</p>
+</div>
+
+<!--- =================== BUTTON ===================== --->
+
+<button class="button" id="confirmBtn">Potwierdzam uczestnictwo</button>
+<div class="thank-you-message" id="thankYou">
+<h1>Dziękujemy!</h1>
+<p>Prosimy oczekiwać dalszych informacji dotyczących gali.</p>
+</div>
+</div>
+<script>
+const btn = document.getElementById('confirmBtn');
+const content = document.getElementById('content');
+const thankYou = document.getElementById('thankYou');
+
+btn.addEventListener('click', () => {
+content.style.display = 'none';
+btn.style.display = 'none';
+thankYou.style.display = 'block';
+});
+</script>
+</body>
+</html>
