@@ -63,3 +63,5 @@ The interactive functionality was implemented for a specific game setting.
 Rokugan and the associated fictional setting are not my original creations. This repository showcases my work on the interactive web map and its functionality.
 
 The project is an unofficial, non-commercial fan-made tool and is not affiliated with the owners of the original setting.
+
+This project was developed with the assistance of AI tools.
