@@ -34,7 +34,7 @@ An interactive nomination invitation for a fictional photography awards ceremony
 
 **Technologies:** HTML5, CSS3, JavaScript
 
-[Source Code](space-press-photo-invitation/) | [Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/sci-fi-event-websites/space-press-photo-invitation/)
+[Source Code](space-press-photo-invitation/) | [Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/ci-fi-event-websites/space-press-photo-invitation/)
 
 ## Language
 
