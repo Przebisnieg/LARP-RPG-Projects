@@ -55,3 +55,5 @@ An internet connection may be required to load the external image-export library
 Personal project developed for use in a LARP campaign.
 
 The repository presents the interactive map and its editing functionality. The fictional setting and game-related information are part of the original LARP experience.
+
+This project was developed with the assistance of AI tools.
