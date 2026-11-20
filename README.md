@@ -47,7 +47,7 @@ The application allows users to explore star systems, inspect faction territorie
 
 **[Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/galactic-infrastructure-map/)** | **[Source Code](galactic-infrastructure-map/)**
 
-### 3. Interactive Rokugan Map (2024–2025, approx.)
+### 3. Interactive Rokugan Map (2024/2025)
 
 An interactive fantasy map developed for a LARP campaign set in the world of Rokugan.
 
