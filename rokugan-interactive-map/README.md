@@ -8,7 +8,7 @@ An interactive fantasy map developed as a digital reference tool for a Live Acti
 **Technologies:** HTML5, CSS3, JavaScript, SVG  
 **Language:** Polish
 
-## Project Background
+## Project Background 
 
 This project was developed to support a fantasy LARP campaign set in Rokugan, a fictional world inspired by Japanese culture and traditions.
 
