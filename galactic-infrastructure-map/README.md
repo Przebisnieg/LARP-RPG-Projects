@@ -57,3 +57,5 @@ No backend or additional package installation is required.
 Personal frontend project created for a non-commercial science-fiction LARP campaign.
 
 The repository presents the interactive map interface and infrastructure visualization functionality.
+
+This project was developed with the assistance of AI tools.
