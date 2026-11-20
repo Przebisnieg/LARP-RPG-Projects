@@ -78,3 +78,4 @@ Personal, non-commercial frontend project developed for a science-fiction LARP c
 
 The application demonstrates interactive UI development, state management, conditional rendering, and browser-based data persistence.
 
+This project was developed with the assistance of AI tools.
