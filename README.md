@@ -15,7 +15,7 @@ Most applications were originally developed for Polish-speaking communities, so 
 | [Galactic Infrastructure Map](galactic-infrastructure-map/) | Interactive galaxy map featuring faction territories, star system information, and planetary infrastructure panels. | 2026 | [Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/galactic-infrastructure-map/) |
 | [Interactive Rokugan Map](rokugan-interactive-map/) | Interactive fantasy map with clan territories, province information, and SVG-based interactions. | 2024/2025 | [Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/rokugan-interactive-map/) |
 | [Interactive Technology Tree](interactive-technology-tree/) | Interactive research system with technology dependencies, unlockable progression, and locally saved progress. | 2026 | [Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/interactive-technology-tree/) |
-| [Sci-Fi Event Websites](ci-fi-event-websites/) | Interactive space racing competition website and fictional photography awards invitation. | — | [Competition Demo](https://przebisnieg.github.io/LARP-RPG-Projects/ci-fi-event-websites/space-racing-competition/index.html) · [Invitation Demo](https://przebisnieg.github.io/LARP-RPG-Projects/ci-fi-event-websites/space-press-photo-invitation/index.html) |
+| [Sci-Fi Event Websites](ci-fi-event-websites/) | Interactive space racing competition website and fictional photography awards invitation. | 2024 | [Competition Demo](https://przebisnieg.github.io/LARP-RPG-Projects/ci-fi-event-websites/space-racing-competition/index.html) · [Invitation Demo](https://przebisnieg.github.io/LARP-RPG-Projects/ci-fi-event-websites/space-press-photo-invitation/index.html) |
 
 
 
@@ -82,7 +82,7 @@ The application organizes technological development into five research categorie
 **[Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/interactive-technology-tree/)** | **[Source Code](interactive-technology-tree/)**
 
 
-### 5. Sci-Fi Event Websites
+### 5. Sci-Fi Event Websites (2024)
 
 A collection of interactive websites developed for science-fiction LARP events.
 
