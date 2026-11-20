@@ -15,6 +15,8 @@ Most applications were originally developed for Polish-speaking communities, so 
 | [Galactic Infrastructure Map](galactic-infrastructure-map/) | Interactive galaxy map featuring faction territories, star system information, and planetary infrastructure panels. | 2026 | [Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/galactic-infrastructure-map/) |
 | [Interactive Rokugan Map](rokugan-interactive-map/) | Interactive fantasy map with clan territories, province information, and SVG-based interactions. | 2024/2025 | [Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/rokugan-interactive-map/) |
 | [Interactive Technology Tree](interactive-technology-tree/) | Interactive research system with technology dependencies, unlockable progression, and locally saved progress. | 2026 | [Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/interactive-technology-tree/) |
+| [Sci-Fi Event Websites](ci-fi-event-websites/) | Interactive space racing competition website and fictional photography awards invitation. | — | [Competition Demo](https://przebisnieg.github.io/LARP-RPG-Projects/ci-fi-event-websites/space-racing-competition/index.html) · [Invitation Demo](https://przebisnieg.github.io/LARP-RPG-Projects/ci-fi-event-websites/space-press-photo-invitation/index.html) |
+
 
 
 
@@ -78,3 +80,39 @@ The application organizes technological development into five research categorie
 **Technologies:** HTML5, CSS3, JavaScript, LocalStorage API
 
 **[Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/interactive-technology-tree/)** | **[Source Code](interactive-technology-tree/)**
+
+
+### 5. Sci-Fi Event Websites
+
+A collection of interactive websites developed for science-fiction LARP events.
+
+The collection includes two projects:
+
+**Space Racing Competition — Challenge 17039**
+
+An interactive website for a fictional space racing competition, featuring participants, sponsors, competition stages, rankings, and results.
+
+**Key features:**
+- Interactive competition rankings and results tables
+- Tab-based navigation between competition stages
+- Password-triggered content reveals
+- Participant, organizer, and sponsor galleries
+- Animated backgrounds, scrolling news, and visual effects
+- Responsive layouts
+
+**[Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/ci-fi-event-websites/space-racing-competition/index.html)**
+
+**Space Press Photo Invitation**
+
+An interactive nomination invitation for a fictional photography awards ceremony.
+
+**Key features:**
+- Animated science-fiction interface
+- Interactive attendance confirmation
+- Responsive invitation layout
+
+**[Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/ci-fi-event-websites/space-press-photo-invitation/index.html)**
+
+**Technologies:** HTML5, CSS3, JavaScript
+
+**[Source Code](ci-fi-event-websites/)**
