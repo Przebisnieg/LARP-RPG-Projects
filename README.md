@@ -14,6 +14,8 @@ Most applications were originally developed for Polish-speaking communities, so 
 | [Galactic Map Editor](galactic-map-editor/) | Interactive SVG galaxy map with navigation, filtering, and drawing tools. | 2025 | [Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/galactic-map-editor/) |
 | [Galactic Infrastructure Map](galactic-infrastructure-map/) | Interactive galaxy map featuring faction territories, star system information, and planetary infrastructure panels. | 2026 | [Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/galactic-infrastructure-map/) |
 | [Interactive Rokugan Map](rokugan-interactive-map/) | Interactive fantasy map with clan territories, province information, and SVG-based interactions. | 2024/2025 | [Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/rokugan-interactive-map/) |
+| [Interactive Technology Tree](interactive-technology-tree/) | Interactive research system with technology dependencies, unlockable progression, and locally saved progress. | 2026 | [Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/interactive-technology-tree/) |
+
 
 
 ## Projects
