@@ -4,6 +4,8 @@ An interactive technology research and progression system developed for a scienc
 
 The application allows users to explore different research categories, examine technology dependencies, unlock new developments, and track technological progress through an interactive interface.
 
+| [Interactive Technology Tree](interactive-technology-tree/) | Interactive research system with technology dependencies, unlockable progression, and locally saved progress. | 2026 | [Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/interactive-technology-tree/) |
+
 **Created:** 2026  
 **Technologies:** HTML5, CSS3, JavaScript  
 **Language:** Polish
