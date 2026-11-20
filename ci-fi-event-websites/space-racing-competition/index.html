@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<!--- =================== HEAD ===================== --->
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Konkurs Challenge 17039</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
+/* ============================================================================= */
+
+    /* === Fancy Scrollbar === */
+
+    html { scrollbar-width: thin; scrollbar-color: gold #111; }
+    body::-webkit-scrollbar { width: 12px; }
+    body::-webkit-scrollbar-track { background: #111; border-left: 1px solid #333; }
+    body::-webkit-scrollbar-thumb { background-color: gold; border-radius: 20px; border: 3px solid #111; }
+    body::-webkit-scrollbar-thumb:hover { background-color: orange; }
+
+/* ============================================================================= */
+
+    /* === GŁÓWNE STYLE === */
+
+    body { margin: 0; font-family: 'Orbitron', sans-serif; background-color: #000; color: #f5f5dc; overflow-x: hidden; }
+    .section { padding: 2rem; position: relative; z-index: 3; text-align: center; }
+    h2 { color: gold; font-size: 2rem; margin-bottom: 1rem; position: relative; cursor: pointer; }
+    h3 { font-family: 'Orbitron', sans-serif; color: #f5f5dc; }
+    .photo-caption { margin-top: 0.5rem; font-size: 0.85rem; }
+
+/* ============================================================================= */
+
+    /* === Pasek z Newsami === */
+
+    .news-bar { background: #111; color: #f5f5dc; white-space: nowrap; overflow: hidden; box-sizing: border-box; border-bottom: 1px solid #444; font-size: 14px; position: relative; z-index: 4; }
+    .news-bar span { display: inline-block; padding-left: 100%; animation: scroll 20s linear infinite; }
+    @keyframes scroll { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+
+/* ============================================================================= */
+
+    /* === Fancy Tło === */
+
+    .fog { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; background: linear-gradient(120deg, rgba(255, 165, 0, 0.1), rgba(255, 215, 0, 0.1), rgba(255, 140, 0, 0.1)); background-size: 200% 200%; animation: fogMove 20s ease-in-out infinite; filter: blur(15px); mix-blend-mode: screen; z-index: 1; }
+    @keyframes fogMove { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    .scanlines { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; background: repeating-linear-gradient(transparent, transparent 2px, rgba(255, 215, 0, 0.05) 3px, rgba(255, 215, 0, 0.05) 3px); z-index: 2; animation: scanline-flicker 15s linear infinite; }
+    @keyframes scanline-flicker { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+    
+/* ============================================================================= */
+
+    /* === Style contenerów === */
+
+    .sponsor-logos, .finalists, .gallery-row { display: flex; justify-content: center; align-items: flex-start; flex-wrap: wrap; gap: 1.5rem; }
+    .column { display: flex; flex-direction: column; align-items: center; margin: 1rem; position: relative; padding: 10px; }
+
+/* ============================================================================= */
+
+    /* === Style grafik === */
+
+    .sponsor-logos .column img, .gallery-row img, .pilot-photo, .mechanic-photo, .winner-photo { transition: all 0.3s ease; }
+    .sponsor-logos .column img { width: 120px; height: 120px; object-fit: cover; border-radius: 50%; border: 3px solid rgba(255, 215, 0, 0.3); }
+    .sponsor-logos .column img.highlight { width: 150px; height: 150px; }
+    .gallery-row img { width: 120px; height: 120px; object-fit: cover; border-radius: 0; border: 2px solid rgba(255, 215, 0, 0.3); }
+    .pilot-photo { width: 150px; height: 150px; object-fit: cover; border-radius: 0; border: 3px solid gold; }
+    .mechanic-photo { width: 120px; height: 120px; margin-top: 1rem; object-fit: cover; border-radius: 0; border: 2px solid #888; }
+    .winner-photo { width: 100px; height: 100px; border: 2px solid gold; border-radius: 0; object-fit: cover; }
+    .winner-photo.big { width: 150px; height: 150px; }
+    /* === DODANY STYL DLA MAPY TRASY === */
+    .race-map-img { max-width: 100%; height: auto; border: 3px solid gold; margin-bottom: 1rem; }
+
+
+/* ============================================================================= */
+
+    /* === EFEKTY === */
+
+    .highlight { border-color: gold; box-shadow: 0 0 10px gold; animation: pulse 2s infinite; }
+    .section img:hover, .results-table tbody tr:hover { box-shadow: 0 0 15px orange; border-color: orange !important; transform: scale(1.05); }
+    @keyframes pulse { 0% { box-shadow: 0 0 5px gold; } 50% { box-shadow: 0 0 20px gold; } 100% { box-shadow: 0 0 5px gold; } }
+
+    .column::before, .column::after { content: ''; position: absolute; width: 25px; height: 25px; border-color: gold; border-style: solid; opacity: 0; transition: opacity 0.3s ease; }
+    .column::before { top: 0; left: 0; border-width: 3px 0 0 3px; }
+    .column::after { bottom: 0; right: 0; border-width: 0 3px 3px 0; }
+    .column:hover::before, .column:hover::after { opacity: 1; }
+
+/* ============================================================================= */
+
+    /* === GLITCHE === */
+
+    h2:hover::before, h2:hover::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; overflow: hidden; }
+    section:nth-of-type(odd) h2:hover::before { left: 2px; text-shadow: -2px 0 #ff00c1; animation: glitch-anim-1 2s infinite linear alternate-reverse; }
+    section:nth-of-type(odd) h2:hover::after { left: -2px; text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1; animation: glitch-anim-2 2s infinite linear alternate-reverse; }
+    section:nth-of-type(even) h2:hover::before { left: 3px; text-shadow: -3px 0 #00ff00; animation: glitch-anim-3 1.5s infinite linear alternate-reverse; }
+    section:nth-of-type(even) h2:hover::after { left: -3px; text-shadow: -3px 0 #ff0000, 3px 3px #00ff00; animation: glitch-anim-4 1.5s infinite linear alternate-reverse; }
+    @keyframes glitch-anim-1 { 0% { clip-path: inset(15% 0 86% 0); } 20% { clip-path: inset(5% 0 46% 0); } 40% { clip-path: inset(67% 0 6% 0); } 60% { clip-path: inset(33% 0 41% 0); } 80% { clip-path: inset(93% 0 3% 0); } 100% { clip-path: inset(45% 0 47% 0); } }
+    @keyframes glitch-anim-2 { 0% { clip-path: inset(79% 0 12% 0); } 20% { clip-path: inset(23% 0 27% 0); } 40% { clip-path: inset(20% 0 33% 0); } 60% { clip-path: inset(0% 0 100% 0); } 80% { clip-path: inset(62% 0 31% 0); } 100% { clip-path: inset(91% 0 5% 0); } }
+    @keyframes glitch-anim-3 { 0% { clip-path: inset(90% 0 5% 0); } 20% { clip-path: inset(40% 0 55% 0); } 40% { clip-path: inset(10% 0 85% 0); } 60% { clip-path: inset(70% 0 20% 0); } 80% { clip-path: inset(30% 0 62% 0); } 100% { clip-path: inset(50% 0 45% 0); } }
+    @keyframes glitch-anim-4 { 0% { clip-path: inset(2% 0 95% 0); } 20% { clip-path: inset(90% 0 3% 0); } 40% { clip-path: inset(33% 0 60% 0); } 60% { clip-path: inset(60% 0 30% 0); } 80% { clip-path: inset(95% 0 2% 0); } 100% { clip-path: inset(25% 0 70% 0); } }
+    
+/* ============================================================================= */
+
+    /* === Style - Opis konkursu === */
+
+    .description-container { max-width: 800px; margin: 0 auto; text-align: left; }
+    .description-container p { line-height: 1.6; color: #ccc; }
+    .description-container h3 { color: gold; border-bottom: 1px solid rgba(255, 215, 0, 0.3); padding-bottom: 0.5rem; }
+
+.winner-info {
+      text-align: center;
+    }
+
+/* ============================================================================= */
+    /* === Zakładki i Tabela Wyników === */
+
+    .tabs-container { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; }
+    .tab-button { font-family: 'Orbitron', sans-serif; background-color: transparent; border: 2px solid gold; color: gold; padding: 10px 20px; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; }
+    .tab-button:hover { background-color: rgba(255, 215, 0, 0.2); box-shadow: 0 0 10px gold; }
+    .tab-button.active { background-color: gold; color: #000; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .results-table-container { overflow-x: auto; max-width: 1200px; margin: 0 auto; border: 1px solid gold; padding: 1rem; background-color: rgba(0,0,0,0.3); }
+    .results-table { width: 100%; border-collapse: collapse; color: #f5f5dc; font-size: 0.9rem; }
+    .results-table thead th { background-color: gold; color: #000; padding: 12px; text-align: left; font-weight: bold; }
+    .results-table tbody td { padding: 10px; border-bottom: 1px solid #444; }
+    .results-table tbody tr { transition: all 0.2s ease; }
+    .results-table tbody tr:hover { background-color: #222; transform: scale(1.01); }
+    .results-table tbody tr:nth-child(even) { background-color: #111; }
+    .results-table tbody tr:nth-child(-n+10) { font-weight: bold; }
+    .results-table tbody tr:nth-child(-n+10) td:first-child { color: gold; }
+
+    .password-lock-container { max-width: 400px; margin: 2rem auto; padding: 2rem; border: 1px solid gold; background: #111; }
+    .password-lock-container h3 { color: gold; }
+    .password-lock-container p { color: #ccc; }
+    .password-lock-container input { width: calc(100% - 22px); padding: 10px; margin-bottom: 1rem; background-color: #000; border: 1px solid #444; color: #f5f5dc; font-family: 'Orbitron', sans-serif; }
+    .password-lock-container input:focus { border-color: gold; outline: none; }
+    .password-lock-container button { width: 100%; padding: 10px; font-family: 'Orbitron', sans-serif; background-color: gold; border: none; color: #000; cursor: pointer; font-size: 1rem; transition: background-color 0.3s; }
+    .password-lock-container button:hover { background-color: orange; }
+    .error-message { color: #ff4d4d; margin-top: 10px; height: 1em; }
+
+/* ============================================================================= */
+    /* === RESPONSIVE DESIGN - STYLE DLA TABLETÓW I TELEFONÓW === */
+
+    @media (max-width: 768px) {
+      body { font-size: 14px; /* Zmniejszenie bazowego fontu na mniejszych ekranach */ }
+      .section { padding: 1.5rem 1rem; /* Mniejsze marginesy po bokach */ }
+      h2 { font-size: 1.6rem; }
+      .tabs-container { flex-direction: column; gap: 0.5rem; }
+      
+      /* Magia responsywnej tabeli */
+      .results-table-container { border: none; }
+      .results-table { border: 0; }
+      .results-table thead {
+        /* Ukrywamy nagłówki tabeli, bo dodamy je do każdej komórki */
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+      }
+      .results-table tr {
+        /* Każdy wiersz staje się "kartą" */
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid gold;
+        border-radius: 5px;
+        background: #111;
+      }
+      .results-table td {
+        display: block;
+        text-align: right; /* Wyrównanie wartości do prawej */
+        border-bottom: 1px dotted #333;
+      }
+      .results-table td::before {
+        /* Dodawanie etykiety przed każdą daną */
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        color: gold;
+        margin-right: 1rem;
+      }
+      .results-table td:last-child { border-bottom: 0; }
+      
+      /* Nadanie etykiet komórkom przy pomocy CSS - bez zmiany HTML */
+      .results-table td:nth-of-type(1)::before { content: "#"; }
+      .results-table td:nth-of-type(2)::before { content: "Statek"; }
+      .results-table td:nth-of-type(3)::before { content: "Pilot"; }
+      .results-table td:nth-of-type(4)::before { content: "Mechanik"; }
+      .results-table td:nth-of-type(5)::before { content: "Napęd"; }
+      .results-table td:nth-of-type(6)::before { content: "Parametry"; }
+      .results-table td:nth-of-type(7)::before { content: "Prędkości"; }
+      .results-table td:nth-of-type(8)::before { content: "Estetyka"; }
+      .results-table td:nth-of-type(9)::before { content: "Bezpieczeństwo"; }
+      .results-table td:nth-of-type(10)::before { content: "Suma"; font-size: 1.1em; } /* Powiększona suma */
+    }
+
+  </style>
+</head>
+
+<!--- ===================BODY===================== --->
+
+<body>
+  <div class="scanlines"></div>
+  <div class="news-bar"><span>🚀 Challenge 17039 — Wielki wyścig już wkrótce! 🪐 Finaliści zostaną niedługo wyłonieni! 🎉 Gala otwarcia 00.00! 🪐Lorem ipsum dolor sit amet, orem ipsum 🌌 Lorem ipsum dolor sit amet, consectetur 🚀 Donec condimentum ullamcorper augue 👽 Aenean rutrum 👾 quia dolor siquia dolor si 🌠 Nunc sit amet sagittis dui. 🌑 Etiam congue libero sapien, quis iaculis libero tempus in. 🌕 Nullam commodo arcu nec 🛰️ Donec mollis lacus turpis, sed aliquet libero 🌟 Phasellus ut ultricies libero. 🔭 Nulla at odio ac quam dignissim volutpat. 🌙 Quisque dignissim enim ☄️</span></div>
+  <div class="fog"></div>
+
+  <section class="section">
+    <h2 data-text="Główni Sponsorzy">Główni Sponsorzy</h2>
+    <div class="sponsor-logos">
+      <div class="column"><img src="https://media4.giphy.com/media/xT0xexs8FNU33czumI/giphy.gif" alt="Sponsor 1"><div class="photo-caption">CHΛLLENGE Inc.</div></div>
+      <div class="column"><img class="highlight" src="https://media2.giphy.com/media/YpYqEi9HEeaVt2FPDn/giphy.gif" alt="Jupiter Core"><div class="photo-caption">Federacja Sportów Kosmicznych</div></div>
+      <div class="column"><img src="https://media3.giphy.com/media/xUOxfmXk6RtsODJLJm/giphy.gif" alt="Sponsor 2"><div class="photo-caption">NEXOBIO</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 data-text="O Konkursie">O Konkursie</h2>
+    <div class="description-container">
+      <p>„Challenge” to najbardziej prestiżowy konkurs dla pilotów sportowych i inżynierów lotniczych. To rywalizacja, która testuje granice ludzkich umiejętności i technologii. Zespoły z różnych zakątków kosmosu walczą o wieczną chwałę i tytuł mistrza orbity Jowisza. Konkurs składa się z trzech morderczych etapów:</p>
+      <h3>Próba Techniczna</h3><p>Na tym etapie zespoły zgłaszają swoje statki, które następnie są surowo oceniane przez lokalne komisje inżynierów, mechaników oraz doświadczonych pilotów. Oceniane są innowacyjność, rodzaj napędu, możliwości prędkości, estetyka i bezpieczeństwo. Maksymalnie można zdobyć 100 punktów.</p>
+      <h3>Test Pilotażu</h3><p>W drugim etapie piloci muszą wykazać się mistrzowską precyzją, nawigując przez zdradliwe pole asteroid i wykonując skomplikowane manewry w symulowanych anomaliach grawitacyjnych. Kunszt pilota ocenia doświadczone jury. Również do zdobycia jest maksymalnie 100 punktów.</p>
+      <h3>Wielki Wyścig</h3><p>Finałowy etap to morderczy wyścig przez najbardziej niebezpieczne sektory Układu Słonecznego. Do rywalizacji stają trzy zespoły, które mogą zdobyć maksymalnie 100 punktów. Zwycięzcą „Challenge” zostaje statek, który zdobędzie największą liczbę punktów.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 data-text="Organizatorzy">Organizatorzy</h2>
+    <div class="gallery-row">
+      <div class="column"><img src="https://i.imgur.com/Xh1nhlb.jpeg" alt="Organizator 1"><div class="photo-caption">Tamara Kazemi<br>Prezes Federacji Sportów Kosmicznych</div></div>
+      <div class="column"><img src="https://i.imgur.com/duatmzr.jpeg" alt="Organizator 2"><div class="photo-caption">Pieter Melick<br>Specjalista ds. Technicznych</div></div>
+      <div class="column"><img src="https://i.imgur.com/iAB6Y2K.jpeg" alt="Organizator 3"><div class="photo-caption">Gunndis Guyll-Hollenback<br>Specjalista ds. HR i Marketingu</div></div>
+      <div class="column"><img src="https://i.imgur.com/ocMy2uH.jpeg" alt="Organizator 4"><div class="photo-caption">Sakir Broderick<br>Specjalista ds. Logistyki</div></div>
+    </div>
+  </section>
+ 
+  <section class="section">
+    <h2 data-text="Jury">Jury</h2>
+    <div class="gallery-row">
+      <div class="column"><img src="https://i.imgur.com/janN6BU.jpeg" alt="Juror 1"><div class="photo-caption">Profesor Judite Humber</div></div>
+      <div class="column"><img src="https://i.imgur.com/29eTp2Z.jpeg" alt="Juror 2"><div class="photo-caption">Porucznik Sunneva Beedoo</div></div>
+      <div class="column"><img src="https://i.imgur.com/Dk5p7gn.jpeg" alt="Juror 3"><div class="photo-caption">James "Krik" Watson</div></div>
+      <div class="column"><img src="https://i.imgur.com/Pptq0mM.jpeg" alt="Juror 4"><div class="photo-caption">Sanyi “Pico” Sendor</div></div>
+      <div class="column"><img src="https://i.imgur.com/fnrfIHd.jpeg" alt="Juror 5"><div class="photo-caption">Yngvi "Boilermaker" Dezayas</div></div>
+    </div>
+  </section>
+ 
+  <!-- ============================================================================= -->
+  <!-- === NOWA, DODANA SEKCJA Z TRASĄ === -->
+  <section class="section">
+    <h2 data-text="Trasa Wyścigu">Trasa Wyścigu</h2>
+    
+    <div id="trasa-lock" class="password-lock-container">
+      <h3>Informacje wkrótce</h3>
+      <input type="password" id="password-trasa">
+      <button id="submit-trasa"></button>
+      <p id="error-trasa" class="error-message"></p>
+    </div>
+
+    <div id="trasa-content" style="display:none;">
+        <div class="column">
+            <img src="https://i.ibb.co/6RpkzxVr/Mapka-konkurs.png" alt="Mapa trasy wyścigu Skok Trojański" class="race-map-img">
+            <div class="photo-caption">Tegoroczna trasa wyścigu "Skok Trojański"</div>
+        </div>
+    </div>
+  </section>
+  <!-- ============================================================================= -->
+
+  <section class="section">
+    <h2 data-text="Zwycięzcy poprzednich edycji">Zwycięzcy poprzednich edycji</h2>
+    <div class="gallery-row">
+      <div class="column"><img class="winner-photo" src="https://i.imgur.com/Dk5p7gn.jpeg" alt="Zwycięzca 502"><div class="photo-caption">502 edycja<br/>James "Krik" Watson</div></div>
+      
+<div class="column"><img class="winner-photo big highlight" src="https://s2.dmcdn.net/v/VIT591b7OJJOjY7nj/x1080" alt="Zwycięzca 504"><div class="photo-caption">504 edycja<br/>Amuro "Gwiezdny Jeździec" Foster</div></div>
+      
+<div class="column"><img class="winner-photo" src="https://i.imgur.com/Dk5p7gn.jpeg" alt="Zwycięzca 503"><div class="photo-caption">503 edycja<br/>James "Krik" Watson</div></div>
+    </div>
+  </section>
+
+<!-- ============================================================================= -->
+<!--- === WYNIKI ETAPÓW === --->
+  <section class="section">
+    <h2 data-text="Wyniki Etapów">Wyniki Etapów</h2>
+    
+    <div class="tabs-container">
+      <button class="tab-button active" data-tab="etap1">Etap 1 - Wyniki</button>
+      <button class="tab-button" data-tab="etap2">Etap 2 - Wyniki</button>
+      <button class="tab-button" data-tab="etap3">Etap 3 - Wyniki</button>
+    </div>
+
+    <div class="tab-content-container">
+      
+      <!-- === TREŚĆ ZAKŁADKI 1: TABELA WYNIKÓW === -->
+      <div id="etap1" class="tab-content active">
+        <h3>Wyniki Próby Technicznej</h3>
+          <div class="results-table-container">
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th>#</th><th>Statek</th><th>Pilot</th><th>Mechanik</th><th>Napęd</th><th>Parametry</th><th>Prędkości</th><th>Estetyka</th><th>Bezpieczeństwo</th><th>Suma</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>Delft</td><td>Thonius Leeuwenhoek</td><td>-</td><td>19</td><td>20</td><td>22</td><td>16</td><td>18</td><td>95</td></tr>
+
+              <tr><td>2</td><td>Cesarz</td><td>TLiu "Pingwin" "Fulang"</td><td>Itoko Malnik</td><td>18</td><td>19</td><td>21</td><td>17</td><td>19</td><td>94</td></tr>
+
+              <tr><td>3</td><td>Trinidad</td><td>Juan "Santi" Serrano-de Mendoza</td><td>Luis "Vict" Serrano-de Mendoza</td><td>17</td><td>18</td><td>20</td><td>18</td><td>19</td><td>92</td></tr>
+
+              <tr><td>4</td><td>Czyste Srebro</td><td>Elim "Major" Rawne</td><td>Agun "Jasnowidz" Soric</td><td>17</td><td>18</td><td>19</td><td>17</td><td>20</td><td>93</td></tr>
+
+              <tr><td>5</td><td>Elizjum</td><td>Catarina "Działburza" Stormteufel</td><td>Sabbat Gaunt</td><td>18</td><td>19</td><td>20</td><td>17</td><td>19</td><td>91</td></tr>
+
+              <tr><td>6</td><td>Stalowy Kruk</td><td>Anderon Snake</td><td>Zahava "Soon" Ezgul</td><td>16</td><td>17</td><td>19</td><td>18</td><td>19</td><td>89</td></tr>
+
+              <tr><td>7</td><td>X-Dream</td><td>iffany Nitt</td><td>Agnes Nitt</td><td>16</td><td>17</td><td>18</td><td>18</td><td>18</td><td>85</td></tr>
+
+              <tr><td>8</td><td>Dwieście Lat</td><td>Antimony Parker</td><td>Nastja Baswell</td><td>15</td><td>16</td><td>18</td><td>17</td><td>18</td><td>84</td></tr>
+
+              <tr><td>9</td><td>Sokół</td><td>Darius "Sokół" Karcz</td><td>Marta Pill</td><td>15</td><td>16</td><td>17</td><td>16</td><td>18</td><td>82</td></tr>
+
+              <tr><td>10</td><td>Nebula Runner</td><td>Kara "Błysk" Mitsu</td><td>Takao Tanaka</td><td>14</td><td>16</td><td>17</td><td>16</td><td>17</td><td>80</td></tr>
+
+              <tr><td>11</td><td>Starfall</td><td>Leonard Miles</td><td>Olga "Stal" Krylov</td><td>14</td><td>15</td><td>16</td><td>16</td><td>17</td><td>78</td></tr>
+              <tr><td>12</td><td>Żelazna Kometa</td><td>Viktor Krol</td><td>Helena Ivans</td><td>14</td><td>15</td><td>16</td><td>15</td><td>17</td><td>77</td></tr>
+              <tr><td>13</td><td>Shadow Glider</td><td>Mina Salazar "Sombra"</td><td>Carlos Ramirez</td><td>13</td><td>14</td><td>16</td><td>15</td><td>17</td><td>75</td></tr>
+              <tr><td>14</td><td>Skrzydło Feniksa</td><td>Aria Voss</td><td>Selim "Spokojny" Duran</td><td>13</td><td>14</td><td>15</td><td>15</td><td>16</td><td>73</td></tr>
+              <tr><td>15</td><td>Silent Gale</td><td>Tobias Lee</td><td>Mira Tanaka</td><td>13</td><td>13</td><td>15</td><td>15</td><td>16</td><td>72</td></tr>
+              <tr><td>16</td><td>Karmazynowy Szpon</td><td>Sergei Ivanov "Szpon"</td><td>Nina Volkova</td><td>12</td><td>13</td><td>15</td><td>14</td><td>16</td><td>70</td></tr>
+              <tr><td>17</td><td>Złoty Sokół</td><td>Elena Russo</td><td>Marco "Il Dottore" Santoro</td><td>12</td><td>13</td><td>14</td><td>14</td><td>15</td><td>68</td></tr>
+              <tr><td>18</td><td>Błękitny Miraż</td><td>Jin Soo "Duch"</td><td>Mei Ling</td><td>12</td><td>12</td><td>14</td><td>14</td><td>15</td><td>67</td></tr>
+              <tr><td>19</td><td>Srebrna Strzała</td><td>Pavel Makarov</td><td>Diana Petrova</td><td>11</td><td>12</td><td>14</td><td>13</td><td>15</td><td>65</td></tr>
+              <tr><td>20</td><td>Celestial Dawn</td><td>Isabella Cruz</td><td>Diego "El Rápido" Morales</td><td>11</td><td>12</td><td>13</td><td>13</td><td>15</td><td>64</td></tr>
+              <!-- Pozostałe wiersze tabeli ... -->
+              <tr><td>21</td><td>Void Runner</td><td>Nadia Petrova "Pustka"</td><td>Omar Khaled</td><td>11</td><td>11</td><td>13</td><td>13</td><td>14</td><td>62</td></tr>
+              <tr><td>22</td><td>Nebula Flash</td><td>Ethan Clarke</td><td>Zara Malik</td><td>10</td><td>11</td><td>13</td><td>12</td><td>14</td><td>60</td></tr>
+              <tr><td>23</td><td>Gwiezdny Łowca</td><td>Luka Jensen</td><td>Mila "Iskra" Novak</td><td>10</td><td>11</td><td>12</td><td>12</td><td>13</td><td>58</td></tr>
+              <tr><td>24</td><td>Ghost Hawk</td><td>Sara Martinez</td><td>Ravi "Technik" Patel</td><td>10</td><td>10</td><td>12</td><td>12</td><td>13</td><td>57</td></tr>
+              <tr><td>25</td><td>Quantum Drift</td><td>Felix Meyer</td><td>Anna Schmidt</td><td>9</td><td>10</td><td>12</td><td>11</td><td>13</td><td>55</td></tr>
+              <tr><td>26</td><td>Żelazny Wir</td><td>Maxim Volkov</td><td>Svetlana "Swieta" Ivanova</td><td>9</td><td>10</td><td>11</td><td>11</td><td>12</td><td>53</td></tr>
+              <tr><td>27</td><td>Rozbłysk Słoneczny</td><td>Olivia Brooks</td><td>Derek Simmons</td><td>9</td><td>9</td><td>11</td><td>11</td><td>12</td><td>52</td></tr>
+              <tr><td>28</td><td>Kryształowa Strzała</td><td>Aiden Carter</td><td>Lena Fischer</td><td>8</td><td>9</td><td>11</td><td>11</td><td>11</td><td>50</td></tr>
+              <tr><td>29</td><td>Midnight Pulse</td><td>Grace "Takt" Lee</td><td>Kai Nakamura</td><td>8</td><td>9</td><td>10</td><td>11</td><td>11</td><td>49</td></tr>
+              <tr><td>30</td><td>Widmowe Skrzydło</td><td>Theo Wilson</td><td>Maya Kaur</td><td>8</td><td>8</td><td>10</td><td>10</td><td>11</td><td>47</td></tr>
+              <tr><td>31</td><td>Wąż Cienia</td><td>Isak Andersson</td><td>Sofia "Lód" Bjornsson</td><td>7</td><td>8</td><td>10</td><td>10</td><td>11</td><td>46</td></tr>
+              <tr><td>32</td><td>Nova Spark</td><td>Jenna Kim</td><td>Luca Moretti</td><td>7</td><td>8</td><td>10</td><td>9</td><td>11</td><td>45</td></tr>
+              <tr><td>33</td><td>Promień Kosmosu</td><td>Dylan Harris</td><td>Nina Kovac</td><td>7</td><td>8</td><td>9</td><td>9</td><td>10</td><td>43</td></tr>
+              <tr><td>34</td><td>Echo Blaze</td><td>Mia Chen</td><td>Alexei "Car" Romanov</td><td>7</td><td>7</td><td>9</td><td>9</td><td>10</td><td>42</td></tr>
+              <tr><td>35</td><td>Srebrne Widmo</td><td>Elias Schmidt</td><td>Elara Novak</td><td>6</td><td>7</td><td>9</td><td>9</td><td>10</td><td>41</td></tr>
+              <tr><td>36</td><td>Żelazny Jastrząb</td><td>Kian Patel</td><td>Ingrid "Walkiria" Olsen</td><td>6</td><td>7</td><td>9</td><td>8</td><td>10</td><td>40</td></tr>
+              <tr><td>37</td><td>Strzała Burzy</td><td>Amara Singh</td><td>Johan Eriksen</td><td>6</td><td>7</td><td>8</td><td>8</td><td>9</td><td>38</td></tr>
+              <tr><td>38</td><td>Słoneczny Szept</td><td>Leo Martin</td><td>Sasha Volkov</td><td>6</td><td>6</td><td>8</td><td>8</td><td>9</td><td>37</td></tr>
+              <tr><td>39</td><td>Nebula Shadow</td><td>Rafael "Diablo" Diaz</td><td>Aya Fujimoto</td><td>6</td><td>6</td><td>8</td><td>8</td><td>9</td><td>37</td></tr>
+              <tr><td>40</td><td>Kryształowy Sokół</td><td>Zoe Turner</td><td>Ethan Brooks</td><td>5</td><td>6</td><td>8</td><td>8</td><td>9</td><td>36</td></tr>
+              <tr><td>41</td><td>Lunar Breeze</td><td>Sofia Rossi</td><td>Mateo Herrera</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>35</td></tr>
+              <tr><td>42</td><td>Solar Phantom</td><td>Nico "Widmo" Laurent</td><td>Clara Dupont</td><td>5</td><td>6</td><td>7</td><td>7</td><td>9</td><td>34</td></tr>
+              <tr><td>43</td><td>Gwiezdny Szept</td><td>Emilia Novak</td><td>Jakub "Kowal" Kowalski</td><td>5</td><td>6</td><td>7</td><td>7</td><td>8</td><td>33</td></tr>
+              <tr><td>44</td><td>Void Falcon</td><td>Gabriel Costa</td><td>Lara Mendes</td><td>5</td><td>6</td><td>7</td><td>7</td><td>8</td><td>33</td></tr>
+              <tr><td>45</td><td>Nova Talon</td><td>Isabella Moretti</td><td>Marco Conti</td><td>5</td><td>5</td><td>7</td><td>7</td><td>8</td><td>32</td></tr>
+              <tr><td>46</td><td>Echo Phantom</td><td>Owen Murphy</td><td>Zoe Baker</td><td>4</td><td>5</td><td>7</td><td>7</td><td>8</td><td>31</td></tr>
+              <tr><td>47</td><td>Kosmiczny Jastrząb</td><td>Liam Wilson</td><td>Nora "Kompas" Collins</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>30</td></tr>
+              <tr><td>48</td><td>Crystal Whisper</td><td>Maya Patel</td><td>Alex Reid</td><td>4</td><td>5</td><td>6</td><td>6</td><td>8</td><td>29</td></tr>
+              <tr><td>49</td><td>Północny Cień</td><td>Noah Adams</td><td>Layla Gray</td><td>4</td><td>5</td><td>6</td><td>6</td><td>7</td><td>28</td></tr>
+              <tr><td>50</td><td>Phantom Breeze</td><td>Ava Stewart</td><td>Ethan Brooks</td><td>4</td><td>5</td><td>6</td><td>6</td><td>7</td><td>28</td></tr>
+              <tr><td>51</td><td>Iskra Cienia</td><td>Elena Cruz</td><td>Jared Lee</td><td>3</td><td>5</td><td>6</td><td>6</td><td>7</td><td>27</td></tr>
+              <tr><td>52</td><td>Nova Whisper</td><td>Mason Clark</td><td>Emily King</td><td>3</td><td>5</td><td>6</td><td>5</td><td>7</td><td>26</td></tr>
+              <tr><td>53</td><td>Iron Phantom</td><td>Sophia Evans</td><td>Lucas "Wzgórze" Hill</td><td>3</td><td>4</td><td>6</td><td>5</td><td>7</td><td>25</td></tr>
+              <tr><td>54</td><td>Szept Burzy</td><td>Jacob Scott</td><td>Olivia Green</td><td>3</td><td>4</td><td>5</td><td>5</td><td>7</td><td>24</td></tr>
+              <tr><td>55</td><td>Solar Breeze</td><td>Ella Turner</td><td>Ryan Phillips</td><td>3</td><td>4</td><td>5</td><td>5</td><td>6</td><td>23</td></tr>
+              <tr><td>56</td><td>Iskra Mgławicy</td><td>Jackson Ward</td><td>Mia Flores</td><td>3</td><td>4</td><td>5</td><td>4</td><td>6</td><td>22</td></tr>
+              <tr><td>57</td><td>Kryształowy Cień</td><td>Madison Kelly</td><td>Aiden " duch" Brooks</td><td>3</td><td>4</td><td>5</td><td>4</td><td>6</td><td>22</td></tr>
+              <tr><td>58</td><td>Echo Breeze</td><td>Benjamin Price</td><td>Chloe Morgan</td><td>2</td><td>4</td><td>5</td><td>4</td><td>6</td><td>21</td></tr>
+              <tr><td>59</td><td>Srebrny Szept</td><td>Charlotte Reed</td><td>Henry Murphy</td><td>2</td><td>3</td><td>5</td><td>4</td><td>6</td><td>20</td></tr>
+              <tr><td>60</td><td>Żelazna Bryza</td><td>Alexander Bailey</td><td>Zara Hughes</td><td>2</td><td>3</td><td>4</td><td>4</td><td>6</td><td>19</td></tr>
+              <tr><td>61</td><td>Nebula Hawk</td><td>Lily Morgan</td><td>Evan "Lis" Fox</td><td>2</td><td>3</td><td>4</td><td>3</td><td>6</td><td>18</td></tr>
+              <tr><td>62</td><td>Cosmo Breeze</td><td>Ryan Foster</td><td>Ella Bennett</td><td>2</td><td>3</td><td>4</td><td>3</td><td>5</td><td>17</td></tr>
+              <tr><td>63</td><td>Phantom Spark</td><td>Victoria Hughes</td><td>Jake Cooper</td><td>2</td><td>3</td><td>3</td><td>3</td><td>5</td><td>16</td></tr>
+              <tr><td>64</td><td>Cień Słońca</td><td>Matthew Price</td><td>Sophia Diaz</td><td>2</td><td>2</td><td>3</td><td>3</td><td>5</td><td>15</td></tr>
+              <tr><td>65</td><td>Księżycowy Szept</td><td>Amelia Rivera</td><td>Logan Brooks</td><td>2</td><td>2</td><td>3</td><td>2</td><td>5</td><td>14</td></tr>
+              <tr><td>66</td><td>Gwiezdna Bryza</td><td>David Perry</td><td>Hannah Ward</td><td>1</td><td>2</td><td>3</td><td>2</td><td>5</td><td>13</td></tr>
+              <tr><td>67</td><td>Echo Shadow</td><td>Grace Bell</td><td>Owen Cox</td><td>1</td><td>2</td><td>2</td><td>2</td><td>5</td><td>12</td></tr>
+              <tr><td>68</td><td>Żelazny Szept</td><td>Ella Bailey</td><td>Jack "Joker" Howard</td><td>1</td><td>2</td><td>2</td><td>2</td><td>4</td><td>11</td></tr>
+              <tr><td>69</td><td>Crystal Breeze</td><td>Henry Collins</td><td>Mia Russell</td><td>1</td><td>1</td><td>2</td><td>2</td><td>4</td><td>10</td></tr>
+              <tr><td>70</td><td>Północny Szept</td><td>Zoe Price</td><td>Leo Evans</td><td>1</td><td>1</td><td>2</td><td>1</td><td>4</td><td>9</td></tr>
+              <tr><td>71</td><td>Void Spark</td><td>Liam Gray</td><td>Sophia Jenkins</td><td>1</td><td>1</td><td>1</td><td>1</td><td>4</td><td>8</td></tr>
+              <tr><td>72</td><td>Nova Breeze</td><td>Emily Kelly</td><td>Jacob Ward</td><td>1</td><td>1</td><td>1</td><td>1</td><td>3</td><td>7</td></tr>
+              <tr><td>73</td><td>Cień Burzy</td><td>James Green</td><td>Chloe Diaz</td><td>1</td><td>1</td><td>1</td><td>1</td><td>3</td><td>7</td></tr>
+              <tr><td>74</td><td>Silver Breeze</td><td>Ella Cooper</td><td>Ryan Morgan</td><td>0</td><td>1</td><td>1</td><td>1</td><td>3</td><td>6</td></tr>
+              <tr><td>75</td><td>Żelazny Cień</td><td>Charlotte Bennett</td><td>Ethan Perry</td><td>0</td><td>1</td><td>1</td><td>1</td><td>3</td><td>6</td></tr>
+              <tr><td>76</td><td>Nebula Whisper</td><td>Mason Russell</td><td>Amelia Collins</td><td>0</td><td>1</td><td>1</td><td>0</td><td>3</td><td>5</td></tr>
+              <tr><td>77</td><td>Kosmiczny Cień</td><td>Mia Howard</td><td>Benjamin "Benny" Bell</td><td>0</td><td>1</td><td>1</td><td>0</td><td>3</td><td>5</td></tr>
+              <tr><td>78</td><td>Phantom Breeze 2</td><td>Jacob Murphy</td><td>Lily Price</td><td>0</td><td>1</td><td>1</td><td>0</td><td>2</td><td>4</td></tr>
+              <tr><td>79</td><td>Solar Spark</td><td>Olivia Cox</td><td>Matthew Rivera</td><td>0</td><td>1</td><td>0</td><td>0</td><td>2</td><td>3</td></tr>
+              <tr><td>80</td><td>Księżycowy Cień</td><td>Ava Ward</td><td>David Bell</td><td>0</td><td>0</td><td>0</td><td>0</td><td>2</td><td>2</td></tr>
+              <tr><td>81</td><td>Gwiezdna Iskra</td><td>Ethan Gray</td><td>Grace Bennett</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+              <tr><td>82</td><td>Echo Breeze II</td><td>Maya Evans</td><td>Liam Rivera</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+              <tr><td>83</td><td>Kryształowy Cień II</td><td>Noah Diaz</td><td>Ella Morgan</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>84</td><td>Midnight Breeze</td><td>Sofia Bell</td><td>Jacob Collins</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>85</td><td>Void Whisper</td><td>Lucas Perry</td><td>Amelia Ward</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>86</td><td>Nova Spark II</td><td>Isabella Price</td><td>Mason Bell</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>87</td><td>Storm Breeze</td><td>Benjamin Cox</td><td>Mia Rivera</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>88</td><td>Srebrny Cień</td><td>Olivia Gray</td><td>James Bennett</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>89</td><td>Żelazna Bryza II</td><td>Charlotte Evans</td><td>Ethan Diaz</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>90</td><td>Mgławicowy Cień</td><td>Mason Morgan</td><td>Sofia Bell</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>91</td><td>Cosmo Spark</td><td>Jacob Collins</td><td>Maya Ward</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>92</td><td>Phantom Shadow</td><td>Emily Perry</td><td>Noah Bell</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>93</td><td>Bryza Słoneczna</td><td>Liam Diaz</td><td>Isabella Rivera</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>94</td><td>Lunar Spark</td><td>Amelia Bennett</td><td>Benjamin Gray</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>95</td><td>Star Shadow</td><td>Mia Collins</td><td>Lucas Ward</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>96</td><td>Echo Spark</td><td>Noah Morgan</td><td>Sophia Bell</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>97</td><td>Kryształowa Bryza</td><td>Jacob Bell</td><td>Olivia Perry</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>98</td><td>Midnight Shadow II</td><td>Isabella Diaz</td><td>Mason Rivera</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>99</td><td>Void Breeze</td><td>Sofia Gray</td><td>James Bennett</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>100</td><td>Nova Shadow</td><td>Benjamin Collins</td><td>Mia Ward</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <!-- === TREŚĆ ZAKŁADKI 2: FINALIŚCI (ZABLOKOWANE) === -->
+      <div id="etap2" class="tab-content">
+        <div id="etap2-lock" class="password-lock-container">
+          <h3>Wyniki wkrótce</h3>
+          <input type="password" id="password-etap2">
+          <button id="submit-etap2"></button>
+          <p id="error-etap2" class="error-message"></p>
+        </div>
+
+        <div id="etap2-content" style="display:none;">
+          <h3>Tegoroczni Finaliści</h3>
+          <div class="finalists">
+            <div class="column"><h3>“Delft”</h3>164 punkty<br/><img class="pilot-photo highlight" src="https://i.imgur.com/JjAUQMa.jpeg" alt="Pilot"><div class="photo-caption">Thonius Leeuwenhoek - Pilot</div><img class="mechanic-photo" src="https://i.imgur.com/JjAUQMa.jpeg" alt="Mechanik"><div class="photo-caption">Thonius Leeuwenhoek - Mechanik</div></div>
+         
+   <div class="column"><h3>"Trinidad"</h3>163 punkty<br/><img class="pilot-photo highlight" src="https://i.imgur.com/jlheqec.png" alt="Pilot"><div class="photo-caption">Juan “Santi” Serrano-de Mendoza - Pilot</div><img class="mechanic-photo" src="https://i.imgur.com/E1UqPKn.png" alt="Mechanik"><div class="photo-caption">Luis “Vict” Serrano-de Mendoza - Mechanik</div></div>
+           
+ <div class="column"><h3>"Czyste Srebro"</h3>161 punktów<br/><img class="pilot-photo highlight" src="https://i.imgur.com/JFWrkUN.png" alt="Pilot"><div class="photo-caption">Elim "Major" Rawne - Pilot</div><img class="mechanic-photo" src="https://i.imgur.com/z1B55sc.png" alt="Mechanik"><div class="photo-caption">Agun "Jasnowidz" Soric - Mechanik</div></div>
+           
+ <div class="column"><h3>"X-Dream"</h3>161 punktów<br/><img class="pilot-photo highlight" src="https://i.imgur.com/yuL9Vcy.png" alt="Pilot"><div class="photo-caption">Tiffany Nitt - Pilot</div><img class="mechanic-photo" src="https://i.imgur.com/oTaUqW3.png" alt="Mechanik"><div class="photo-caption">Agnes Nitt - Mechanik</div></div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- === TREŚĆ ZAKŁADKI 3: WYNIKI FINAŁU (ZABLOKOWANE) === -->
+      <div id="etap3" class="tab-content">
+        <!-- Blokada hasłem pozostaje bez zmian -->
+        <div id="etap3-lock" class="password-lock-container">
+          <h3>Wyniki wkrótce</h3>
+          <input type="password" id="password-etap3">
+          <button id="submit-etap3"></button> 
+          <p id="error-etap3" class="error-message"></p>
+        </div>
+
+        <!-- Nowy kontener na treść, który będzie zawierał wszystkich możliwych zwycięzców -->
+        <div id="etap3-content" style="display:none;">
+          
+          <!-- Każdy zwycięzca jest w osobnym divie z unikalnym ID i domyślnie ukryty -->
+          <!-- Ważne: dałem im wspólną klasę "winner-info", aby łatwiej nimi zarządzać -->
+
+          <!-- Zwycięzca dla hasła: DELFT -->
+          <div id="winner-delft" class="winner-info" style="display:none;">
+            <h3>ZWYCIĘZCA 505 edycji!</h3>
+            <div class="column"><h3>“Delft”</h3><br/><img class="pilot-photo highlight" src="https://i.imgur.com/JjAUQMa.jpeg" alt="Pilot"><div class="photo-caption">Thonius Leeuwenhoek - Pilot</div><img class="mechanic-photo" src="https://i.imgur.com/JjAUQMa.jpeg" alt="Mechanik"><div class="photo-caption">Thonius Leeuwenhoek - Mechanik</div></div>
+          </div>
+
+          <!-- Zwycięzca dla hasła: SREBRO -->
+          <div id="winner-srebro" class="winner-info" style="display:none;">
+            <h3>ZWYCIĘZCA 505 edycji!</h3>
+            <div class="column"><h3>"Czyste Srebro"</h3><br/><img class="pilot-photo highlight" src="https://i.imgur.com/JFWrkUN.png" alt="Pilot"><div class="photo-caption">Elim "Major" Rawne - Pilot</div><img class="mechanic-photo" src="https://i.imgur.com/z1B55sc.png" alt="Mechanik"><div class="photo-caption">Agun "Jasnowidz" Soric - Mechanik</div></div>
+          </div>
+
+          <!-- Zwycięzca dla hasła: DREAM -->
+          <div id="winner-dream" class="winner-info" style="display:none;">
+            <h3>ZWYCIĘZCA 505 edycji!</h3>
+            <div class="column"><h3>"X-Dream"</h3><br/><img class="pilot-photo highlight" src="https://i.imgur.com/yuL9Vcy.png" alt="Pilot"><div class="photo-caption">Tiffany Nitt - Pilot</div><img class="mechanic-photo" src="https://i.imgur.com/oTaUqW3.png" alt="Mechanik"><div class="photo-caption">Agnes Nitt - Mechanik</div></div>
+          </div>
+
+          <!-- Zwycięzca dla hasła: TRI -->
+          <div id="winner-tri" class="winner-info" style="display:none;">
+            <h3>ZWYCIĘZCA 505 edycji!</h3>
+            <div class="column"><h3>"Trinidad"</h3><br/><img class="pilot-photo highlight" src="https://i.imgur.com/jlheqec.png" alt="Pilot"><div class="photo-caption">Juan “Santi” Serrano-de Mendoza - Pilot</div><img class="mechanic-photo" src="https://i.imgur.com/E1UqPKn.png" alt="Mechanik"><div class="photo-caption">Luis “Vict” Serrano-de Mendoza - Mechanik</div></div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+<!-- ============================================================================= -->
+
+  <section class="section">
+    <h2 data-text="Pozostali Sponsorzy">Pozostali Sponsorzy</h2>
+    <div class="gallery-row">
+      <img src="https://media4.giphy.com/media/7OX3F0QGASLj4nZEAP/giphy.gif" alt="Sponsor">
+      <img src=https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExejI5czVjOXQzaDJ1YWN5Y252bWQ0eDZjMGswNjc5b3NuZTI2bnVqaCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l3nWgXCpQpMUOrkoo/giphy.gif alt="Sponsor">
+      <img src="https://media2.giphy.com/media/jmqnA8vqJNF4o8r3hc/giphy.gif" alt="Sponsor">
+      <img src="https://media2.giphy.com/media/5qfMdJr94jpaSnCyao/giphy.gif" alt="Sponsor">
+      <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExa2JianVnNjNpOGxocTQxZW8ybW9nMmQyNWdzdGkxNzBybHRkcDVkOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0MYJAzuRTVSGeiY/giphy.gif" alt="Sponsor">
+      <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3BsbXVrdTYyOTlhbjUzcmpzb21kdWZuZG9vajd4bmhreDUxcXVsdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKLC8zBUd7eEteE/giphy.gif" alt="Sponsor">
+      <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2J6ZXdwcmxzM21rdmpzNTAydTV6cmZwM212OWRzaDVtMno2ZXBocCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Z504JgQFupxOmncnb7/giphy.gif" alt="Sponsor">
+      <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGgzZWNyem5iZDhnNWw2NmI0bmVrNTg5d3AyeXJpcHZoejNyZmRqNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/WzA5StX2RMTZE7ucXM/giphy.gif" alt="Sponsor">
+      <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExd3phNTc0eG85ODFyMmt6NGluaXJwMjZ3c24xeHgwMzQwanNyMGRiaCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TyB0hCK3DzKTqsFpDO/giphy.gif" alt="Sponsor">
+      <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHhyemltZDB3Y3g2eTdhanluNWcxM2o0NzdibXNzd2Mwc3h3eTVibSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/arZxOC6kmG3XFX0NCG/giphy.gif" alt="Sponsor">
+      <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExOGo5aXJibHRhOHdrdXE0bTJ5anZzNTNuZHh5dnM0eGhsOXNqOGgxbiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/9YBt2GC0TEEHN9Ikos/giphy.gif" alt="Sponsor">
+      <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdTRtaG1jcDZ5dTRpZWhydnl6cjl4amM5aWtsbWxoZmFzMHZkZ2ZocyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3jiCRPoHOgBiCX4u4R/giphy.gif" alt="Sponsor">
+      <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExODVidXEycTFjZzFiZzhvaGhyNW9uOW1hZnN2c2R2YnFjMzZ5bWpiZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JuejycbxN5RdkLcCGn/giphy.gif" alt="Sponsor">
+      <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExOTUwb24xNHVhM3FzM2Z6dGczaTF4eHFqbm54a2p2Z253ZXpwam8yeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/fIAmHffmobBYxjDAjD/giphy.gif" alt="Sponsor">
+      <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWJyNmxmdnlqanpzdWIzcWE5dDNnODBqZWJvNGc0cWlqamlkN3JmMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/P1AZhK9oGcG4o8TSU6/giphy.gif" alt="Sponsor">
+      <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGc5em55ZHgyZTZxOTl1anJkNDY5ZnBlOXE2aDl1OHN2cGdmMjZyaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2PL2ikbz6hGtzLIqtE/giphy.gif" alt="Sponsor">
+    </div>
+  </section>
+
+<!-- ============================================================================= -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  // --- OBSŁUGA PRZEŁĄCZANIA ZAKŁADEK ---
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      tabContents.forEach(content => content.classList.remove('active'));
+      button.classList.add('active');
+      const tabId = button.getAttribute('data-tab');
+      document.getElementById(tabId).classList.add('active');
+    });
+  });
+
+  // --- OBSŁUGA HASŁA DLA TRASY WYŚCIGU (NOWY BLOK) ---
+  const passInputTrasa = document.getElementById('password-trasa');
+  const submitBtnTrasa = document.getElementById('submit-trasa');
+  const lockDivTrasa = document.getElementById('trasa-lock');
+  const contentDivTrasa = document.getElementById('trasa-content');
+  const errorMsgTrasa = document.getElementById('error-trasa');
+  const correctPasswordTrasa = 'SKOK';
+
+  const checkPasswordTrasa = () => {
+    if (passInputTrasa.value.toUpperCase() === correctPasswordTrasa) {
+      lockDivTrasa.style.display = 'none';
+      contentDivTrasa.style.display = 'block';
+    } else {
+      errorMsgTrasa.textContent = 'Błędne hasło.';
+      passInputTrasa.value = ''; 
+    }
+  };
+  submitBtnTrasa.addEventListener('click', checkPasswordTrasa);
+  passInputTrasa.addEventListener('keydown', (event) => { if (event.key === 'Enter') checkPasswordTrasa(); });
+
+  // --- OBSŁUGA HASŁA DLA ETAPU 2 ---
+  const passInput2 = document.getElementById('password-etap2');
+  const submitBtn2 = document.getElementById('submit-etap2');
+  const lockDiv2 = document.getElementById('etap2-lock');
+  const contentDiv2 = document.getElementById('etap2-content');
+  const errorMsg2 = document.getElementById('error-etap2');
+  const correctPassword2 = 'SKOK';
+
+  const checkPassword2 = () => {
+    if (passInput2.value.toUpperCase() === correctPassword2) {
+      lockDiv2.style.display = 'none';
+      contentDiv2.style.display = 'block';
+    } else {
+      errorMsg2.textContent = 'Brak wyników.';
+      passInput2.value = ''; 
+    }
+  };
+  submitBtn2.addEventListener('click', checkPassword2);
+  passInput2.addEventListener('keydown', (event) => { if (event.key === 'Enter') checkPassword2(); });
+
+
+  // --- OBSŁUGA HASŁA DLA ETAPU 3 ---
+  const passInput3 = document.getElementById('password-etap3');
+  const submitBtn3 = document.getElementById('submit-etap3');
+  const lockDiv3 = document.getElementById('etap3-lock');
+  const contentDiv3 = document.getElementById('etap3-content');
+  const errorMsg3 = document.getElementById('error-etap3');
+
+  // Tworzymy obiekt, który mapuje hasło na ID kontenera ze zwycięzcą
+  const winners = {
+    'DELFT': 'winner-delft',
+    'SREBRO': 'winner-srebro',
+    'DREAM': 'winner-dream',
+    'TRI': 'winner-tri'
+  };
+
+  const checkPassword3 = () => {
+    const enteredPassword = passInput3.value.toUpperCase(); // Pobieramy hasło i zmieniamy na wielkie litery
+    const winnerId = winners[enteredPassword]; // Sprawdzamy, czy hasło pasuje do któregoś ze zwycięzców
+
+    if (winnerId) {
+      // Jeśli hasło jest poprawne:
+      errorMsg3.textContent = ''; // Czyścimy ewentualne komunikaty o błędzie
+     
+ lockDiv3.style.display = 'none'; // Ukrywamy blokadę z hasłem
+      
+      // Zmieniamy styl kontenera, aby wyśrodkować jego zawartość
+      contentDiv3.style.display = 'flex'; // Ustawiamy go jako "flexbox"
+      contentDiv3.style.justifyContent = 'center'; // To polecenie centruje elementy w poziomie
+
+      // Ukrywamy wszystkich potencjalnych zwycięzców (na wypadek, gdyby ktoś wpisał jedno hasło, a potem drugie)
+      document.querySelectorAll('.winner-info').forEach(div => div.style.display = 'none');
+      
+      // Pokazujemy tylko tego właściwego zwycięzcę
+      // Używam 'flex', bo kontenery .column są tak stylizowane w CSS. Zapewni to prawidłowe wyświetlanie.
+      document.getElementById(winnerId).style.display = 'flex'; 
+    } else {
+      // Jeśli hasło jest błędne:
+      errorMsg3.textContent = 'Brak wyników.';
+      passInput3.value = ''; // Czyścimy pole hasła, aby można było spróbować ponownie
+    }
+  };
+
+  submitBtn3.addEventListener('click', checkPassword3);
+  passInput3.addEventListener('keydown', (event) => { if (event.key === 'Enter') checkPassword3(); });
+
+});
+</script>
+
+</body>
+</html>
