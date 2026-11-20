@@ -20,7 +20,7 @@ A fictional space racing competition website featuring participants, organizers,
 
 **Technologies:** HTML5, CSS3, JavaScript
 
-[Source Code](space-racing-competition/) | [Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/ci-fi-event-websites/space-racing-competition/)
+[Source Code](space-racing-competition/) | [Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/ci-fi-event-websites/space-racing-competition/index.html)
 
 ### 2. Space Press Photo Invitation
 
@@ -34,7 +34,7 @@ An interactive nomination invitation for a fictional photography awards ceremony
 
 **Technologies:** HTML5, CSS3, JavaScript
 
-[Source Code](space-press-photo-invitation/) | [Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/ci-fi-event-websites/space-press-photo-invitation/)
+[Source Code](space-press-photo-invitation/) | [Live Demo](https://przebisnieg.github.io/LARP-RPG-Projects/ci-fi-event-websites/space-press-photo-invitation/index.html)
 
 ## Language
 
